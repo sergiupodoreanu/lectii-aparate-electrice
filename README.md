@@ -8,6 +8,7 @@ Autor: Prof. Sergiu Podoreanu.
 | MCB, MCCB, DDR (RCCB) și RCBO — construcție, funcționare, valori, prevederi I7-2011, test | [mcb-mccb-ddr-rcbo/](mcb-mccb-ddr-rcbo/) |
 | Tipurile de DDR (AC, A, F, B), articolele I7-2011, AFDD — detectarea arcului electric | [tipuri-ddr-afdd/](tipuri-ddr-afdd/) |
 | Capacitatea de rupere — Icn/Icu/Ics, Isc prezumat, alegere 4,5/6/10 kA, filiație, I7-2011, exemple, fișe tehnice | [capacitatea-de-rupere/](capacitatea-de-rupere/) |
+| Temă de proiect: echiparea tabloului T.E. LOCUINȚĂ — schemă monofilară (SVG/PDF + sursa Python), fișă de lucru PDF | [proiect-echipare-tablou/](proiect-echipare-tablou/) |
 
 Accesul la pagini este protejat cu o parolă comunicată la clasă (verificare în pagină, prin hash; nu este o protecție criptografică a conținutului). Paginile au `noindex` și `robots.txt` interzice indexarea.
 

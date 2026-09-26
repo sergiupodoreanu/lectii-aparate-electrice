@@ -1,0 +1,287 @@
+{
+ "circuits": [
+  {
+   "cod": "CL1",
+   "dest": "Iluminat parter",
+   "Pi": 0.8,
+   "cosf": 0.9,
+   "tri": false,
+   "cablu": "CYY-F 3×1,5",
+   "ap": "RCBO",
+   "poli": "1P+N",
+   "In": 10,
+   "curba": "B",
+   "idn": 30,
+   "tip": "A",
+   "faza": "L1",
+   "grp": null,
+   "Ic": 3.864734299516908,
+   "dev": "D2"
+  },
+  {
+   "cod": "CL2",
+   "dest": "Iluminat etaj",
+   "Pi": 0.6,
+   "cosf": 0.9,
+   "tri": false,
+   "cablu": "CYY-F 3×1,5",
+   "ap": "RCBO",
+   "poli": "1P+N",
+   "In": 10,
+   "curba": "B",
+   "idn": 30,
+   "tip": "A",
+   "faza": "L2",
+   "grp": null,
+   "Ic": 2.898550724637681,
+   "dev": "D3"
+  },
+  {
+   "cod": "CP1",
+   "dest": "Prize parter",
+   "Pi": 2.0,
+   "cosf": 0.8,
+   "tri": false,
+   "cablu": "CYY-F 3×2,5",
+   "ap": "RCBO",
+   "poli": "1P+N",
+   "In": 16,
+   "curba": "C",
+   "idn": 30,
+   "tip": "A",
+   "faza": "L3",
+   "grp": null,
+   "Ic": 10.869565217391305,
+   "dev": "D4"
+  },
+  {
+   "cod": "CP2",
+   "dest": "Prize etaj",
+   "Pi": 2.0,
+   "cosf": 0.8,
+   "tri": false,
+   "cablu": "CYY-F 3×2,5",
+   "ap": "RCBO",
+   "poli": "1P+N",
+   "In": 16,
+   "curba": "C",
+   "idn": 30,
+   "tip": "A",
+   "faza": "L1",
+   "grp": null,
+   "Ic": 10.869565217391305,
+   "dev": "D5"
+  },
+  {
+   "cod": "CP3",
+   "dest": "Prize bucătărie",
+   "Pi": 2.5,
+   "cosf": 0.8,
+   "tri": false,
+   "cablu": "CYY-F 3×2,5",
+   "ap": "RCBO",
+   "poli": "1P+N",
+   "In": 16,
+   "curba": "C",
+   "idn": 30,
+   "tip": "A",
+   "faza": "L2",
+   "grp": null,
+   "Ic": 13.58695652173913,
+   "dev": "D7"
+  },
+  {
+   "cod": "CF1",
+   "dest": "Plită electrică",
+   "Pi": 7.0,
+   "cosf": 1.0,
+   "tri": true,
+   "cablu": "CYY-F 5×2,5",
+   "ap": "MCB",
+   "poli": "3P+N",
+   "In": 16,
+   "curba": "C",
+   "idn": null,
+   "tip": null,
+   "faza": "L1,L2,L3",
+   "grp": "D6",
+   "Ic": 10.103629710818451,
+   "dev": "D8"
+  },
+  {
+   "cod": "CF2",
+   "dest": "Cuptor electric",
+   "Pi": 3.5,
+   "cosf": 1.0,
+   "tri": false,
+   "cablu": "CYY-F 3×2,5",
+   "ap": "MCB",
+   "poli": "1P+N",
+   "In": 16,
+   "curba": "C",
+   "idn": null,
+   "tip": null,
+   "faza": "L3",
+   "grp": "D6",
+   "Ic": 15.217391304347826,
+   "dev": "D9"
+  },
+  {
+   "cod": "CF3",
+   "dest": "Boiler electric",
+   "Pi": 2.0,
+   "cosf": 1.0,
+   "tri": false,
+   "cablu": "CYY-F 3×2,5",
+   "ap": "RCBO",
+   "poli": "1P+N",
+   "In": 16,
+   "curba": "C",
+   "idn": 30,
+   "tip": "A",
+   "faza": "L3",
+   "grp": null,
+   "Ic": 8.695652173913043,
+   "dev": "D10"
+  },
+  {
+   "cod": "CF4",
+   "dest": "Aer condiționat (invertor)",
+   "Pi": 2.5,
+   "cosf": 0.85,
+   "tri": false,
+   "cablu": "CYY-F 3×2,5",
+   "ap": "RCBO",
+   "poli": "1P+N",
+   "In": 16,
+   "curba": "C",
+   "idn": 30,
+   "tip": "F",
+   "faza": "L1",
+   "grp": null,
+   "Ic": 12.787723785166241,
+   "dev": "D12"
+  },
+  {
+   "cod": "CF5",
+   "dest": "Stație încărcare auto 11 kW",
+   "Pi": 11.0,
+   "cosf": 1.0,
+   "tri": true,
+   "cablu": "CYY-F 5×4",
+   "ap": "MCB",
+   "poli": "3P+N",
+   "In": 20,
+   "curba": "C",
+   "idn": null,
+   "tip": null,
+   "faza": "L1,L2,L3",
+   "grp": "D11",
+   "Ic": 15.87713240271471,
+   "dev": "D13"
+  },
+  {
+   "cod": "R",
+   "dest": "Rezervă",
+   "Pi": 2.0,
+   "cosf": 0.8,
+   "tri": false,
+   "cablu": "—",
+   "ap": "RCBO",
+   "poli": "1P+N",
+   "In": 16,
+   "curba": "C",
+   "idn": 30,
+   "tip": "A",
+   "faza": "L2",
+   "grp": null,
+   "Ic": 10.869565217391305,
+   "dev": "D14"
+  }
+ ],
+ "groups": {
+  "D6": {
+   "poli": "4P",
+   "In": 40,
+   "idn": 30,
+   "tip": "A",
+   "nota": "RCCB 4P 40 A / 30 mA tip A — pentru CF1 + CF2"
+  },
+  "D11": {
+   "poli": "4P",
+   "In": 25,
+   "idn": 30,
+   "tip": "B",
+   "nota": "RCCB 4P 25 A / 30 mA tip B — pentru CF5 (stație încărcare)"
+  }
+ },
+ "head": {
+  "Pi": 33.9,
+  "Pa": 15.254999999999999,
+  "Ic": 24.465217656910387,
+  "alim": "CYY-F 5×10 mm² de la BMPM 3×32 A",
+  "Isc": "4,8 kA (din avizul de racordare)"
+ },
+ "pos": [
+  [
+   "D0",
+   "Descărcător de supratensiuni SPD tip 2, 4P (3P+N), Imax 40 kA, Up ≤ 1,5 kV"
+  ],
+  [
+   "D1",
+   "Separator de sarcină 4P, In = 40 A"
+  ],
+  [
+   "D2",
+   "Întreruptor automat diferențial (RCBO) 1P+N, In = 10 A, curba B, IΔn = 30 mA, tip A, 6 kA"
+  ],
+  [
+   "D3",
+   "Întreruptor automat diferențial (RCBO) 1P+N, In = 10 A, curba B, IΔn = 30 mA, tip A, 6 kA"
+  ],
+  [
+   "D4",
+   "Întreruptor automat diferențial (RCBO) 1P+N, In = 16 A, curba C, IΔn = 30 mA, tip A, 6 kA"
+  ],
+  [
+   "D5",
+   "Întreruptor automat diferențial (RCBO) 1P+N, In = 16 A, curba C, IΔn = 30 mA, tip A, 6 kA"
+  ],
+  [
+   "D7",
+   "Întreruptor automat diferențial (RCBO) 1P+N, In = 16 A, curba C, IΔn = 30 mA, tip A, 6 kA"
+  ],
+  [
+   "D6",
+   "Întreruptor diferențial (RCCB) 4P, In = 40 A, IΔn = 30 mA, tip A"
+  ],
+  [
+   "D8",
+   "Întreruptor automat (MCB) 3P+N, In = 16 A, curba C, 6 kA"
+  ],
+  [
+   "D9",
+   "Întreruptor automat (MCB) 1P+N, In = 16 A, curba C, 6 kA"
+  ],
+  [
+   "D10",
+   "Întreruptor automat diferențial (RCBO) 1P+N, In = 16 A, curba C, IΔn = 30 mA, tip A, 6 kA"
+  ],
+  [
+   "D12",
+   "Întreruptor automat diferențial (RCBO) 1P+N, In = 16 A, curba C, IΔn = 30 mA, tip F, 6 kA"
+  ],
+  [
+   "D11",
+   "Întreruptor diferențial (RCCB) 4P, In = 25 A, IΔn = 30 mA, tip B"
+  ],
+  [
+   "D13",
+   "Întreruptor automat (MCB) 3P+N, In = 20 A, curba C, 6 kA"
+  ],
+  [
+   "D14",
+   "Întreruptor automat diferențial (RCBO) 1P+N, In = 16 A, curba C, IΔn = 30 mA, tip A, 6 kA"
+  ]
+ ]
+}

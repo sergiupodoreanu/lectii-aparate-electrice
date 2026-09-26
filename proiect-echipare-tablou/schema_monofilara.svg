@@ -1,0 +1,491 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="420mm" height="297mm" viewBox="0 0 420 297" version="1.1">
+<sodipodi:namedview inkscape:document-units="mm" pagecolor="#ffffff"/>
+<rect width="420" height="297" fill="#fff"/>
+<g inkscape:groupmode="layer" inkscape:label="Conductoare" id="Conductoare">
+<line x1="60.00" y1="28.00" x2="60.00" y2="36.00" stroke="#000" stroke-width="0.35"/>
+<line x1="58.50" y1="34.50" x2="61.50" y2="31.50" stroke="#000" stroke-width="0.35"/>
+<line x1="60.00" y1="47.00" x2="60.00" y2="70.00" stroke="#000" stroke-width="0.35"/>
+<line x1="38.00" y1="70.00" x2="60.00" y2="70.00" stroke="#000" stroke-width="0.35"/>
+<line x1="38.00" y1="70.00" x2="38.00" y2="72.00" stroke="#000" stroke-width="0.35"/>
+<line x1="60.00" y1="70.00" x2="348.00" y2="70.00" stroke="#000" stroke-width="0.7"/>
+<line x1="64.50" y1="71.50" x2="67.50" y2="68.50" stroke="#000" stroke-width="0.35"/>
+<line x1="78.00" y1="70.00" x2="78.00" y2="78.00" stroke="#000" stroke-width="0.35"/>
+<line x1="76.50" y1="76.50" x2="79.50" y2="73.50" stroke="#000" stroke-width="0.35"/>
+<line x1="78.00" y1="94.00" x2="78.00" y2="159.00" stroke="#000" stroke-width="0.35"/>
+<line x1="76.50" y1="152.50" x2="79.50" y2="149.50" stroke="#000" stroke-width="0.35"/>
+<line x1="105.00" y1="70.00" x2="105.00" y2="78.00" stroke="#000" stroke-width="0.35"/>
+<line x1="103.50" y1="76.50" x2="106.50" y2="73.50" stroke="#000" stroke-width="0.35"/>
+<line x1="105.00" y1="94.00" x2="105.00" y2="159.00" stroke="#000" stroke-width="0.35"/>
+<line x1="103.50" y1="152.50" x2="106.50" y2="149.50" stroke="#000" stroke-width="0.35"/>
+<line x1="132.00" y1="70.00" x2="132.00" y2="78.00" stroke="#000" stroke-width="0.35"/>
+<line x1="130.50" y1="76.50" x2="133.50" y2="73.50" stroke="#000" stroke-width="0.35"/>
+<line x1="132.00" y1="94.00" x2="132.00" y2="159.00" stroke="#000" stroke-width="0.35"/>
+<line x1="130.50" y1="152.50" x2="133.50" y2="149.50" stroke="#000" stroke-width="0.35"/>
+<line x1="159.00" y1="70.00" x2="159.00" y2="78.00" stroke="#000" stroke-width="0.35"/>
+<line x1="157.50" y1="76.50" x2="160.50" y2="73.50" stroke="#000" stroke-width="0.35"/>
+<line x1="159.00" y1="94.00" x2="159.00" y2="159.00" stroke="#000" stroke-width="0.35"/>
+<line x1="157.50" y1="152.50" x2="160.50" y2="149.50" stroke="#000" stroke-width="0.35"/>
+<line x1="186.00" y1="70.00" x2="186.00" y2="78.00" stroke="#000" stroke-width="0.35"/>
+<line x1="184.50" y1="76.50" x2="187.50" y2="73.50" stroke="#000" stroke-width="0.35"/>
+<line x1="186.00" y1="94.00" x2="186.00" y2="159.00" stroke="#000" stroke-width="0.35"/>
+<line x1="184.50" y1="152.50" x2="187.50" y2="149.50" stroke="#000" stroke-width="0.35"/>
+<line x1="226.50" y1="70.00" x2="226.50" y2="78.00" stroke="#000" stroke-width="0.35"/>
+<line x1="225.00" y1="76.50" x2="228.00" y2="73.50" stroke="#000" stroke-width="0.35"/>
+<line x1="226.50" y1="94.00" x2="226.50" y2="100.00" stroke="#000" stroke-width="0.35"/>
+<line x1="213.00" y1="100.00" x2="240.00" y2="100.00" stroke="#000" stroke-width="0.5"/>
+<line x1="213.00" y1="100.00" x2="213.00" y2="106.00" stroke="#000" stroke-width="0.35"/>
+<line x1="211.50" y1="105.00" x2="214.50" y2="102.00" stroke="#000" stroke-width="0.35"/>
+<line x1="213.00" y1="117.00" x2="213.00" y2="159.00" stroke="#000" stroke-width="0.35"/>
+<line x1="211.50" y1="152.50" x2="214.50" y2="149.50" stroke="#000" stroke-width="0.35"/>
+<line x1="240.00" y1="100.00" x2="240.00" y2="106.00" stroke="#000" stroke-width="0.35"/>
+<line x1="238.50" y1="105.00" x2="241.50" y2="102.00" stroke="#000" stroke-width="0.35"/>
+<line x1="240.00" y1="117.00" x2="240.00" y2="159.00" stroke="#000" stroke-width="0.35"/>
+<line x1="238.50" y1="152.50" x2="241.50" y2="149.50" stroke="#000" stroke-width="0.35"/>
+<line x1="267.00" y1="70.00" x2="267.00" y2="78.00" stroke="#000" stroke-width="0.35"/>
+<line x1="265.50" y1="76.50" x2="268.50" y2="73.50" stroke="#000" stroke-width="0.35"/>
+<line x1="267.00" y1="94.00" x2="267.00" y2="159.00" stroke="#000" stroke-width="0.35"/>
+<line x1="265.50" y1="152.50" x2="268.50" y2="149.50" stroke="#000" stroke-width="0.35"/>
+<line x1="294.00" y1="70.00" x2="294.00" y2="78.00" stroke="#000" stroke-width="0.35"/>
+<line x1="292.50" y1="76.50" x2="295.50" y2="73.50" stroke="#000" stroke-width="0.35"/>
+<line x1="294.00" y1="94.00" x2="294.00" y2="159.00" stroke="#000" stroke-width="0.35"/>
+<line x1="292.50" y1="152.50" x2="295.50" y2="149.50" stroke="#000" stroke-width="0.35"/>
+<line x1="321.00" y1="70.00" x2="321.00" y2="78.00" stroke="#000" stroke-width="0.35"/>
+<line x1="319.50" y1="76.50" x2="322.50" y2="73.50" stroke="#000" stroke-width="0.35"/>
+<line x1="321.00" y1="94.00" x2="321.00" y2="100.00" stroke="#000" stroke-width="0.35"/>
+<line x1="321.00" y1="100.00" x2="321.00" y2="100.00" stroke="#000" stroke-width="0.5"/>
+<line x1="321.00" y1="100.00" x2="321.00" y2="106.00" stroke="#000" stroke-width="0.35"/>
+<line x1="319.50" y1="105.00" x2="322.50" y2="102.00" stroke="#000" stroke-width="0.35"/>
+<line x1="321.00" y1="117.00" x2="321.00" y2="159.00" stroke="#000" stroke-width="0.35"/>
+<line x1="319.50" y1="152.50" x2="322.50" y2="149.50" stroke="#000" stroke-width="0.35"/>
+<line x1="348.00" y1="70.00" x2="348.00" y2="78.00" stroke="#000" stroke-width="0.35"/>
+<line x1="346.50" y1="76.50" x2="349.50" y2="73.50" stroke="#000" stroke-width="0.35"/>
+<line x1="348.00" y1="94.00" x2="348.00" y2="159.00" stroke="#000" stroke-width="0.35"/>
+<line x1="346.50" y1="152.50" x2="349.50" y2="149.50" stroke="#000" stroke-width="0.35"/>
+<line x1="30.00" y1="162.00" x2="360.00" y2="162.00" stroke="#000" stroke-width="0.7"/>
+<line x1="357.00" y1="163.00" x2="363.00" y2="163.00" stroke="#000" stroke-width="0.35"/>
+<line x1="358.00" y1="163.90" x2="362.00" y2="163.90" stroke="#000" stroke-width="0.35"/>
+<line x1="359.00" y1="164.80" x2="361.00" y2="164.80" stroke="#000" stroke-width="0.35"/>
+<line x1="30.00" y1="171.00" x2="360.00" y2="171.00" stroke="#000" stroke-width="0.3"/>
+<line x1="30.00" y1="177.00" x2="360.00" y2="177.00" stroke="#000" stroke-width="0.3"/>
+<line x1="30.00" y1="183.00" x2="360.00" y2="183.00" stroke="#000" stroke-width="0.3"/>
+<line x1="30.00" y1="189.00" x2="360.00" y2="189.00" stroke="#000" stroke-width="0.3"/>
+<line x1="30.00" y1="195.00" x2="360.00" y2="195.00" stroke="#000" stroke-width="0.3"/>
+<line x1="30.00" y1="201.00" x2="360.00" y2="201.00" stroke="#000" stroke-width="0.3"/>
+<line x1="30.00" y1="207.00" x2="360.00" y2="207.00" stroke="#000" stroke-width="0.3"/>
+<line x1="56.00" y1="165.00" x2="56.00" y2="213.00" stroke="#000" stroke-width="0.3"/>
+<line x1="91.50" y1="165.00" x2="91.50" y2="213.00" stroke="#000" stroke-width="0.3"/>
+<line x1="118.50" y1="165.00" x2="118.50" y2="213.00" stroke="#000" stroke-width="0.3"/>
+<line x1="145.50" y1="165.00" x2="145.50" y2="213.00" stroke="#000" stroke-width="0.3"/>
+<line x1="172.50" y1="165.00" x2="172.50" y2="213.00" stroke="#000" stroke-width="0.3"/>
+<line x1="199.50" y1="165.00" x2="199.50" y2="213.00" stroke="#000" stroke-width="0.3"/>
+<line x1="226.50" y1="165.00" x2="226.50" y2="213.00" stroke="#000" stroke-width="0.3"/>
+<line x1="253.50" y1="165.00" x2="253.50" y2="213.00" stroke="#000" stroke-width="0.3"/>
+<line x1="280.50" y1="165.00" x2="280.50" y2="213.00" stroke="#000" stroke-width="0.3"/>
+<line x1="307.50" y1="165.00" x2="307.50" y2="213.00" stroke="#000" stroke-width="0.3"/>
+<line x1="334.50" y1="165.00" x2="334.50" y2="213.00" stroke="#000" stroke-width="0.3"/>
+<line x1="104.50" y1="253.50" x2="107.50" y2="250.50" stroke="#000" stroke-width="0.35"/>
+<line x1="262.00" y1="269.00" x2="412.00" y2="269.00" stroke="#000" stroke-width="0.3"/>
+<line x1="262.00" y1="279.00" x2="412.00" y2="279.00" stroke="#000" stroke-width="0.3"/>
+<line x1="352.00" y1="259.00" x2="352.00" y2="289.00" stroke="#000" stroke-width="0.3"/>
+</g>
+<g inkscape:groupmode="layer" inkscape:label="Aparate" id="Aparate">
+<g inkscape:label="D1 separator de sarcină">
+<line x1="60.00" y1="36.00" x2="60.00" y2="38.00" stroke="#000" stroke-width="0.35"/>
+<line x1="58.50" y1="38.00" x2="61.50" y2="38.00" stroke="#000" stroke-width="0.5"/>
+<line x1="60.00" y1="45.00" x2="63.20" y2="38.60" stroke="#000" stroke-width="0.5"/>
+<circle cx="60.00" cy="45.40" r="0.7" fill="none" stroke="#000" stroke-width="0.35"/>
+<line x1="60.00" y1="46.10" x2="60.00" y2="47.00" stroke="#000" stroke-width="0.35"/>
+<text x="64.50" y="38.50" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">D1</text>
+<text x="64.50" y="41.30" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">4P</text>
+<text x="64.50" y="44.10" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">40 A</text>
+</g>
+<g inkscape:label="D0">
+<rect x="36.00" y="72.00" width="4" height="8" fill="none" stroke="#000" stroke-width="0.35"/>
+<line x1="36.80" y1="78.50" x2="39.20" y2="73.50" stroke="#000" stroke-width="0.35"/>
+<polygon points="39.20,73.50 37.80,74.20 39.20,75.20" fill="#000"/>
+<line x1="38.00" y1="80.00" x2="38.00" y2="83.00" stroke="#000" stroke-width="0.35"/>
+<line x1="35.00" y1="83.00" x2="41.00" y2="83.00" stroke="#000" stroke-width="0.35"/>
+<line x1="36.00" y1="83.90" x2="40.00" y2="83.90" stroke="#000" stroke-width="0.35"/>
+<line x1="37.00" y1="84.80" x2="39.00" y2="84.80" stroke="#000" stroke-width="0.35"/>
+<text x="34.00" y="74.00" font-size="2.3" text-anchor="end" font-family="Arial, Liberation Sans, sans-serif">D0</text>
+<text x="34.00" y="76.80" font-size="2.3" text-anchor="end" font-family="Arial, Liberation Sans, sans-serif">SPD tip 2, 4P</text>
+<text x="34.00" y="79.60" font-size="2.3" text-anchor="end" font-family="Arial, Liberation Sans, sans-serif">Imax 40 kA</text>
+<text x="34.00" y="82.40" font-size="2.3" text-anchor="end" font-family="Arial, Liberation Sans, sans-serif">Up ≤ 1,5 kV</text>
+</g>
+<g inkscape:label="D2 CL1">
+<line x1="78.00" y1="78.00" x2="78.00" y2="80.00" stroke="#000" stroke-width="0.35"/>
+<line x1="76.80" y1="78.80" x2="79.20" y2="81.20" stroke="#000" stroke-width="0.35"/>
+<line x1="79.20" y1="78.80" x2="76.80" y2="81.20" stroke="#000" stroke-width="0.35"/>
+<line x1="78.00" y1="87.00" x2="81.20" y2="80.60" stroke="#000" stroke-width="0.5"/>
+<line x1="78.00" y1="87.00" x2="78.00" y2="89.00" stroke="#000" stroke-width="0.35"/>
+<text x="82.50" y="80.50" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">D2</text>
+<text x="82.50" y="83.30" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">1P+N</text>
+<text x="82.50" y="86.10" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">B10</text>
+<text x="82.50" y="88.90" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">6 kA</text>
+<ellipse cx="78.00" cy="91.50" rx="2.2" ry="1.4" fill="none" stroke="#000" stroke-width="0.35"/>
+<line x1="78.00" y1="89.00" x2="78.00" y2="90.10" stroke="#000" stroke-width="0.35"/>
+<line x1="78.00" y1="92.90" x2="78.00" y2="94.00" stroke="#000" stroke-width="0.35"/>
+<text x="82.50" y="92.40" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">30 mA tip A</text>
+</g>
+<g inkscape:label="D3 CL2">
+<line x1="105.00" y1="78.00" x2="105.00" y2="80.00" stroke="#000" stroke-width="0.35"/>
+<line x1="103.80" y1="78.80" x2="106.20" y2="81.20" stroke="#000" stroke-width="0.35"/>
+<line x1="106.20" y1="78.80" x2="103.80" y2="81.20" stroke="#000" stroke-width="0.35"/>
+<line x1="105.00" y1="87.00" x2="108.20" y2="80.60" stroke="#000" stroke-width="0.5"/>
+<line x1="105.00" y1="87.00" x2="105.00" y2="89.00" stroke="#000" stroke-width="0.35"/>
+<text x="109.50" y="80.50" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">D3</text>
+<text x="109.50" y="83.30" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">1P+N</text>
+<text x="109.50" y="86.10" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">B10</text>
+<text x="109.50" y="88.90" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">6 kA</text>
+<ellipse cx="105.00" cy="91.50" rx="2.2" ry="1.4" fill="none" stroke="#000" stroke-width="0.35"/>
+<line x1="105.00" y1="89.00" x2="105.00" y2="90.10" stroke="#000" stroke-width="0.35"/>
+<line x1="105.00" y1="92.90" x2="105.00" y2="94.00" stroke="#000" stroke-width="0.35"/>
+<text x="109.50" y="92.40" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">30 mA tip A</text>
+</g>
+<g inkscape:label="D4 CP1">
+<line x1="132.00" y1="78.00" x2="132.00" y2="80.00" stroke="#000" stroke-width="0.35"/>
+<line x1="130.80" y1="78.80" x2="133.20" y2="81.20" stroke="#000" stroke-width="0.35"/>
+<line x1="133.20" y1="78.80" x2="130.80" y2="81.20" stroke="#000" stroke-width="0.35"/>
+<line x1="132.00" y1="87.00" x2="135.20" y2="80.60" stroke="#000" stroke-width="0.5"/>
+<line x1="132.00" y1="87.00" x2="132.00" y2="89.00" stroke="#000" stroke-width="0.35"/>
+<text x="136.50" y="80.50" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">D4</text>
+<text x="136.50" y="83.30" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">1P+N</text>
+<text x="136.50" y="86.10" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">C16</text>
+<text x="136.50" y="88.90" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">6 kA</text>
+<ellipse cx="132.00" cy="91.50" rx="2.2" ry="1.4" fill="none" stroke="#000" stroke-width="0.35"/>
+<line x1="132.00" y1="89.00" x2="132.00" y2="90.10" stroke="#000" stroke-width="0.35"/>
+<line x1="132.00" y1="92.90" x2="132.00" y2="94.00" stroke="#000" stroke-width="0.35"/>
+<text x="136.50" y="92.40" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">30 mA tip A</text>
+</g>
+<g inkscape:label="D5 CP2">
+<line x1="159.00" y1="78.00" x2="159.00" y2="80.00" stroke="#000" stroke-width="0.35"/>
+<line x1="157.80" y1="78.80" x2="160.20" y2="81.20" stroke="#000" stroke-width="0.35"/>
+<line x1="160.20" y1="78.80" x2="157.80" y2="81.20" stroke="#000" stroke-width="0.35"/>
+<line x1="159.00" y1="87.00" x2="162.20" y2="80.60" stroke="#000" stroke-width="0.5"/>
+<line x1="159.00" y1="87.00" x2="159.00" y2="89.00" stroke="#000" stroke-width="0.35"/>
+<text x="163.50" y="80.50" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">D5</text>
+<text x="163.50" y="83.30" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">1P+N</text>
+<text x="163.50" y="86.10" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">C16</text>
+<text x="163.50" y="88.90" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">6 kA</text>
+<ellipse cx="159.00" cy="91.50" rx="2.2" ry="1.4" fill="none" stroke="#000" stroke-width="0.35"/>
+<line x1="159.00" y1="89.00" x2="159.00" y2="90.10" stroke="#000" stroke-width="0.35"/>
+<line x1="159.00" y1="92.90" x2="159.00" y2="94.00" stroke="#000" stroke-width="0.35"/>
+<text x="163.50" y="92.40" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">30 mA tip A</text>
+</g>
+<g inkscape:label="D7 CP3">
+<line x1="186.00" y1="78.00" x2="186.00" y2="80.00" stroke="#000" stroke-width="0.35"/>
+<line x1="184.80" y1="78.80" x2="187.20" y2="81.20" stroke="#000" stroke-width="0.35"/>
+<line x1="187.20" y1="78.80" x2="184.80" y2="81.20" stroke="#000" stroke-width="0.35"/>
+<line x1="186.00" y1="87.00" x2="189.20" y2="80.60" stroke="#000" stroke-width="0.5"/>
+<line x1="186.00" y1="87.00" x2="186.00" y2="89.00" stroke="#000" stroke-width="0.35"/>
+<text x="190.50" y="80.50" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">D7</text>
+<text x="190.50" y="83.30" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">1P+N</text>
+<text x="190.50" y="86.10" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">C16</text>
+<text x="190.50" y="88.90" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">6 kA</text>
+<ellipse cx="186.00" cy="91.50" rx="2.2" ry="1.4" fill="none" stroke="#000" stroke-width="0.35"/>
+<line x1="186.00" y1="89.00" x2="186.00" y2="90.10" stroke="#000" stroke-width="0.35"/>
+<line x1="186.00" y1="92.90" x2="186.00" y2="94.00" stroke="#000" stroke-width="0.35"/>
+<text x="190.50" y="92.40" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">30 mA tip A</text>
+</g>
+<g inkscape:label="D6 RCCB comun">
+<line x1="226.50" y1="78.00" x2="226.50" y2="80.00" stroke="#000" stroke-width="0.35"/>
+<line x1="226.50" y1="87.00" x2="229.70" y2="80.60" stroke="#000" stroke-width="0.5"/>
+<line x1="226.50" y1="87.00" x2="226.50" y2="89.00" stroke="#000" stroke-width="0.35"/>
+<text x="231.00" y="80.50" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">D6</text>
+<text x="231.00" y="83.30" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">4P</text>
+<text x="231.00" y="86.10" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">40 A</text>
+<ellipse cx="226.50" cy="91.50" rx="2.2" ry="1.4" fill="none" stroke="#000" stroke-width="0.35"/>
+<line x1="226.50" y1="89.00" x2="226.50" y2="90.10" stroke="#000" stroke-width="0.35"/>
+<line x1="226.50" y1="92.90" x2="226.50" y2="94.00" stroke="#000" stroke-width="0.35"/>
+<text x="231.00" y="92.40" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">30 mA tip A</text>
+</g>
+<g inkscape:label="D8 CF1">
+<line x1="213.00" y1="106.00" x2="213.00" y2="108.00" stroke="#000" stroke-width="0.35"/>
+<line x1="211.80" y1="106.80" x2="214.20" y2="109.20" stroke="#000" stroke-width="0.35"/>
+<line x1="214.20" y1="106.80" x2="211.80" y2="109.20" stroke="#000" stroke-width="0.35"/>
+<line x1="213.00" y1="115.00" x2="216.20" y2="108.60" stroke="#000" stroke-width="0.5"/>
+<line x1="213.00" y1="115.00" x2="213.00" y2="117.00" stroke="#000" stroke-width="0.35"/>
+<text x="217.50" y="108.50" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">D8</text>
+<text x="217.50" y="111.30" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">3P+N</text>
+<text x="217.50" y="114.10" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">C16</text>
+<text x="217.50" y="116.90" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">6 kA</text>
+</g>
+<g inkscape:label="D9 CF2">
+<line x1="240.00" y1="106.00" x2="240.00" y2="108.00" stroke="#000" stroke-width="0.35"/>
+<line x1="238.80" y1="106.80" x2="241.20" y2="109.20" stroke="#000" stroke-width="0.35"/>
+<line x1="241.20" y1="106.80" x2="238.80" y2="109.20" stroke="#000" stroke-width="0.35"/>
+<line x1="240.00" y1="115.00" x2="243.20" y2="108.60" stroke="#000" stroke-width="0.5"/>
+<line x1="240.00" y1="115.00" x2="240.00" y2="117.00" stroke="#000" stroke-width="0.35"/>
+<text x="244.50" y="108.50" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">D9</text>
+<text x="244.50" y="111.30" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">1P+N</text>
+<text x="244.50" y="114.10" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">C16</text>
+<text x="244.50" y="116.90" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">6 kA</text>
+</g>
+<g inkscape:label="D10 CF3">
+<line x1="267.00" y1="78.00" x2="267.00" y2="80.00" stroke="#000" stroke-width="0.35"/>
+<line x1="265.80" y1="78.80" x2="268.20" y2="81.20" stroke="#000" stroke-width="0.35"/>
+<line x1="268.20" y1="78.80" x2="265.80" y2="81.20" stroke="#000" stroke-width="0.35"/>
+<line x1="267.00" y1="87.00" x2="270.20" y2="80.60" stroke="#000" stroke-width="0.5"/>
+<line x1="267.00" y1="87.00" x2="267.00" y2="89.00" stroke="#000" stroke-width="0.35"/>
+<text x="271.50" y="80.50" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">D10</text>
+<text x="271.50" y="83.30" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">1P+N</text>
+<text x="271.50" y="86.10" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">C16</text>
+<text x="271.50" y="88.90" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">6 kA</text>
+<ellipse cx="267.00" cy="91.50" rx="2.2" ry="1.4" fill="none" stroke="#000" stroke-width="0.35"/>
+<line x1="267.00" y1="89.00" x2="267.00" y2="90.10" stroke="#000" stroke-width="0.35"/>
+<line x1="267.00" y1="92.90" x2="267.00" y2="94.00" stroke="#000" stroke-width="0.35"/>
+<text x="271.50" y="92.40" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">30 mA tip A</text>
+</g>
+<g inkscape:label="D12 CF4">
+<line x1="294.00" y1="78.00" x2="294.00" y2="80.00" stroke="#000" stroke-width="0.35"/>
+<line x1="292.80" y1="78.80" x2="295.20" y2="81.20" stroke="#000" stroke-width="0.35"/>
+<line x1="295.20" y1="78.80" x2="292.80" y2="81.20" stroke="#000" stroke-width="0.35"/>
+<line x1="294.00" y1="87.00" x2="297.20" y2="80.60" stroke="#000" stroke-width="0.5"/>
+<line x1="294.00" y1="87.00" x2="294.00" y2="89.00" stroke="#000" stroke-width="0.35"/>
+<text x="298.50" y="80.50" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">D12</text>
+<text x="298.50" y="83.30" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">1P+N</text>
+<text x="298.50" y="86.10" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">C16</text>
+<text x="298.50" y="88.90" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">6 kA</text>
+<ellipse cx="294.00" cy="91.50" rx="2.2" ry="1.4" fill="none" stroke="#000" stroke-width="0.35"/>
+<line x1="294.00" y1="89.00" x2="294.00" y2="90.10" stroke="#000" stroke-width="0.35"/>
+<line x1="294.00" y1="92.90" x2="294.00" y2="94.00" stroke="#000" stroke-width="0.35"/>
+<text x="298.50" y="92.40" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">30 mA tip F</text>
+</g>
+<g inkscape:label="D11 RCCB comun">
+<line x1="321.00" y1="78.00" x2="321.00" y2="80.00" stroke="#000" stroke-width="0.35"/>
+<line x1="321.00" y1="87.00" x2="324.20" y2="80.60" stroke="#000" stroke-width="0.5"/>
+<line x1="321.00" y1="87.00" x2="321.00" y2="89.00" stroke="#000" stroke-width="0.35"/>
+<text x="325.50" y="80.50" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">D11</text>
+<text x="325.50" y="83.30" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">4P</text>
+<text x="325.50" y="86.10" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">25 A</text>
+<ellipse cx="321.00" cy="91.50" rx="2.2" ry="1.4" fill="none" stroke="#000" stroke-width="0.35"/>
+<line x1="321.00" y1="89.00" x2="321.00" y2="90.10" stroke="#000" stroke-width="0.35"/>
+<line x1="321.00" y1="92.90" x2="321.00" y2="94.00" stroke="#000" stroke-width="0.35"/>
+<text x="325.50" y="92.40" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">30 mA tip B</text>
+</g>
+<g inkscape:label="D13 CF5">
+<line x1="321.00" y1="106.00" x2="321.00" y2="108.00" stroke="#000" stroke-width="0.35"/>
+<line x1="319.80" y1="106.80" x2="322.20" y2="109.20" stroke="#000" stroke-width="0.35"/>
+<line x1="322.20" y1="106.80" x2="319.80" y2="109.20" stroke="#000" stroke-width="0.35"/>
+<line x1="321.00" y1="115.00" x2="324.20" y2="108.60" stroke="#000" stroke-width="0.5"/>
+<line x1="321.00" y1="115.00" x2="321.00" y2="117.00" stroke="#000" stroke-width="0.35"/>
+<text x="325.50" y="108.50" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">D13</text>
+<text x="325.50" y="111.30" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">3P+N</text>
+<text x="325.50" y="114.10" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">C20</text>
+<text x="325.50" y="116.90" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">6 kA</text>
+</g>
+<g inkscape:label="D14 R">
+<line x1="348.00" y1="78.00" x2="348.00" y2="80.00" stroke="#000" stroke-width="0.35"/>
+<line x1="346.80" y1="78.80" x2="349.20" y2="81.20" stroke="#000" stroke-width="0.35"/>
+<line x1="349.20" y1="78.80" x2="346.80" y2="81.20" stroke="#000" stroke-width="0.35"/>
+<line x1="348.00" y1="87.00" x2="351.20" y2="80.60" stroke="#000" stroke-width="0.5"/>
+<line x1="348.00" y1="87.00" x2="348.00" y2="89.00" stroke="#000" stroke-width="0.35"/>
+<text x="352.50" y="80.50" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">D14</text>
+<text x="352.50" y="83.30" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">1P+N</text>
+<text x="352.50" y="86.10" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">C16</text>
+<text x="352.50" y="88.90" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">6 kA</text>
+<ellipse cx="348.00" cy="91.50" rx="2.2" ry="1.4" fill="none" stroke="#000" stroke-width="0.35"/>
+<line x1="348.00" y1="89.00" x2="348.00" y2="90.10" stroke="#000" stroke-width="0.35"/>
+<line x1="348.00" y1="92.90" x2="348.00" y2="94.00" stroke="#000" stroke-width="0.35"/>
+<text x="352.50" y="92.40" font-size="2.3" font-family="Arial, Liberation Sans, sans-serif">30 mA tip A</text>
+</g>
+<g inkscape:label="legendă separator">
+<line x1="26.00" y1="226.00" x2="26.00" y2="228.00" stroke="#000" stroke-width="0.35"/>
+<line x1="24.50" y1="228.00" x2="27.50" y2="228.00" stroke="#000" stroke-width="0.5"/>
+<line x1="26.00" y1="235.00" x2="29.20" y2="228.60" stroke="#000" stroke-width="0.5"/>
+<circle cx="26.00" cy="235.40" r="0.7" fill="none" stroke="#000" stroke-width="0.35"/>
+<line x1="26.00" y1="236.10" x2="26.00" y2="237.00" stroke="#000" stroke-width="0.35"/>
+</g>
+<g inkscape:label="legendă MCB">
+<line x1="26.00" y1="241.00" x2="26.00" y2="243.00" stroke="#000" stroke-width="0.35"/>
+<line x1="24.80" y1="241.80" x2="27.20" y2="244.20" stroke="#000" stroke-width="0.35"/>
+<line x1="27.20" y1="241.80" x2="24.80" y2="244.20" stroke="#000" stroke-width="0.35"/>
+<line x1="26.00" y1="250.00" x2="29.20" y2="243.60" stroke="#000" stroke-width="0.5"/>
+<line x1="26.00" y1="250.00" x2="26.00" y2="252.00" stroke="#000" stroke-width="0.35"/>
+</g>
+<g inkscape:label="legendă RCBO">
+<line x1="26.00" y1="256.00" x2="26.00" y2="258.00" stroke="#000" stroke-width="0.35"/>
+<line x1="24.80" y1="256.80" x2="27.20" y2="259.20" stroke="#000" stroke-width="0.35"/>
+<line x1="27.20" y1="256.80" x2="24.80" y2="259.20" stroke="#000" stroke-width="0.35"/>
+<line x1="26.00" y1="265.00" x2="29.20" y2="258.60" stroke="#000" stroke-width="0.5"/>
+<line x1="26.00" y1="265.00" x2="26.00" y2="267.00" stroke="#000" stroke-width="0.35"/>
+<ellipse cx="26.00" cy="269.50" rx="2.2" ry="1.4" fill="none" stroke="#000" stroke-width="0.35"/>
+<line x1="26.00" y1="267.00" x2="26.00" y2="268.10" stroke="#000" stroke-width="0.35"/>
+<line x1="26.00" y1="270.90" x2="26.00" y2="272.00" stroke="#000" stroke-width="0.35"/>
+</g>
+<g inkscape:label="legendă RCCB">
+<line x1="106.00" y1="226.00" x2="106.00" y2="228.00" stroke="#000" stroke-width="0.35"/>
+<line x1="106.00" y1="235.00" x2="109.20" y2="228.60" stroke="#000" stroke-width="0.5"/>
+<line x1="106.00" y1="235.00" x2="106.00" y2="237.00" stroke="#000" stroke-width="0.35"/>
+<ellipse cx="106.00" cy="239.50" rx="2.2" ry="1.4" fill="none" stroke="#000" stroke-width="0.35"/>
+<line x1="106.00" y1="237.00" x2="106.00" y2="238.10" stroke="#000" stroke-width="0.35"/>
+<line x1="106.00" y1="240.90" x2="106.00" y2="242.00" stroke="#000" stroke-width="0.35"/>
+</g>
+</g>
+<g inkscape:groupmode="layer" inkscape:label="Text" id="Text">
+<text x="58.00" y="20.00" font-size="2.6" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif" font-weight="bold">CYY-F 5×10 mm² de la BMPM 3×32 A</text>
+<text x="58.00" y="24.00" font-size="2.6" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">de la BMPM</text>
+<text x="62.00" y="33.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">5</text>
+<rect x="78" y="26" width="64" height="22" fill="none" stroke="#000" stroke-width="0.35"/>
+<text x="80.00" y="30.00" font-size="2.6" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif" font-weight="bold">T.E. LOCUINȚĂ  (P+1, trifazat)</text>
+<text x="80.00" y="34.00" font-size="2.6" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">Pi = 33.9 kW</text>
+<text x="80.00" y="38.00" font-size="2.6" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">Pa = 15.3 kW  (ks = 0.45)</text>
+<text x="80.00" y="42.00" font-size="2.6" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">Ic = 24.5 A</text>
+<text x="80.00" y="46.00" font-size="2.6" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">Isc la BMPM = 4,8 kA (din avizul de racordare)</text>
+<text x="68.00" y="70.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">5</text>
+<text x="80.00" y="75.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="80.00" y="151.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="107.00" y="75.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="107.00" y="151.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="134.00" y="75.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="134.00" y="151.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="161.00" y="75.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="161.00" y="151.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="188.00" y="75.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="188.00" y="151.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="228.50" y="75.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">5</text>
+<text x="215.00" y="104.30" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">5</text>
+<text x="215.00" y="151.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">5</text>
+<text x="242.00" y="104.30" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="242.00" y="151.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="269.00" y="75.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="269.00" y="151.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="296.00" y="75.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="296.00" y="151.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="323.00" y="75.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">5</text>
+<text x="323.00" y="104.30" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">5</text>
+<text x="323.00" y="151.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">5</text>
+<text x="350.00" y="75.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="350.00" y="151.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="26.00" y="163.00" font-size="2.6" text-anchor="end" font-family="Arial, Liberation Sans, sans-serif" font-weight="bold">PE</text>
+<rect x="30" y="165" width="330" height="48" fill="none" stroke="#000" stroke-width="0.5"/>
+<text x="32.00" y="169.20" font-size="2.4" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif" font-weight="bold">Circuit</text>
+<text x="78.00" y="169.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CL1</text>
+<text x="105.00" y="169.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CL2</text>
+<text x="132.00" y="169.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CP1</text>
+<text x="159.00" y="169.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CP2</text>
+<text x="186.00" y="169.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CP3</text>
+<text x="213.00" y="169.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CF1</text>
+<text x="240.00" y="169.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CF2</text>
+<text x="267.00" y="169.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CF3</text>
+<text x="294.00" y="169.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CF4</text>
+<text x="321.00" y="169.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CF5</text>
+<text x="348.00" y="169.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">R</text>
+<text x="32.00" y="175.20" font-size="2.4" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif" font-weight="bold">Pi [kW]</text>
+<text x="78.00" y="175.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">0.8</text>
+<text x="105.00" y="175.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">0.6</text>
+<text x="132.00" y="175.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">2</text>
+<text x="159.00" y="175.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">2</text>
+<text x="186.00" y="175.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">2.5</text>
+<text x="213.00" y="175.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">7</text>
+<text x="240.00" y="175.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">3.5</text>
+<text x="267.00" y="175.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">2</text>
+<text x="294.00" y="175.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">2.5</text>
+<text x="321.00" y="175.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">11</text>
+<text x="348.00" y="175.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">2</text>
+<text x="32.00" y="181.20" font-size="2.4" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif" font-weight="bold">cos φ</text>
+<text x="78.00" y="181.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">0.9</text>
+<text x="105.00" y="181.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">0.9</text>
+<text x="132.00" y="181.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">0.8</text>
+<text x="159.00" y="181.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">0.8</text>
+<text x="186.00" y="181.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">0.8</text>
+<text x="213.00" y="181.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">1</text>
+<text x="240.00" y="181.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">1</text>
+<text x="267.00" y="181.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">1</text>
+<text x="294.00" y="181.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">0.85</text>
+<text x="321.00" y="181.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">1</text>
+<text x="348.00" y="181.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">0.8</text>
+<text x="32.00" y="187.20" font-size="2.4" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif" font-weight="bold">Ic [A]</text>
+<text x="78.00" y="187.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">3.9</text>
+<text x="105.00" y="187.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">2.9</text>
+<text x="132.00" y="187.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">10.9</text>
+<text x="159.00" y="187.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">10.9</text>
+<text x="186.00" y="187.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">13.6</text>
+<text x="213.00" y="187.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">10.1</text>
+<text x="240.00" y="187.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">15.2</text>
+<text x="267.00" y="187.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">8.7</text>
+<text x="294.00" y="187.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">12.8</text>
+<text x="321.00" y="187.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">15.9</text>
+<text x="348.00" y="187.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">10.9</text>
+<text x="32.00" y="193.20" font-size="2.4" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif" font-weight="bold">Cablu [mm²]</text>
+<text x="78.00" y="193.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CYY-F 3×1,5</text>
+<text x="105.00" y="193.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CYY-F 3×1,5</text>
+<text x="132.00" y="193.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CYY-F 3×2,5</text>
+<text x="159.00" y="193.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CYY-F 3×2,5</text>
+<text x="186.00" y="193.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CYY-F 3×2,5</text>
+<text x="213.00" y="193.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CYY-F 5×2,5</text>
+<text x="240.00" y="193.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CYY-F 3×2,5</text>
+<text x="267.00" y="193.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CYY-F 3×2,5</text>
+<text x="294.00" y="193.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CYY-F 3×2,5</text>
+<text x="321.00" y="193.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">CYY-F 5×4</text>
+<text x="348.00" y="193.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">—</text>
+<text x="32.00" y="199.20" font-size="2.4" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif" font-weight="bold">Protecție</text>
+<text x="78.00" y="199.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">1P+N B10/30mA</text>
+<text x="105.00" y="199.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">1P+N B10/30mA</text>
+<text x="132.00" y="199.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">1P+N C16/30mA</text>
+<text x="159.00" y="199.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">1P+N C16/30mA</text>
+<text x="186.00" y="199.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">1P+N C16/30mA</text>
+<text x="213.00" y="199.20" font-size="1.9" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">3P+N C16 (sub D6)</text>
+<text x="240.00" y="199.20" font-size="1.9" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">1P+N C16 (sub D6)</text>
+<text x="267.00" y="199.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">1P+N C16/30mA</text>
+<text x="294.00" y="199.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">1P+N C16/30mA</text>
+<text x="321.00" y="199.20" font-size="1.9" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">3P+N C20 (sub D11)</text>
+<text x="348.00" y="199.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">1P+N C16/30mA</text>
+<text x="32.00" y="205.20" font-size="2.4" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif" font-weight="bold">Faza</text>
+<text x="78.00" y="205.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">L1</text>
+<text x="105.00" y="205.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">L2</text>
+<text x="132.00" y="205.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">L3</text>
+<text x="159.00" y="205.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">L1</text>
+<text x="186.00" y="205.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">L2</text>
+<text x="213.00" y="205.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">L1,L2,L3</text>
+<text x="240.00" y="205.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">L3</text>
+<text x="267.00" y="205.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">L3</text>
+<text x="294.00" y="205.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">L1</text>
+<text x="321.00" y="205.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">L1,L2,L3</text>
+<text x="348.00" y="205.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">L2</text>
+<text x="32.00" y="211.20" font-size="2.4" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif" font-weight="bold">Destinație</text>
+<text x="78.00" y="210.00" font-size="1.8" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">Iluminat</text>
+<text x="78.00" y="212.20" font-size="1.8" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">parter</text>
+<text x="105.00" y="211.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">Iluminat etaj</text>
+<text x="132.00" y="211.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">Prize parter</text>
+<text x="159.00" y="211.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">Prize etaj</text>
+<text x="186.00" y="210.00" font-size="1.8" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">Prize</text>
+<text x="186.00" y="212.20" font-size="1.8" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">bucătărie</text>
+<text x="213.00" y="210.00" font-size="1.8" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">Plită</text>
+<text x="213.00" y="212.20" font-size="1.8" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">electrică</text>
+<text x="240.00" y="210.00" font-size="1.8" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">Cuptor</text>
+<text x="240.00" y="212.20" font-size="1.8" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">electric</text>
+<text x="267.00" y="210.00" font-size="1.8" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">Boiler</text>
+<text x="267.00" y="212.20" font-size="1.8" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">electric</text>
+<text x="294.00" y="210.00" font-size="1.8" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">Aer</text>
+<text x="294.00" y="212.20" font-size="1.8" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">condiționat (invertor)</text>
+<text x="321.00" y="210.00" font-size="1.8" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">Stație încărcare</text>
+<text x="321.00" y="212.20" font-size="1.8" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">auto 11 kW</text>
+<text x="348.00" y="211.20" font-size="2.3" text-anchor="middle" font-family="Arial, Liberation Sans, sans-serif">Rezervă</text>
+<rect x="18" y="218" width="228" height="60" fill="none" stroke="#000" stroke-width="0.4"/>
+<text x="21.00" y="223.00" font-size="2.6" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif" font-weight="bold">LEGENDĂ SIMBOLURI</text>
+<text x="34.00" y="233.00" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">separator de sarcină</text>
+<text x="34.00" y="237.00" font-size="2.0" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">(întreruptor-separator)</text>
+<text x="34.00" y="248.00" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">întreruptor automat (MCB)</text>
+<text x="34.00" y="252.00" font-size="2.0" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">× = declanșator la supracurent</text>
+<text x="34.00" y="264.00" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">întreruptor automat diferențial (RCBO)</text>
+<text x="34.00" y="268.00" font-size="2.0" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">ovalul = torul diferențial (IΔn, tip)</text>
+<text x="114.00" y="234.00" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">întreruptor diferențial (RCCB)</text>
+<text x="114.00" y="238.00" font-size="2.0" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">fără × — nu are declanșator la supracurent</text>
+<text x="108.00" y="252.80" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">3</text>
+<text x="114.00" y="253.00" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">număr de conductoare (3 = L+N+PE, 5 = 3L+N+PE)</text>
+<rect x="104" y="258" width="4" height="8" fill="none" stroke="#000" stroke-width="0.35"/><line x1="104.8" y1="264.5" x2="107.2" y2="259.5" stroke="#000" stroke-width="0.35"/>
+<text x="114.00" y="264.00" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">descărcător de supratensiuni (SPD)</text>
+<text x="168.00" y="234.00" font-size="2.0" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">Simboluri conform SR EN 60617 (simplificate,</text>
+<text x="168.00" y="238.00" font-size="2.0" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">ca în planșele de proiect uzuale)</text>
+<rect x="8" y="8" width="404" height="281" fill="none" stroke="#000" stroke-width="0.7"/>
+<rect x="262" y="259" width="150" height="30" fill="none" stroke="#000" stroke-width="0.5"/>
+<text x="264.00" y="266.00" font-size="2.4" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">Liceul Tehnologic „Grigore C. Moisil” Buzău · Școala de maiștri electricieni</text>
+<text x="264.00" y="276.00" font-size="2.6" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif" font-weight="bold">TEMĂ DE PROIECT — Echiparea tabloului electric T.E. LOCUINȚĂ</text>
+<text x="264.00" y="286.00" font-size="2.4" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">Schema monofilară (schema electrică de distribuție)</text>
+<text x="354.00" y="266.00" font-size="2.4" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">Planșa 1 / format A3</text>
+<text x="354.00" y="276.00" font-size="2.4" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">Elev: ______________________</text>
+<text x="354.00" y="286.00" font-size="2.4" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">Prof. Sergiu Podoreanu · 2026</text>
+<text x="12.00" y="285.00" font-size="2.2" text-anchor="start" font-family="Arial, Liberation Sans, sans-serif">Notă: numerele de pe marcajele oblice = numărul de conductoare (3 = L+N+PE, 5 = L1+L2+L3+N+PE). Toate aparatele modulare: SR EN 60898-1 / 61008-1 / 61009-1, 230/400 V, 50 Hz.</text>
+</g>
+</svg>
