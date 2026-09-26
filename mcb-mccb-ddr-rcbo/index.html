@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Fișă de curs: MCB, MCCB, DDR (RCCB) și RCBO — construcție, funcționare, valori caracteristice, prevederi din Normativul I7-2011, test de verificare.">
+<meta name="author" content="Sergiu Podoreanu">
+<title>MCB, MCCB, DDR și RCBO — fișă de curs</title>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+html{color-scheme:light dark}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0}
+img{max-width:100%}
+
+:root{
+  --bg:#F3F5F7; --paper:#FFFFFF; --ink:#18222D; --ink2:#4A5866; --line:#CCD5DE;
+  --acc:#1F5F8B; --acc-soft:#E3EEF7; --fix:#A8541A; --fix-soft:#FBEEDF; --ok:#2E7D4F; --ok-soft:#E4F3EA;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --sans:"IBM Plex Sans",system-ui,"Segoe UI",Roboto,Arial,sans-serif;
+  --cu:#B87333; --fe:#7C8894;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131A21; --paper:#1B242E; --ink:#E8EDF2; --ink2:#A7B3BF; --line:#33414F;
+    --acc:#6FB2E0; --acc-soft:#1E3245; --fix:#E8A15E; --fix-soft:#3A2A1A; --ok:#7CC89A; --ok-soft:#1C3527;
+    --cu:#D68F4F; --fe:#9AA6B2; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131A21; --paper:#1B242E; --ink:#E8EDF2; --ink2:#A7B3BF; --line:#33414F;
+  --acc:#6FB2E0; --acc-soft:#1E3245; --fix:#E8A15E; --fix-soft:#3A2A1A; --ok:#7CC89A; --ok-soft:#1C3527;
+  --cu:#D68F4F; --fe:#9AA6B2; color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;padding-block:0 48px;padding-inline:16px}
+.wrap{max-width:900px;margin:0 auto}
+header{padding-block:40px 24px;border-bottom:2px solid var(--ink)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+h1{font-size:clamp(28px,4.5vw,40px);line-height:1.1;margin:8px 0 12px;text-wrap:balance;font-weight:700}
+h2{font-size:24px;margin:48px 0 12px;padding-top:12px;border-top:1px solid var(--line);text-wrap:balance}
+h3{font-size:18px;margin:28px 0 8px}
+p{max-width:70ch;margin:0 0 12px}
+.lead{font-size:18px;color:var(--ink2);max-width:70ch}
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+li{margin-bottom:4px}
+b,strong{font-weight:600}
+code,.m{font-family:var(--mono);font-size:.93em}
+.fig{background:var(--paper);border:1px solid var(--line);padding:16px;margin:16px 0 20px;overflow-x:auto}
+.fig svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.fig figcaption{font-size:14px;color:var(--ink2);margin-top:10px;max-width:70ch}
+.fig figcaption b{color:var(--ink)}
+.fix{border-left:4px solid var(--fix);background:var(--fix-soft);padding:12px 16px;margin:16px 0;max-width:72ch}
+.fix .t{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--fix);margin-bottom:4px}
+.fix p{margin:0 0 6px}
+.i7{border-left:4px solid var(--acc);background:var(--acc-soft);padding:12px 16px;margin:16px 0;max-width:72ch}
+.i7 .t{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);margin-bottom:4px}
+.i7 p{margin:0 0 6px}
+.tw{overflow-x:auto;margin:12px 0 20px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px;background:var(--paper)}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:var(--acc-soft);font-weight:600}
+td.k{font-weight:600;white-space:nowrap}
+.num{font-variant-numeric:tabular-nums}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:16px 0}
+.card{background:var(--paper);border:1px solid var(--line);padding:14px 16px}
+.card h4{margin:0 0 6px;font-size:16px}
+.card p{margin:0 0 6px;font-size:15px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--ink2);margin:4px 0 12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:6px}
+.src{font-size:14px;color:var(--ink2)}
+.src li{margin-bottom:6px}
+a{color:var(--acc)}
+
+.photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:16px 0 24px}
+.ph{background:var(--paper);border:1px solid var(--line);padding:10px;margin:0;display:flex;flex-direction:column;gap:8px}
+.ph.wide{grid-column:1/-1}
+.ph img{width:100%;height:auto;display:block;background:#fff}
+.ph.small img{max-width:420px;margin:0 auto;image-rendering:auto}
+.ph figcaption{font-size:14px;color:var(--ink2);line-height:1.45}
+.ph figcaption b{color:var(--ink)}
+.ph .cr{font-family:var(--mono);font-size:11px;color:var(--ink2);margin-top:auto;word-break:break-word}
+.ph .cr a{color:var(--acc)}
+.ph ol{font-size:13px;columns:2;column-gap:16px;margin:4px 0 0;padding-left:18px}
+.ph ol li{margin-bottom:2px;break-inside:avoid}
+@media (max-width:520px){.ph ol{columns:1}}
+
+details.teacher{border:1px dashed var(--fix);padding:10px 16px;margin:16px 0;max-width:72ch;background:var(--fix-soft)}
+details.teacher summary{cursor:pointer;font-weight:600;color:var(--fix)}
+details.teacher ol{margin-top:10px}
+footer{margin-top:48px;border-top:1px solid var(--line);padding-top:16px;font-size:14px;color:var(--ink2)}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Fișă de curs · Aparate electrice · Școala de maiștri electricieni</div>
+  <h1>MCB, MCCB, DDR (RCCB) și RCBO — ce sunt și prin ce diferă</h1>
+  <p class="lead">Ce sunt întreruptoarele automate modulare (MCB), întreruptoarele în carcasă turnată (MCCB), dispozitivele diferențiale (DDR / RCCB) și întreruptoarele diferențiale combinate (RCBO): cum sunt construite, cum funcționează, ce valori au și unde le cere Normativul I7-2011.</p>
+  <div class="legend">
+    <span><span class="sw" style="background:var(--acc)"></span>Casetă albastră = prevedere din Normativul I7-2011</span>
+  </div>
+</header>
+
+<h2>1. De ce avem nevoie de mai multe tipuri de aparate</h2>
+<p>Într-o instalație electrică apar trei categorii de situații periculoase, iar fiecare este tratată de altă funcție de protecție:</p>
+<ul>
+  <li><b>Suprasarcina</b> — curentul depășește lent valoarea admisibilă a conductorului (prea mulți consumatori pe același circuit). Izolația se încălzește și îmbătrânește.</li>
+  <li><b>Scurtcircuitul</b> — contact direct între faze sau între fază și neutru; curentul crește de sute sau mii de ori într-o fracțiune de secundă.</li>
+  <li><b>Curentul de defect spre pământ</b> — o parte din curent „scapă” din circuit printr-o izolație deteriorată sau prin corpul unei persoane. Este de ordinul miliamperilor, deci un întreruptor automat obișnuit nu îl vede.</li>
+</ul>
+<p>Primele două se numesc în I7 <b>supracurenți</b> și sunt tratate de întreruptoarele automate (MCB, MCCB). A treia este tratată de dispozitivele diferențiale (DDR). RCBO este aparatul care le face pe toate trei.</p>
+
+<div class="i7"><div class="t">Normativ I7-2011</div>
+<p><b>Art. 4.3.1.1</b> — conductoarele active ale circuitelor trebuie protejate împotriva supracurenților datorați suprasarcinilor sau scurtcircuitelor; protecția la suprasarcină trebuie coordonată cu cea la scurtcircuit (art. 4.3.6.1 și 4.3.6.2).</p>
+<p><b>Art. 4.3.1.2</b> — enumeră tipurile de dispozitive: pentru suprasarcină (relee termice, disjunctoare, siguranțe fuzibile), pentru scurtcircuit (disjunctoare cu declanșatoare rapide, siguranțe fuzibile) și pentru ambele (disjunctoare cu relee de supracurent și declanșatoare rapide).</p>
+<p><b>Definiție (cap. 6)</b> — <i>disjunctor (întreruptor automat)</i>: aparat de comutație apt de a stabili, suporta și întrerupe curenții în condiții normale ale circuitului, precum și de a stabili, suporta o perioadă specificată și întrerupe curenții în condiții anormale (scurtcircuit etc.).</p>
+</div>
+
+<h2>2. MCB — întreruptorul automat modular (siguranța automată)</h2>
+<p><b>MCB</b> (<i>Miniature Circuit Breaker</i>) este întreruptorul automat modular cu montaj pe șină DIN de 35 mm, un modul lățime = 17,5 mm/pol. Se fabrică după <b>SR EN 60898-1</b> (uz casnic și similar) și protejează circuitul la <b>suprasarcină</b> și la <b>scurtcircuit</b>. Nu detectează curenți de defect spre pământ.</p>
+
+<figure class="fig">
+<svg viewBox="0 0 860 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Structura internă a unui întreruptor automat modular">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+<!-- carcasă -->
+<rect x="200" y="20" width="360" height="360" rx="8" fill="none" stroke="var(--ink)" stroke-width="2"/>
+<text x="380" y="45" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink2)">carcasă modulară 17,5 mm</text>
+<!-- borne -->
+<rect x="360" y="0" width="40" height="30" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="380" y="20" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">1</text>
+<rect x="360" y="370" width="40" height="30" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="380" y="390" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">2</text>
+<!-- cale de curent -->
+<line x1="380" y1="30" x2="380" y2="70" stroke="var(--cu)" stroke-width="4"/>
+<!-- contacte -->
+<line x1="380" y1="70" x2="380" y2="90" stroke="var(--cu)" stroke-width="4"/>
+<line x1="380" y1="90" x2="352" y2="130" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>
+<circle cx="380" cy="90" r="4" fill="var(--ink)"/>
+<circle cx="380" cy="140" r="4" fill="var(--ink)"/>
+<text x="330" y="112" text-anchor="end" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink)">contact mobil</text>
+<line x1="380" y1="140" x2="380" y2="180" stroke="var(--cu)" stroke-width="4"/>
+<!-- camera de stingere -->
+<g stroke="var(--fe)" stroke-width="3">
+<line x1="410" y1="80" x2="470" y2="80"/><line x1="410" y1="95" x2="470" y2="95"/><line x1="410" y1="110" x2="470" y2="110"/><line x1="410" y1="125" x2="470" y2="125"/><line x1="410" y1="140" x2="470" y2="140"/>
+</g>
+<text x="480" y="115" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink)">cameră de stingere</text>
+<text x="480" y="132" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink)">a arcului electric</text>
+<!-- bobina electromagnetica -->
+<rect x="356" y="180" width="48" height="70" fill="var(--acc-soft)" stroke="var(--acc)" stroke-width="2"/>
+<g stroke="var(--cu)" stroke-width="3" fill="none">
+<path d="M362 188 q9 -6 18 0 q9 6 18 0"/><path d="M362 203 q9 -6 18 0 q9 6 18 0"/><path d="M362 218 q9 -6 18 0 q9 6 18 0"/><path d="M362 233 q9 -6 18 0 q9 6 18 0"/>
+</g>
+<line x1="380" y1="250" x2="380" y2="280" stroke="var(--cu)" stroke-width="4"/>
+<text x="330" y="205" text-anchor="end" font-family="IBM Plex Sans, sans-serif" font-size="13" font-weight="600" fill="var(--ink)">Declanșator electromagnetic</text>
+<text x="330" y="222" text-anchor="end" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink2)">(bobină + armătură)</text>
+<text x="330" y="239" text-anchor="end" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink2)">→ scurtcircuit, instantaneu</text>
+<!-- bimetal -->
+<path d="M380 280 q-30 20 -8 50 q10 12 8 30" fill="none" stroke="var(--cu)" stroke-width="4"/>
+<path d="M386 280 q-30 20 -8 50 q10 12 8 30" fill="none" stroke="var(--fe)" stroke-width="4"/>
+<line x1="382" y1="360" x2="380" y2="370" stroke="var(--cu)" stroke-width="4"/>
+<text x="330" y="308" text-anchor="end" font-family="IBM Plex Sans, sans-serif" font-size="13" font-weight="600" fill="var(--ink)">Declanșator termic</text>
+<text x="330" y="325" text-anchor="end" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink2)">(lamelă bimetalică)</text>
+<text x="330" y="342" text-anchor="end" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink2)">→ suprasarcină, temporizat</text>
+<!-- mecanism -->
+<rect x="440" y="180" width="90" height="120" rx="4" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="485" y="235" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink)">mecanism</text>
+<text x="485" y="252" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink)">cu zăvorâre</text>
+<line x1="404" y1="215" x2="438" y2="215" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="392" y1="320" x2="438" y2="290" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="485" y1="180" x2="485" y2="160" stroke="var(--ink)" stroke-width="1.5"/>
+<line x1="485" y1="160" x2="366" y2="118" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#ah)"/>
+<!-- maneta -->
+<rect x="530" y="200" width="30" height="60" rx="3" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<line x1="545" y1="200" x2="545" y2="150" stroke="var(--ink)" stroke-width="6" stroke-linecap="round"/>
+<text x="600" y="185" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink)">manetă</text>
+<text x="600" y="202" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink2)">I / 0</text>
+<!-- curbe -->
+<text x="20" y="45" font-family="IBM Plex Sans, sans-serif" font-size="13" font-weight="600" fill="var(--ink)">Curbe de declanșare</text>
+<text x="20" y="65" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink)">(SR EN 60898-1)</text>
+<text x="20" y="95" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">B : 3 … 5 × In</text>
+<text x="20" y="115" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">C : 5 … 10 × In</text>
+<text x="20" y="135" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">D : 10 … 20 × In</text>
+<text x="20" y="165" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">= curentul la care acționează</text>
+<text x="20" y="181" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">declanșatorul electromagnetic</text>
+</svg>
+<figcaption><b>Fig. 1.</b> Un pol de întreruptor automat modular. Curentul trece prin lamela bimetalică (protecție termică, la suprasarcină) și prin bobina electromagnetică (protecție la scurtcircuit). Oricare dintre ele acționează mecanismul, care deschide contactul; arcul este stins în camera cu plăci feromagnetice.</figcaption>
+</figure>
+
+<h3>Cum funcționează</h3>
+<ul>
+  <li><b>Declanșatorul termic</b> — o lamelă bimetalică parcursă de curent; la suprasarcină se încălzește, se curbează și, după un timp invers proporțional cu supracurentul (secunde… minute), eliberează mecanismul. Reglajul este fix, din fabrică.</li>
+  <li><b>Declanșatorul electromagnetic</b> — o bobină cu armătură mobilă; la scurtcircuit forța magnetică deschide contactul în câteva milisecunde, fără temporizare. Pragul depinde de curba aparatului (B, C sau D).</li>
+</ul>
+
+<h3>Fotografii — construcția reală a unui MCB</h3><div class="photos"><figure class="ph "><img src="img/foto01-mcb-inchis.jpg" alt="<b>Foto 1.</b> Întreruptor automat modular cu capacul scos, în poziția <b>ÎNCHIS" loading="lazy"><figcaption><b>Foto 1.</b> Întreruptor automat modular cu capacul scos, în poziția <b>ÎNCHIS</b>. Sus: contactul mobil pe pârghia manetei (galben). Centru: bobina declanșatorului electromagnetic cu spire de cupru. Jos-dreapta: lamela bimetalică (bandă lată) și legătura flexibilă. Roșu: camera de stingere cu plăci feromagnetice. Scala în mm arată gabaritul (17,5 mm).</figcaption><div class="cr">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Circuit_breaker_structure_ON.JPG">Wikimedia Commons — File:Circuit_breaker_structure_ON.JPG</a> · autor: Kae · licență: <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></div></figure><figure class="ph "><img src="img/foto02-mcb-deschis.jpg" alt="<b>Foto 2.</b> Același aparat în poziția <b>DESCHIS</b>: contactul mobil s-a rid" loading="lazy"><figcaption><b>Foto 2.</b> Același aparat în poziția <b>DESCHIS</b>: contactul mobil s-a ridicat de pe cel fix, arcul rezidual este împins în camera de stingere de câmpul magnetic al buclei de curent.</figcaption><div class="cr">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Circuit_breaker_structure_OFF.JPG">Wikimedia Commons — File:Circuit_breaker_structure_OFF.JPG</a> · autor: Kae · licență: <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></div></figure><figure class="ph small"><img src="img/foto03-mcb-repere.jpg" alt="<b>Foto 3.</b> MCB deschis, cu reperele numerotate:" loading="lazy"><figcaption><b>Foto 3.</b> MCB deschis, cu reperele numerotate:<ol><li>maneta de acționare</li><li>mecanismul cu zăvorâre</li><li>contactele (fix și mobil)</li><li>bornele de racord</li><li>lamela bimetalică (termic)</li><li>șurub de calibrare a termicului</li><li>bobina electromagnetului (scurtcircuit)</li><li>camera de stingere a arcului</li></ol></figcaption><div class="cr">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Circuitbreaker.jpg">Wikimedia Commons — File:Circuitbreaker.jpg</a> · autor: Ali@gwc.org.uk · licență: <a href="https://creativecommons.org/licenses/by-sa/2.5/">CC BY-SA 2.5</a></div></figure><figure class="ph "><img src="img/foto04-camera-stingere.jpg" alt="<b>Foto 4.</b> Camera de stingere demontată: pachet de plăci de oțel care fragme" loading="lazy"><figcaption><b>Foto 4.</b> Camera de stingere demontată: pachet de plăci de oțel care fragmentează arcul electric în arcuri scurte înseriate, răcindu-l și stingându-l la trecerea prin zero.</figcaption><div class="cr">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Arc_chute_from_MCB.JPG">Wikimedia Commons — File:Arc_chute_from_MCB.JPG</a> · autor: Dmitry G · licență: <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></div></figure><figure class="ph "><img src="img/foto05-bimetal.jpg" alt="<b>Foto 5.</b> Lamela bimetalică cu cordonul flexibil de cupru. La suprasarcină " loading="lazy"><figcaption><b>Foto 5.</b> Lamela bimetalică cu cordonul flexibil de cupru. La suprasarcină se încălzește și se curbează, acționând clichetul mecanismului; timpul de declanșare scade cu cât supracurentul este mai mare.</figcaption><div class="cr">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Bimetallic_strip_from_circuit_breaker.JPG">Wikimedia Commons — File:Bimetallic_strip_from_circuit_breaker.JPG</a> · autor: Dmitry G · licență: <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></div></figure><figure class="ph "><img src="img/foto06-bobina.jpg" alt="<b>Foto 6.</b> Bobina declanșatorului electromagnetic cu armătura (plunjerul) mo" loading="lazy"><figcaption><b>Foto 6.</b> Bobina declanșatorului electromagnetic cu armătura (plunjerul) mobilă. La 5 … 10 × In (curba C) forța magnetică deschide contactele în câteva milisecunde.</figcaption><div class="cr">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Coil_from_circuit_breaker.JPG">Wikimedia Commons — File:Coil_from_circuit_breaker.JPG</a> · autor: Dmitry G · licență: <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></div></figure></div><h3>Valori caracteristice</h3>
+<div class="tw"><table>
+<tr><th>Caracteristică</th><th>Valori uzuale MCB (SR EN 60898-1)</th></tr>
+<tr><td class="k">Curent nominal In</td><td class="num">6, 10, 13, 16, 20, 25, 32, 40, 50, 63 A (gama completă 0,5 … 125 A)</td></tr>
+<tr><td class="k">Capacitate de rupere Icn</td><td class="num">3, 4,5, <b>6</b>, <b>10</b>, 15, 20, 25 kA (uzual 6 kA în locuințe, 10 kA în tablouri generale)</td></tr>
+<tr><td class="k">Curbă de declanșare</td><td>B (circuite de iluminat, prize, cabluri lungi), C (uz general, motoare mici), D (transformatoare, curenți mari de pornire)</td></tr>
+<tr><td class="k">Număr de poli</td><td>1P, 1P+N, 2P, 3P, 3P+N, 4P</td></tr>
+<tr><td class="k">Reglaje</td><td>fără reglaje; caracteristica este fixă</td></tr>
+<tr><td class="k">Tensiune nominală</td><td class="num">230/400 V c.a., 50 Hz</td></tr>
+</table></div>
+
+
+<div class="i7"><div class="t">Normativ I7-2011</div>
+<p><b>Art. 4.3.2.1.3</b> — condițiile de coordonare între întreruptorul automat și conductor: <span class="m">Ic ≤ In ≤ Iadm</span> și <span class="m">I2 ≤ 1,45·Iadm</span>, unde Ic este curentul de calcul al circuitului, In curentul nominal al aparatului (sau curentul de reglaj Ir la aparatele reglabile), Iadm curentul admisibil al conductorului cu coeficienții de corecție, iar I2 curentul convențional de declanșare (1,45·In la MCB conform SR EN 60898-1, deci a doua condiție este îndeplinită automat dacă In ≤ Iadm).</p>
+<p><b>Art. 4.3.5.1</b> — capacitatea de rupere trebuie să fie cel puțin egală cu curentul de scurtcircuit prezumat la locul de instalare; se admite una mai mică numai dacă în amonte există un aparat cu capacitatea necesară, cu caracteristici coordonate (filiație).</p>
+<p><b>Art. 4.3.5.2</b> — scurtcircuitul trebuie întrerupt înainte ca conductorul să atingă temperatura maximă admisibilă: <span class="m">√t = k·S / I</span> (t în s, S în mm², I curentul de scurtcircuit în A, k din tabelul 5.13).</p>
+<p><b>Art. 5.3.4.0.3</b> — în circuitele monofazate se prevăd dispozitive bipolare (2P sau 1P+N); în locuințe, întreruptoare bipolare cu protecție la suprasarcină și scurtcircuit cel puțin pe conductorul de fază (1P+N).</p>
+<p><b>Art. 5.3.4.3</b> — alegerea dispozitivelor de protecție la supracurent se face conform subcap. 4.3 și standardelor SR EN 60269 (siguranțe), SR EN 60898 și SR EN 60947 (întreruptoare).</p>
+</div>
+
+<h2>3. MCCB — întreruptorul automat în carcasă turnată</h2>
+<p><b>MCCB</b> (<i>Moulded Case Circuit Breaker</i>), numit în practică și <i>întreruptor compact</i>, este întreruptorul automat pentru curenți mari, fabricat după <b>SR EN 60947-2</b> (aparataj industrial). Face aceleași două funcții ca MCB-ul (suprasarcină + scurtcircuit), dar pe o gamă de curenți și de capacități de rupere mult mai mare și cu <b>declanșatoare reglabile</b>.</p>
+
+<figure class="fig">
+<svg viewBox="0 0 860 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Comparație MCB și MCCB: gabarit, curenți și capacitate de rupere">
+<!-- MCB -->
+<g>
+<rect x="60" y="120" width="36" height="150" rx="3" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<rect x="66" y="175" width="24" height="40" rx="2" fill="var(--acc-soft)" stroke="var(--ink)" stroke-width="1.5"/>
+<line x1="78" y1="215" x2="78" y2="200" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>
+<rect x="66" y="128" width="24" height="10" fill="var(--fe)"/><rect x="66" y="252" width="24" height="10" fill="var(--fe)"/>
+<text x="78" y="105" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink2)">17,5 mm</text>
+<text x="150" y="60" font-family="IBM Plex Sans, sans-serif" font-size="18" font-weight="700" fill="var(--ink)">MCB</text>
+<text x="150" y="82" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink2)">SR EN 60898-1 · uz casnic și similar</text>
+<text x="150" y="130" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">In   : 0,5 … 125 A</text>
+<text x="150" y="152" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Icn  : 3 … 25 kA (uzual 6–10)</text>
+<text x="150" y="174" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Reglaj: fix (curbă B/C/D)</text>
+<text x="150" y="196" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Poli : 1P … 4P</text>
+<text x="150" y="218" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Montaj: șină DIN 35 mm</text>
+<text x="150" y="250" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink2)">circuite finale: iluminat, prize,</text>
+<text x="150" y="268" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink2)">boiler, plită, receptoare mici</text>
+</g>
+<line x1="430" y1="40" x2="430" y2="300" stroke="var(--line)" stroke-width="1.5"/>
+<!-- MCCB -->
+<g>
+<rect x="460" y="90" width="120" height="200" rx="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<rect x="490" y="150" width="60" height="70" rx="3" fill="var(--acc-soft)" stroke="var(--ink)" stroke-width="1.5"/>
+<line x1="520" y1="215" x2="520" y2="185" stroke="var(--ink)" stroke-width="7" stroke-linecap="round"/>
+<g fill="var(--fe)"><rect x="470" y="98" width="24" height="16"/><rect x="508" y="98" width="24" height="16"/><rect x="546" y="98" width="24" height="16"/><rect x="470" y="266" width="24" height="16"/><rect x="508" y="266" width="24" height="16"/><rect x="546" y="266" width="24" height="16"/></g>
+<circle cx="485" cy="245" r="7" fill="none" stroke="var(--fix)" stroke-width="2"/><circle cx="520" cy="245" r="7" fill="none" stroke="var(--fix)" stroke-width="2"/><circle cx="555" cy="245" r="7" fill="none" stroke="var(--fix)" stroke-width="2"/>
+<text x="520" y="75" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink2)">≈ 90 … 300 mm</text>
+<text x="520" y="312" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--fix)">reglaje Ir, Isd, Ii</text>
+<text x="610" y="60" font-family="IBM Plex Sans, sans-serif" font-size="18" font-weight="700" fill="var(--ink)">MCCB</text>
+<text x="610" y="82" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink2)">SR EN 60947-2 · industrial</text>
+<text x="610" y="130" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">In   : 16 … 1600 A</text>
+<text x="610" y="152" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Icu  : 16 … 100 kA (până la 200)</text>
+<text x="610" y="174" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Reglaj: termic + magnetic /</text>
+<text x="610" y="192" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">        electronic reglabil</text>
+<text x="610" y="214" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Poli : 3P, 4P (și 1P, 2P)</text>
+<text x="610" y="236" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">Montaj: placă / șasiu</text>
+<text x="610" y="266" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink2)">întreruptor general, coloane,</text>
+<text x="610" y="284" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink2)">motoare mari, tablouri industriale</text>
+</g>
+</svg>
+<figcaption><b>Fig. 2.</b> Ordinul de mărime al celor două familii. Un MCCB tipic (de exemplu Schneider Compact NSX100 … NSX630, Schrack MC1 … MC3) are borne pentru cabluri de 16 … 300 mm² sau bare și un declanșator cu butoane rotative sau afișaj pentru reglaje.</figcaption>
+</figure>
+
+<figure class="fig">
+<svg viewBox="0 0 900 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Secțiune longitudinală printr-un pol de MCCB">
+<defs><marker id="ah5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+<!-- carcasă turnată -->
+<path d="M120 60 H700 V400 H120 Z" fill="none" stroke="var(--ink)" stroke-width="3"/>
+<path d="M120 60 H700 V400 H120 Z" fill="var(--paper)"/>
+<line x1="120" y1="60" x2="700" y2="60" stroke="var(--ink)" stroke-width="3"/><line x1="120" y1="400" x2="700" y2="400" stroke="var(--ink)" stroke-width="3"/>
+<line x1="120" y1="60" x2="120" y2="400" stroke="var(--ink)" stroke-width="3"/><line x1="700" y1="60" x2="700" y2="400" stroke="var(--ink)" stroke-width="3"/>
+<text x="410" y="425" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink2)">carcasă din rășină termorigidă (moulded case) — pereți despărțitori între poli</text>
+<!-- borna amonte (stânga) -->
+<rect x="60" y="200" width="70" height="26" fill="var(--cu)" stroke="var(--ink)" stroke-width="1.5"/>
+<circle cx="80" cy="213" r="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="95" y="250" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)">bornă amonte</text>
+<text x="95" y="265" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">(cablu / bară)</text>
+<!-- contact fix -->
+<path d="M130 213 H200 V150 H215" fill="none" stroke="var(--cu)" stroke-width="7"/>
+<rect x="215" y="142" width="22" height="14" fill="var(--fe)" stroke="var(--ink)" stroke-width="1"/>
+<text x="150" y="120" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)">contact fix</text>
+<line x1="185" y1="124" x2="222" y2="140" stroke="var(--ink)" stroke-width="1" marker-end="url(#ah5)"/>
+<!-- contact mobil pe brat rotativ -->
+<g transform="rotate(-28 300 215)">
+<path d="M300 215 L235 165" stroke="var(--cu)" stroke-width="8" stroke-linecap="round"/>
+<rect x="228" y="152" width="22" height="14" fill="var(--fe)" stroke="var(--ink)" stroke-width="1"/>
+</g>
+<circle cx="300" cy="215" r="10" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="330" y="112" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)">contact mobil (braț rotativ,</text>
+<text x="330" y="127" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)">deschis de forțele electrodinamice</text>
+<text x="330" y="142" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)">la scurtcircuit — limitare de curent)</text>
+<line x1="328" y1="135" x2="275" y2="160" stroke="var(--ink)" stroke-width="1" marker-end="url(#ah5)"/>
+<!-- camera de stingere -->
+<g stroke="var(--fe)" stroke-width="4">
+<line x1="150" y1="78" x2="205" y2="70"/><line x1="150" y1="92" x2="205" y2="84"/><line x1="150" y1="106" x2="205" y2="98"/><line x1="150" y1="120" x2="205" y2="112"/>
+</g>
+<text x="140" y="150" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)" transform="rotate(0)">cameră de stingere</text>
+<!-- brat mobil -> mecanism -->
+<line x1="300" y1="215" x2="300" y2="300" stroke="var(--ink)" stroke-width="2" stroke-dasharray="5 3"/>
+<!-- mecanism -->
+<rect x="255" y="300" width="130" height="80" rx="4" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="320" y="330" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)">mecanism cu</text>
+<text x="320" y="345" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)">acumulare de energie</text>
+<text x="320" y="360" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">(arcuri, clichet, zăvor)</text>
+<!-- maneta -->
+<rect x="285" y="34" width="70" height="26" rx="3" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<line x1="320" y1="34" x2="320" y2="10" stroke="var(--ink)" stroke-width="7" stroke-linecap="round"/>
+<text x="365" y="26" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)">manetă (I / 0 / declanșat)</text>
+<line x1="320" y1="60" x2="320" y2="300" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="5 3"/>
+<!-- bara de declansare -->
+<line x1="385" y1="340" x2="470" y2="340" stroke="var(--ink)" stroke-width="3"/>
+<text x="428" y="360" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)">bară de declanșare</text>
+<text x="428" y="375" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">comună celor 3 poli</text>
+<!-- cale de curent dupa contact mobil -> declansator -->
+<path d="M300 215 H470 V180" fill="none" stroke="var(--cu)" stroke-width="7"/>
+<!-- bloc declansator -->
+<rect x="440" y="80" width="230" height="230" rx="4" fill="var(--acc-soft)" stroke="var(--acc)" stroke-width="2"/>
+<text x="555" y="100" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="13" font-weight="600" fill="var(--ink)">bloc declanșator (trip unit)</text>
+<text x="555" y="116" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">interschimbabil: termic-magnetic sau electronic</text>
+<!-- bimetal -->
+<path d="M470 180 q-20 -25 0 -50" fill="none" stroke="var(--cu)" stroke-width="6"/>
+<path d="M476 180 q-20 -25 0 -50" fill="none" stroke="var(--fe)" stroke-width="6"/>
+<text x="490" y="145" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)">bimetal → Ir</text>
+<text x="490" y="160" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">(suprasarcină)</text>
+<!-- electromagnet -->
+<path d="M470 130 H600 V220" fill="none" stroke="var(--cu)" stroke-width="7"/>
+<rect x="580" y="220" width="40" height="50" fill="var(--paper)" stroke="var(--acc)" stroke-width="2"/>
+<g stroke="var(--cu)" stroke-width="3" fill="none"><path d="M584 228 q8 -5 16 0 q8 5 16 0"/><path d="M584 242 q8 -5 16 0 q8 5 16 0"/><path d="M584 256 q8 -5 16 0 q8 5 16 0"/></g>
+<rect x="560" y="232" width="18" height="26" fill="var(--fe)" stroke="var(--ink)" stroke-width="1"/>
+<text x="630" y="240" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)">electromagnet</text>
+<text x="630" y="255" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)">→ Im / Isd</text>
+<text x="630" y="270" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">(scurtcircuit)</text>
+<!-- butoane reglaj -->
+<circle cx="480" cy="290" r="10" fill="var(--paper)" stroke="var(--fix)" stroke-width="2"/><line x1="480" y1="282" x2="480" y2="290" stroke="var(--fix)" stroke-width="2"/>
+<circle cx="520" cy="290" r="10" fill="var(--paper)" stroke="var(--fix)" stroke-width="2"/><line x1="513" y1="285" x2="520" y2="290" stroke="var(--fix)" stroke-width="2"/>
+<text x="540" y="294" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--fix)">Ir   Im  — reglaje pe față</text>
+<!-- armatura -> bara -->
+<line x1="560" y1="262" x2="470" y2="335" stroke="var(--ink)" stroke-width="1" marker-end="url(#ah5)"/>
+<line x1="462" y1="160" x2="440" y2="335" stroke="var(--ink)" stroke-width="1" marker-end="url(#ah5)"/>
+<!-- borna aval -->
+<path d="M600 220 V300 H700" fill="none" stroke="var(--cu)" stroke-width="7"/>
+<rect x="690" y="287" width="70" height="26" fill="var(--cu)" stroke="var(--ink)" stroke-width="1.5"/>
+<circle cx="740" cy="300" r="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="725" y="335" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)">bornă aval</text>
+<!-- accesorii -->
+<rect x="710" y="80" width="150" height="120" rx="4" fill="none" stroke="var(--line)" stroke-width="1.5"/>
+<text x="785" y="100" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" font-weight="600" fill="var(--ink)">locaș accesorii</text>
+<text x="785" y="120" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--ink2)">bobină MX (deschidere)</text>
+<text x="785" y="136" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--ink2)">bobină MN (tens. minimă)</text>
+<text x="785" y="152" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--ink2)">contacte OF / SD / SDE</text>
+<text x="785" y="168" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--ink2)">motorizare</text>
+<line x1="710" y1="140" x2="672" y2="140" stroke="var(--ink)" stroke-width="1" stroke-dasharray="3 2"/>
+</svg>
+<figcaption><b>Fig. 2b.</b> Secțiune schematică printr-un pol de MCCB cu declanșator termic-magnetic (după construcția uzuală Compact NSX / Tmax / MC). Deosebiri față de MCB: contact mobil pe braț rotativ, deschis direct de forțele electrodinamice la scurtcircuit (limitare de curent, deci Icu mare), bloc declanșator separat și interschimbabil cu reglaje pe față, bară de declanșare comună celor trei poli și locaș pentru accesorii. Pentru fotografii de catalog vezi lista de la „Surse cu imagini”.</figcaption>
+</figure><h3>Fotografii — MCCB</h3><div class="photos"><figure class="ph "><img src="img/foto07-mccb-ns250n.jpg" alt="<b>Foto 7.</b> Merlin Gerin Compact NS250N, 3P, declanșator TM 200 D: jos se văd" loading="lazy"><figcaption><b>Foto 7.</b> Merlin Gerin Compact NS250N, 3P, declanșator TM 200 D: jos se văd cele două butoane rotative de reglaj — <b>Ir</b> (termic, 0,8 … 1 × 200 A) și <b>Im</b> (magnetic, 5 … 10 × Ir). Pe etichetă: tabelul Icu (kA) în funcție de tensiune, conform IEC 947-2.</figcaption><div class="cr">Sursa: <a href="https://commons.wikimedia.org/wiki/File:MCCB_Merlin_Gerin_compact_NS250N_%28front_side%29.jpg">Wikimedia Commons — File:MCCB_Merlin_Gerin_compact_NS250N_(front_side).jpg</a> · autor: Pui108108 · licență: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></div></figure><figure class="ph "><img src="img/foto08-mccb-tmax-630a.jpg" alt="<b>Foto 8.</b> ABB SACE Tmax 630 A montat ca întreruptor general pentru un UPS d" loading="lazy"><figcaption><b>Foto 8.</b> ABB SACE Tmax 630 A montat ca întreruptor general pentru un UPS de 300 kVA: borne pentru bare, declanșator electronic, buton roșu „declanșat”.</figcaption><div class="cr">Sursa: <a href="https://commons.wikimedia.org/wiki/File:630_Amps_Molded_Case_Circuit_Breaker.jpg">Wikimedia Commons — File:630_Amps_Molded_Case_Circuit_Breaker.jpg</a> · autor: Balurbala · licență: <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></div></figure><figure class="ph "><img src="img/foto09-mccb-deschis.jpg" alt="<b>Foto 9.</b> MCCB tripolar mic (30 A), cu capacul scos: cele trei căi de curen" loading="lazy"><figcaption><b>Foto 9.</b> MCCB tripolar mic (30 A), cu capacul scos: cele trei căi de curent identice — borne masive cu șurub, contacte în camere separate de bariere izolante, bobine de cupru ale declanșatoarelor magnetice (jos) și bara comună a mecanismului care leagă cei trei poli (manevră simultană, I7 art. 5.3.4.0.2).</figcaption><div class="cr">Sursa: <a href="https://commons.wikimedia.org/wiki/File:MCCB_3P3E_30A_inside.jpg">Wikimedia Commons — File:MCCB_3P3E_30A_inside.jpg</a> · autor: BnonB · licență: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></div></figure></div><h3>Ce înseamnă „declanșator reglabil”</h3>
+<p>La un MCCB se pot regla, în funcție de model:</p>
+<ul>
+  <li><b>Ir</b> — curentul de reglaj al protecției la suprasarcină (termice), de obicei 0,7 … 1 × In (la declanșatoare electronice 0,4 … 1 × In);</li>
+  <li><b>Isd / Im</b> — pragul protecției la scurtcircuit cu scurtă temporizare (de exemplu 1,5 … 10 × Ir);</li>
+  <li><b>Ii</b> — pragul declanșării instantanee;</li>
+  <li>temporizările tsd, tr — pentru realizarea selectivității cronometrice cu aparatele din aval.</li>
+</ul>
+<p>Din această cauză, în relația din I7 art. 4.3.2.1.3, la aparatele reglabile se folosește <span class="m">Ir</span> în locul lui <span class="m">In</span>.</p>
+
+<h3>Accesorii care nu există la MCB (sau există limitat)</h3>
+<ul>
+  <li><b>declanșator de tensiune minimă</b> (deschide la dispariția tensiunii);</li>
+  <li><b>declanșator de deschidere prin bobină</b> (deschidere de la distanță, de la un buton de oprire de urgență sau de la un sistem de detecție incendiu);</li>
+  <li><b>motorizare</b> — închidere/deschidere de la distanță, folosită la AAR (anclanșarea automată a rezervei) și la comanda din SCADA;</li>
+  <li><b>contacte auxiliare</b> de semnalizare (poziție, declanșat pe defect);</li>
+  <li><b>execuție debroșabilă</b>.</li>
+</ul><div class="photos"><figure class="ph "><img src="img/foto10-bobina-mx.jpg" alt="<b>Foto 10.</b> Bobină de declanșare MX (Merlin Gerin) — accesoriul care se mont" loading="lazy"><figcaption><b>Foto 10.</b> Bobină de declanșare MX (Merlin Gerin) — accesoriul care se montează lateral pe un MCB sau MCCB pentru <b>deschidere de la distanță</b>: alimentată la 12 … 415 V, împinge mecanismul aparatului în poziția deschis. Pe etichetă, schema de racordare și contactul auxiliar OF.</figcaption><div class="cr">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Circuit_breaker_IMG_8455.JPG">Wikimedia Commons — File:Circuit_breaker_IMG_8455.JPG</a> · autor: 01x07x2022000 · licență: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a></div></figure></div>
+
+
+<div class="tw"><table>
+<tr><th>Criteriu</th><th>MCB</th><th>MCCB</th></tr>
+<tr><td class="k">Standard</td><td>SR EN 60898-1</td><td>SR EN 60947-2</td></tr>
+<tr><td class="k">Curent nominal</td><td class="num">0,5 … 125 A</td><td class="num">16 … 1600 A</td></tr>
+<tr><td class="k">Capacitate de rupere</td><td class="num">Icn 3 … 25 kA</td><td class="num">Icu 16 … 100 kA (max. 200 kA)</td></tr>
+<tr><td class="k">Declanșatoare</td><td>termic + electromagnetic, fixe (curbe B, C, D)</td><td>termic-magnetic sau electronic, reglabile (Ir, Isd, Ii, temporizări)</td></tr>
+<tr><td class="k">Poli</td><td>1P, 1P+N, 2P, 3P, 3P+N, 4P</td><td>3P, 4P (1P și 2P mai rar)</td></tr>
+<tr><td class="k">Montaj</td><td>șină DIN 35 mm</td><td>placă de montaj, șasiu, debroșabil</td></tr>
+<tr><td class="k">Comandă la distanță</td><td>posibilă cu accesorii, rar folosită</td><td>curentă (bobine MX/MN, motorizare)</td></tr>
+<tr><td class="k">Utilizare tipică</td><td>circuite finale în locuințe, birouri, tablouri secundare</td><td>întreruptor general de tablou, coloane, motoare mari, industrie</td></tr>
+</table></div>
+
+<h2>4. DDR — dispozitivul de protecție la curent diferențial rezidual</h2>
+<p>Pentru aceeași familie de aparate circulă mai multe prescurtări. Iată ce înseamnă fiecare:</p>
+<div class="grid2">
+  <div class="card"><h4>RCD</h4><p><i>Residual Current Device</i> — <b>termenul generic</b> pentru orice aparat care detectează curentul diferențial rezidual. În I7 se numește <b>DDR</b> (dispozitiv de protecție la curent diferențial rezidual).</p></div>
+  <div class="card"><h4>RCCB</h4><p><i>Residual Current Circuit Breaker</i> — DDR <b>fără</b> protecție la supracurent (SR EN 61008-1). În limbaj curent: „întreruptor diferențial” sau „diferențial simplu”. Trebuie protejat în amonte de un MCB sau de siguranțe.</p></div>
+  <div class="card"><h4>RCBO</h4><p><i>Residual Current circuit Breaker with Overcurrent protection</i> — DDR <b>cu</b> protecție la supracurent integrată (SR EN 61009-1). În limbaj curent: „disjunctor diferențial”, „diferențial combinat”.</p></div>
+  <div class="card"><h4>„RCB”, „ELCB”</h4><p>Prescurtări întâlnite în cataloage și pe internet, <b>nestandardizate</b> (nu apar în SR EN 61008, SR EN 61009 sau I7). „ELCB” desemnează de regulă aparatele vechi cu declanșare la tensiune de defect, înlocuite azi de DDR. În documentații folosiți DDR / RCCB / RCBO.</p></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 860 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Principiul de funcționare al dispozitivului diferențial">
+<defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker>
+<marker id="ahf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--fix)"/></marker></defs>
+<!-- conductoare L si N -->
+<text x="30" y="150" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="var(--ink)">L</text>
+<text x="30" y="230" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="500" fill="var(--ink)">N</text>
+<line x1="50" y1="145" x2="600" y2="145" stroke="var(--cu)" stroke-width="3"/>
+<line x1="50" y1="225" x2="600" y2="225" stroke="var(--acc)" stroke-width="3"/>
+<!-- contacte -->
+<g>
+<line x1="150" y1="145" x2="185" y2="118" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/><circle cx="150" cy="145" r="3.5" fill="var(--ink)"/><circle cx="192" cy="145" r="3.5" fill="var(--ink)"/>
+<line x1="150" y1="225" x2="185" y2="198" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/><circle cx="150" cy="225" r="3.5" fill="var(--ink)"/><circle cx="192" cy="225" r="3.5" fill="var(--ink)"/>
+<line x1="170" y1="130" x2="170" y2="212" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="170" y1="212" x2="170" y2="300" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="4 3"/>
+<rect x="150" y="300" width="40" height="30" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="170" y="320" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">Δ</text>
+<text x="170" y="350" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">releu de</text>
+<text x="170" y="365" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">declanșare</text>
+</g>
+<!-- tor -->
+<circle cx="350" cy="185" r="70" fill="none" stroke="var(--fe)" stroke-width="18"/>
+<text x="350" y="60" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="13" font-weight="600" fill="var(--ink)">Transformator de curent toroidal</text>
+<text x="350" y="78" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink2)">L și N trec prin același miez</text>
+<!-- infasurare secundara -->
+<g stroke="var(--cu)" stroke-width="2" fill="none"><path d="M395 235 q6 8 12 0 q6 -8 12 0 q6 8 12 0"/></g>
+<line x1="430" y1="240" x2="430" y2="315" stroke="var(--ink)" stroke-width="1.5"/>
+<line x1="430" y1="315" x2="192" y2="315" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#ah2)"/>
+<text x="440" y="285" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">înfășurare secundară</text>
+<!-- receptor -->
+<rect x="600" y="140" width="50" height="90" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="625" y="190" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)">receptor</text>
+<!-- curenti -->
+<text x="470" y="135" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">I1 →</text>
+<text x="470" y="246" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">← I2</text>
+<!-- defect -->
+<line x1="680" y1="145" x2="720" y2="145" stroke="var(--cu)" stroke-width="3"/>
+<line x1="650" y1="145" x2="680" y2="145" stroke="var(--cu)" stroke-width="3"/>
+<path d="M720 145 l0 40 l-6 10 l12 10 l-12 10 l12 10 l-6 10 l0 20" fill="none" stroke="var(--fix)" stroke-width="2.5"/>
+<text x="735" y="215" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--fix)">defect de izolație</text>
+<text x="735" y="230" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--fix)">sau atingere</text>
+<line x1="720" y1="255" x2="720" y2="300" stroke="var(--fix)" stroke-width="2.5" marker-end="url(#ahf)"/>
+<text x="740" y="285" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--fix)">IΔ</text>
+<!-- pamant -->
+<g stroke="var(--ink)" stroke-width="2"><line x1="700" y1="305" x2="740" y2="305"/><line x1="707" y1="312" x2="733" y2="312"/><line x1="714" y1="319" x2="726" y2="319"/></g>
+<!-- formula -->
+<rect x="470" y="340" width="360" height="62" rx="4" fill="var(--acc-soft)" stroke="var(--acc)" stroke-width="1.5"/>
+<text x="650" y="365" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" fill="var(--ink)">normal:  I1 − I2 = 0   → nu declanșează</text>
+<text x="650" y="388" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" fill="var(--ink)">defect:  I1 − I2 = IΔ ≥ IΔn → declanșează</text>
+</svg>
+<figcaption><b>Fig. 3.</b> Principiul DDR. Conductorul de fază și cel neutru trec prin același miez toroidal. Cât timp curentul care pleacă prin L este egal cu cel care se întoarce prin N, fluxurile se anulează și în secundar nu apare tensiune. Când o parte din curent (IΔ) se scurge la pământ, apare un flux rezultant, releul de declanșare este alimentat și contactele se deschid. Conductorul de protecție PE <b>nu</b> trece prin tor (I7 art. 5.3.4.1.2.1 c).</figcaption>
+</figure>
+
+<h3>Fotografii — construcția reală a unui DDR (RCCB)</h3><div class="photos"><figure class="ph "><img src="img/foto11-rccb-exterior.jpg" alt="<b>Foto 11.</b> RCCB 2P, 100 A, IΔn = 100 mA (tip AC, marcaj ~), cu butonul de t" loading="lazy"><figcaption><b>Foto 11.</b> RCCB 2P, 100 A, IΔn = 100 mA (tip AC, marcaj ~), cu butonul de test T. Pe carcasă: schema internă (tor + releu + buton test) și Inc = IΔc = 3 kA — capacitatea de rupere <b>condiționată</b>, valabilă numai cu siguranță/MCB în amonte.</figcaption><div class="cr">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Residual_current_device_2pole.jpg">Wikimedia Commons — File:Residual_current_device_2pole.jpg</a> · autor: Jimbob82 · licență: domeniu public</div></figure><figure class="ph wide"><img src="img/foto12-rccb-deschis.jpg" alt="<b>Foto 12.</b> RCCB vechi, deschis: se vede clar <b>torul</b> (transformatorul " loading="lazy"><figcaption><b>Foto 12.</b> RCCB vechi, deschis: se vede clar <b>torul</b> (transformatorul de curent sumator) prin care trec conductoarele L și N (fire roșu/alb) și înfășurarea secundară (fir subțire) spre releul de declanșare. PE nu trece prin tor.</figcaption><div class="cr">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Old_Rccb_Breaker.jpg">Wikimedia Commons — File:Old_Rccb_Breaker.jpg</a> · autor: Devinda Vimesh · licență: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></div></figure><figure class="ph small"><img src="img/foto13-rccb-repere.jpg" alt="<b>Foto 13.</b> Interiorul unui RCCB, reperele numerotate:" loading="lazy"><figcaption><b>Foto 13.</b> Interiorul unui RCCB, reperele numerotate:<ol><li>borne de intrare</li><li>borne de ieșire</li><li>buton de reanclanșare</li><li>contacte</li><li>releul electromagnetic de declanșare</li><li>torul (bobina de detecție)</li><li>circuitul de amplificare</li><li>butonul de test</li><li>rezistorul / firul de test</li></ol></figcaption><div class="cr">Sursa: <a href="https://commons.wikimedia.org/wiki/File:ResidualCurrentCircuitBreak.jpg">Wikimedia Commons — File:ResidualCurrentCircuitBreak.jpg</a> · autor: Ali@gwc.org.uk · licență: <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></div></figure><figure class="ph "><img src="img/foto14-releu-ddr.jpg" alt="<b>Foto 14.</b> Releul de declanșare al unui DDR, în carcasă transparentă: magne" loading="lazy"><figcaption><b>Foto 14.</b> Releul de declanșare al unui DDR, în carcasă transparentă: magnet permanent, armătură menținută de câmpul magnetului și o bobină minusculă alimentată din secundarul torului. Un curent de câțiva mA în bobină slăbește câmpul, arcul eliberează armătura și tija roșie lovește clichetul mecanismului. Nu are nevoie de tensiune auxiliară (DDR „electromecanic”, independent de tensiunea rețelei).</figcaption><div class="cr">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Fi_rel%C3%A9_leold%C3%B3_elektromechanikai_modulja.jpg">Wikimedia Commons — File:Fi_relé_leoldó_elektromechanikai_modulja.jpg</a> · autor: Szab · licență: domeniu public</div></figure></div><h3>Curentul diferențial nominal IΔn</h3>
+<div class="tw"><table>
+<tr><th>IΔn</th><th>Rol</th><th>Unde se folosește</th></tr>
+<tr><td class="k num">10 mA</td><td>protecția persoanelor, sensibilitate mărită</td><td>săli de clasă, laboratoare de școală, spitale, piscine</td></tr>
+<tr><td class="k num">30 mA</td><td><b>protecția persoanelor</b> (protecție suplimentară la atingere directă și indirectă)</td><td>prize ≤ 20 A, echipamente mobile în exterior ≤ 32 A, băi, locuințe — I7 art. 4.1.5.2.1, 7.1.3.5</td></tr>
+<tr><td class="k num">100 mA</td><td>protecție la defect + selectivitate intermediară</td><td>circuite de prize &gt; 32 A (I7 art. 7.5.2.1)</td></tr>
+<tr><td class="k num">300 mA</td><td><b>protecția împotriva incendiului</b> și protecție la defect (atingere indirectă)</td><td>la branșament / tablou general — I7 art. 4.2.2.8; obligatoriu la școli, spitale, comerț, turism, construcții din lemn etc.</td></tr>
+<tr><td class="k num">500 mA … 1 A</td><td>protecție la defect, selectivitate în amonte</td><td>tablouri generale industriale, tip S sau cu temporizare (I7 art. 4.1.5.2.8)</td></tr>
+</table></div>
+
+<h3>Tipul DDR după forma curentului de defect</h3>
+<ul>
+  <li><b>Tip AC</b> — detectează numai curent rezidual sinusoidal. Din ce în ce mai puțin folosit; în multe țări UE nu mai este admis pentru circuite noi.</li>
+  <li><b>Tip A</b> — sinusoidal + continuu pulsatoriu (redresoare monofazate: mașini de spălat, plite cu inducție, surse în comutație). <b>Alegerea implicită</b> pentru locuințe.</li>
+  <li><b>Tip F</b> — tip A + curenți cu frecvențe compuse (convertizoare monofazate, pompe de căldură).</li>
+  <li><b>Tip B</b> — tip A + curent continuu neted (convertizoare trifazate, stații de încărcare auto, invertoare fotovoltaice fără separare galvanică).</li>
+</ul>
+
+<div class="i7"><div class="t">Normativ I7-2011</div>
+<p><b>Definiție (cap. 6)</b> — <i>curent diferențial rezidual</i>: suma fazorială a valorilor curenților în toate conductoarele active, la același timp, într-un punct dat al circuitului.</p>
+<p><b>Art. 4.1.5.2.1</b> — în sistemele de tensiune alternativă trebuie prevăzută protecție suplimentară prin DDR cu IΔn ≤ 30 mA pentru: prizele de utilizare generală cu In ≤ 20 A folosite de persoane obișnuite (excepții: prize sub supravegherea personalului calificat și prize dedicate unui anumit echipament) și echipamentele mobile cu In ≤ 32 A pentru utilizări în exterior.</p>
+<p><b>Art. 4.1.5.2.2 – 4.1.5.2.3</b> — DDR ≤ 30 mA este recunoscut ca protecție suplimentară, dar <b>nu ca mijloc unic</b> de protecție; nu înlocuiește măsurile de bază (legare la pământ, întrerupere automată).</p>
+<p><b>Art. 4.1.5.2.4</b> — valorile normalizate IΔn: 6 – 10 – 30 – 100 – 300 – 500 mA și 1 A.</p>
+<p><b>Art. 4.1.5.2.5 – 4.1.5.2.6</b> — clasificarea tip AC, A (casnic, SR EN 61008-1 / 61009-1) și B (industrial, SR EN 60947-2).</p>
+<p><b>Art. 4.1.5.2.7</b> — DDR de uz general: timp de declanșare 40 … 300 ms; tip „S” (selectiv, temporizat): 150 … 500 ms.</p>
+<p><b>Art. 4.1.4.1.11</b> — DDR <b>nu se utilizează în rețele TN-C</b>; în TN-C-S se montează numai pe partea TN-S. Dacă se folosește DDR pentru protecție la defect, circuitul trebuie protejat și la supracurent conform cap. 4.3.</p>
+<p><b>Art. 4.1.4.1.14</b> — în rețele TT: <span class="m">Ra · IΔn ≤ 50 V</span> (Ra = rezistența prizei de pământ + conductor de protecție). Exemplu: cu DDR de 300 mA, Ra ≤ 166 Ω; cu 30 mA, Ra ≤ 1666 Ω.</p>
+<p><b>Art. 4.2.2.8</b> — pentru diminuarea riscului de incendiu: DDR ≤ 300 mA la branșament sau punct de alimentare; obligatoriu la clădiri de învățământ, sănătate, comerț, turism, construcții din lemn, depozite de mărfuri combustibile, săli aglomerate, clădiri înalte etc.</p>
+<p><b>Art. 4.2.2.9</b> — protecție diferențială obligatorie pe circuitele receptoarelor electronice care funcționează nesupravegheate (fax, calculatoare, TVCI, antiefracție).</p>
+<p><b>Art. 5.3.4.1.2.1</b> — DDR trebuie să întrerupă toate conductoarele active; niciun conductor de protecție nu trece prin tor; circuitele se împart astfel încât curenții de fugă din funcționarea normală să nu producă declanșări intempestive.</p>
+<p><b>Art. 5.3.4.1.2.3</b> — în locuințe, DDR este măsură tehnică principală de protecție (HG 1146/2006).</p>
+<p><b>Art. 7.1.3.5</b> — în încăperi cu cadă sau duș: toate circuitele protejate prin DDR ≤ 30 mA.</p>
+</div>
+
+<h2>5. RCBO — întreruptorul automat diferențial combinat</h2>
+<p><b>RCBO</b> reunește într-un singur aparat (SR EN 61009-1) un MCB și un DDR: protejează circuitul la <b>suprasarcină</b>, la <b>scurtcircuit</b> și persoanele/instalația la <b>curent de defect</b>. Se montează pe fiecare circuit final în parte, deci un defect pe un circuit nu scoate din funcțiune restul instalației.</p>
+
+<figure class="fig">
+<svg viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="RCBO ca sumă a funcțiilor MCB și DDR">
+<g>
+<rect x="30" y="60" width="220" height="180" rx="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="140" y="90" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="17" font-weight="700" fill="var(--ink)">MCB</text>
+<text x="140" y="110" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">SR EN 60898-1</text>
+<text x="50" y="150" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink)">● suprasarcină (termic)</text>
+<text x="50" y="175" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink)">● scurtcircuit (magnetic)</text>
+<text x="50" y="200" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink2)">○ curent de defect</text>
+</g>
+<text x="280" y="158" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="34" fill="var(--ink)">+</text>
+<g>
+<rect x="310" y="60" width="220" height="180" rx="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="420" y="90" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="17" font-weight="700" fill="var(--ink)">RCCB (DDR)</text>
+<text x="420" y="110" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">SR EN 61008-1</text>
+<text x="330" y="150" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink2)">○ suprasarcină</text>
+<text x="330" y="175" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink2)">○ scurtcircuit</text>
+<text x="330" y="200" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink)">● curent de defect (IΔn)</text>
+</g>
+<text x="560" y="158" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="34" fill="var(--ink)">=</text>
+<g>
+<rect x="590" y="60" width="240" height="180" rx="6" fill="var(--acc-soft)" stroke="var(--acc)" stroke-width="2.5"/>
+<text x="710" y="90" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="17" font-weight="700" fill="var(--ink)">RCBO</text>
+<text x="710" y="110" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">SR EN 61009-1</text>
+<text x="610" y="150" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink)">● suprasarcină</text>
+<text x="610" y="175" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink)">● scurtcircuit</text>
+<text x="610" y="200" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink)">● curent de defect</text>
+<text x="710" y="228" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink2)">ex.: 1P+N, C16, 30 mA, tip A</text>
+</g>
+<text x="430" y="278" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink2)">Marcaj tipic pe aparat: curba și In (C16), IΔn (0,03 A), tipul (A / AC), Icn (6000)</text>
+</svg>
+<figcaption><b>Fig. 4.</b> RCBO = MCB + RCCB în aceeași carcasă. Are două praguri de declanșare complet diferite, care nu trebuie confundate: In (ex. 16 A) pentru supracurent și IΔn (ex. 30 mA) pentru curent de defect.</figcaption>
+</figure>
+
+<h3>Fotografii — RCBO</h3><div class="photos"><figure class="ph "><img src="img/foto15-rcbo-idpn-vigi.jpg" alt="<b>Foto 15.</b> Schneider iDPN N Vigi C20, 30 mA: RCBO 1P+N de 2 module. Partea " loading="lazy"><figcaption><b>Foto 15.</b> Schneider iDPN N Vigi C20, 30 mA: RCBO 1P+N de 2 module. Partea din față este MCB-ul (C20), blocul din spate este diferențialul (Vigi) cu butonul de test; borna N este marcată separat.</figcaption><div class="cr">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Schneider_Electric_A9D31620.JPG">Wikimedia Commons — File:Schneider_Electric_A9D31620.JPG</a> · autor: Dmitry G · licență: <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></div></figure><figure class="ph "><img src="img/foto16-rcbo-deschis.jpg" alt="<b>Foto 16.</b> Întreruptor cu protecție diferențială și la supracurent, 30 A, d" loading="lazy"><figcaption><b>Foto 16.</b> Întreruptor cu protecție diferențială și la supracurent, 30 A, deschis: în partea de sus contactele și mecanismul (ca la un MCB), în mijloc torul cu conductoarele L și N (galben/albastru) trecute prin el, iar sub tor placa electronică de amplificare a semnalului diferențial. Este exact combinația MCB + DDR din fig. 4.</figcaption><div class="cr">Sursa: <a href="https://commons.wikimedia.org/wiki/File:SB_3W_30A_inside.jpg">Wikimedia Commons — File:SB_3W_30A_inside.jpg</a> · autor: BnonA · licență: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></div></figure></div>
+<h3>RCCB + MCB sau RCBO? Cele două scheme uzuale</h3>
+<figure class="fig">
+<svg viewBox="0 0 860 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schema cu RCCB comun față de schema cu RCBO pe fiecare circuit">
+<defs><marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+<!-- Varianta A -->
+<text x="200" y="30" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="15" font-weight="700" fill="var(--ink)">A. RCCB comun + MCB pe circuite</text>
+<line x1="200" y1="45" x2="200" y2="80" stroke="var(--ink)" stroke-width="2"/>
+<rect x="160" y="80" width="80" height="44" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="200" y="99" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">MCB gen.</text>
+<text x="200" y="115" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">C40</text>
+<line x1="200" y1="124" x2="200" y2="150" stroke="var(--ink)" stroke-width="2"/>
+<rect x="150" y="150" width="100" height="44" fill="var(--acc-soft)" stroke="var(--acc)" stroke-width="2"/>
+<text x="200" y="169" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">RCCB 40 A</text>
+<text x="200" y="185" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">30 mA tip A</text>
+<line x1="200" y1="194" x2="200" y2="225" stroke="var(--ink)" stroke-width="2"/>
+<line x1="80" y1="225" x2="320" y2="225" stroke="var(--ink)" stroke-width="3"/>
+<g font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink)">
+<line x1="100" y1="225" x2="100" y2="255" stroke="var(--ink)" stroke-width="2"/><rect x="80" y="255" width="40" height="36" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/><text x="100" y="277" text-anchor="middle">B10</text><line x1="100" y1="291" x2="100" y2="320" stroke="var(--ink)" stroke-width="2" marker-end="url(#ah3)"/><text x="100" y="340" text-anchor="middle" font-size="11" fill="var(--ink2)">iluminat</text>
+<line x1="167" y1="225" x2="167" y2="255" stroke="var(--ink)" stroke-width="2"/><rect x="147" y="255" width="40" height="36" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/><text x="167" y="277" text-anchor="middle">C16</text><line x1="167" y1="291" x2="167" y2="320" stroke="var(--ink)" stroke-width="2" marker-end="url(#ah3)"/><text x="167" y="340" text-anchor="middle" font-size="11" fill="var(--ink2)">prize</text>
+<line x1="233" y1="225" x2="233" y2="255" stroke="var(--ink)" stroke-width="2"/><rect x="213" y="255" width="40" height="36" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/><text x="233" y="277" text-anchor="middle">C16</text><line x1="233" y1="291" x2="233" y2="320" stroke="var(--ink)" stroke-width="2" marker-end="url(#ah3)"/><text x="233" y="340" text-anchor="middle" font-size="11" fill="var(--ink2)">prize buc.</text>
+<line x1="300" y1="225" x2="300" y2="255" stroke="var(--ink)" stroke-width="2"/><rect x="280" y="255" width="40" height="36" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/><text x="300" y="277" text-anchor="middle">C20</text><line x1="300" y1="291" x2="300" y2="320" stroke="var(--ink)" stroke-width="2" marker-end="url(#ah3)"/><text x="300" y="340" text-anchor="middle" font-size="11" fill="var(--ink2)">boiler</text>
+</g>
+<text x="200" y="368" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--fix)">un defect la boiler stinge și iluminatul</text>
+<line x1="430" y1="20" x2="430" y2="370" stroke="var(--line)" stroke-width="1.5"/>
+<!-- Varianta B -->
+<text x="650" y="30" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="15" font-weight="700" fill="var(--ink)">B. RCBO pe fiecare circuit</text>
+<line x1="650" y1="45" x2="650" y2="80" stroke="var(--ink)" stroke-width="2"/>
+<rect x="610" y="80" width="80" height="44" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="650" y="99" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">MCB gen.</text>
+<text x="650" y="115" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">C40</text>
+<line x1="650" y1="124" x2="650" y2="225" stroke="var(--ink)" stroke-width="2"/>
+<line x1="520" y1="225" x2="780" y2="225" stroke="var(--ink)" stroke-width="3"/>
+<g font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink)">
+<line x1="545" y1="225" x2="545" y2="250" stroke="var(--ink)" stroke-width="2"/><rect x="520" y="250" width="50" height="48" fill="var(--acc-soft)" stroke="var(--acc)" stroke-width="1.5"/><text x="545" y="270" text-anchor="middle">B10</text><text x="545" y="286" text-anchor="middle">30mA</text><line x1="545" y1="298" x2="545" y2="320" stroke="var(--ink)" stroke-width="2" marker-end="url(#ah3)"/><text x="545" y="340" text-anchor="middle" font-size="11" fill="var(--ink2)">iluminat</text>
+<line x1="615" y1="225" x2="615" y2="250" stroke="var(--ink)" stroke-width="2"/><rect x="590" y="250" width="50" height="48" fill="var(--acc-soft)" stroke="var(--acc)" stroke-width="1.5"/><text x="615" y="270" text-anchor="middle">C16</text><text x="615" y="286" text-anchor="middle">30mA</text><line x1="615" y1="298" x2="615" y2="320" stroke="var(--ink)" stroke-width="2" marker-end="url(#ah3)"/><text x="615" y="340" text-anchor="middle" font-size="11" fill="var(--ink2)">prize</text>
+<line x1="685" y1="225" x2="685" y2="250" stroke="var(--ink)" stroke-width="2"/><rect x="660" y="250" width="50" height="48" fill="var(--acc-soft)" stroke="var(--acc)" stroke-width="1.5"/><text x="685" y="270" text-anchor="middle">C16</text><text x="685" y="286" text-anchor="middle">30mA</text><line x1="685" y1="298" x2="685" y2="320" stroke="var(--ink)" stroke-width="2" marker-end="url(#ah3)"/><text x="685" y="340" text-anchor="middle" font-size="11" fill="var(--ink2)">prize buc.</text>
+<line x1="755" y1="225" x2="755" y2="250" stroke="var(--ink)" stroke-width="2"/><rect x="730" y="250" width="50" height="48" fill="var(--acc-soft)" stroke="var(--acc)" stroke-width="1.5"/><text x="755" y="270" text-anchor="middle">C20</text><text x="755" y="286" text-anchor="middle">30mA</text><line x1="755" y1="298" x2="755" y2="320" stroke="var(--ink)" stroke-width="2" marker-end="url(#ah3)"/><text x="755" y="340" text-anchor="middle" font-size="11" fill="var(--ink2)">boiler</text>
+</g>
+<text x="650" y="368" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ok)">defectul la boiler deconectează numai boilerul</text>
+</svg>
+<figcaption><b>Fig. 5.</b> Varianta A este mai ieftină (un singur DDR), dar orice defect sau curent de fugă cumulat declanșează tot grupul. Varianta B costă mai mult, dar oferă selectivitate totală și un curent de fugă „de fond” mai mic pe fiecare aparat. În varianta A, RCCB-ul trebuie să aibă In ≥ In al aparatului din amonte și să fie protejat de acesta la scurtcircuit, deoarece RCCB-ul nu se autoprotejează (SR EN 61008-1, I7 art. 4.1.4.1.11).</figcaption>
+</figure>
+
+<h2>6. Selectivitatea dispozitivelor diferențiale</h2>
+<p>Când se pun în serie două DDR (de exemplu 300 mA la branșament și 30 mA pe circuitele finale), trebuie ca la un defect să declanșeze numai cel din aval. Condițiile din I7 sunt două, îndeplinite simultan: raportul curenților IΔn ≥ 3 și aparatul din amonte de tip „S” (temporizat).</p>
+
+<figure class="fig">
+<svg viewBox="0 0 860 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Trei niveluri de selectivitate diferențială conform I7 fig. 4.2">
+<defs><marker id="ah4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>
+<line x1="150" y1="20" x2="150" y2="50" stroke="var(--ink)" stroke-width="2"/>
+<rect x="90" y="50" width="120" height="50" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="150" y="70" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">MCCB + DDR</text>
+<text x="150" y="88" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">1 A, temporizat</text>
+<text x="230" y="70" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">tablou general (SR EN 60947-2)</text>
+<text x="230" y="88" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">Δt reglat, ex. 300 ms</text>
+<line x1="150" y1="100" x2="150" y2="140" stroke="var(--ink)" stroke-width="2"/>
+<rect x="90" y="140" width="120" height="50" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="150" y="160" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">RCCB tip S</text>
+<text x="150" y="178" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">300 mA</text>
+<text x="230" y="160" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">tablou secundar / branșament (art. 4.2.2.8)</text>
+<text x="230" y="178" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">declanșare 150 … 500 ms</text>
+<line x1="150" y1="190" x2="150" y2="230" stroke="var(--ink)" stroke-width="2"/>
+<rect x="90" y="230" width="120" height="50" fill="var(--acc-soft)" stroke="var(--acc)" stroke-width="2"/>
+<text x="150" y="250" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">RCBO uz general</text>
+<text x="150" y="268" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink)">30 mA</text>
+<text x="230" y="250" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">circuit final (art. 4.1.5.2.1)</text>
+<text x="230" y="268" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">declanșare ≤ 40 … 300 ms, netemporizat</text>
+<line x1="150" y1="280" x2="150" y2="310" stroke="var(--ink)" stroke-width="2" marker-end="url(#ah4)"/>
+<text x="175" y="305" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">receptoare</text>
+<!-- reguli -->
+<rect x="560" y="50" width="280" height="230" rx="4" fill="var(--paper)" stroke="var(--line)" stroke-width="1.5"/>
+<text x="580" y="80" font-family="IBM Plex Sans, sans-serif" font-size="14" font-weight="600" fill="var(--ink)">Condiții de selectivitate (I7 art. 4.1.5.2.8)</text>
+<text x="580" y="112" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink)">1. amperometrică:</text>
+<text x="600" y="132" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink)">IΔn amonte / IΔn aval ≥ 3</text>
+<text x="600" y="150" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--ink2)">300 / 30 = 10 ✓   1000 / 300 = 3,3 ✓</text>
+<text x="580" y="182" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink)">2. cronometrică:</text>
+<text x="600" y="202" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink)">aparatul din amonte de tip „S”</text>
+<text x="600" y="220" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink)">sau cu temporizare reglată</text>
+<text x="580" y="252" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink)">3. în rețea TT: Ra · IΔn ≤ 50 V</text>
+<text x="600" y="270" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">calculat cu IΔn al aparatului din amonte</text>
+</svg>
+<figcaption><b>Fig. 6.</b> Schema cu trei niveluri de selectivitate descrisă în I7 art. 4.1.5.2.8 (fig. 4.2 din normativ): 30 mA uz general → 300 mA tip S → 1 A cu temporizare definită. Un defect pe circuitul final este eliminat de RCBO-ul de 30 mA înainte ca aparatele din amonte să ajungă la timpul lor de declanșare.</figcaption>
+</figure>
+
+<div class="i7"><div class="t">Normativ I7-2011</div>
+<p><b>Art. 4.3.7.1</b> — când mai multe dispozitive de protecție sunt înseriate, caracteristicile lor se aleg astfel încât să funcționeze numai protecția cea mai apropiată de defect, fără a scoate din funcțiune întreaga instalație (la siguranțe fuzibile: cel puțin două trepte între curenții nominali). Se cere corelarea cu protecția din instalația de racord a furnizorului.</p>
+<p><b>Art. 4.3.6.1</b> — un singur aparat asigură atât protecția la suprasarcină cât și la scurtcircuit dacă îndeplinește condițiile de la 4.3.3 și are capacitatea de rupere ≥ curentul de scurtcircuit prezumat (4.3.5.1). Acesta este cazul MCB, MCCB și RCBO.</p>
+</div>
+
+<h2>7. Tabel de sinteză</h2>
+<div class="tw"><table>
+<tr><th>Aparat</th><th>Standard</th><th>Suprasarcină</th><th>Scurtcircuit</th><th>Curent de defect</th><th>Curent nominal</th><th>Capacitate de rupere</th><th>Unde se montează</th></tr>
+<tr><td class="k">MCB</td><td>SR EN 60898-1</td><td>da</td><td>da</td><td>—</td><td class="num">0,5 … 125 A</td><td class="num">3 … 25 kA</td><td>circuite finale, tablouri de distribuție</td></tr>
+<tr><td class="k">MCCB</td><td>SR EN 60947-2</td><td>da (reglabil)</td><td>da (reglabil)</td><td>— (opțional bloc Vigi / DDR atașabil)</td><td class="num">16 … 1600 A</td><td class="num">16 … 100 (200) kA</td><td>întreruptor general, coloane, industrie</td></tr>
+<tr><td class="k">RCCB (DDR)</td><td>SR EN 61008-1</td><td>—</td><td>—</td><td>da (IΔn 10 mA … 1 A)</td><td class="num">16 … 125 A</td><td class="num">Icn condițional 6 … 10 kA, numai cu protecție în amonte</td><td>în amonte de un grup de MCB</td></tr>
+<tr><td class="k">RCBO</td><td>SR EN 61009-1</td><td>da</td><td>da</td><td>da</td><td class="num">6 … 63 A</td><td class="num">6 … 10 kA</td><td>pe fiecare circuit final</td></tr>
+</table></div>
+
+<h3>Regulă de alegere pe scurt</h3>
+<ol>
+  <li>Pe orice circuit: protecție la supracurent dimensionată după I7 art. 4.3.2.1.3 (<span class="m">Ic ≤ In ≤ Iadm</span>) și 4.3.5.1 (capacitate de rupere ≥ Isc prezumat).</li>
+  <li>Prize ≤ 20 A, echipamente mobile exterioare, băi, locuințe: în plus DDR ≤ 30 mA, tip A (art. 4.1.5.2.1, 7.1.3.5, 5.3.4.1.2.3).</li>
+  <li>La branșament / tablou general, în clădirile enumerate la art. 4.2.2.8: DDR ≤ 300 mA, tip S pentru selectivitate cu cele de 30 mA.</li>
+  <li>Curenți peste 125 A sau cerințe de reglaj, motorizare, selectivitate cronometrică: MCCB.</li>
+  <li>DDR niciodată în TN-C; PE nu trece prin tor; în TT verificați <span class="m">Ra · IΔn ≤ 50 V</span>.</li>
+</ol>
+
+<h2>8. Test de verificare</h2>
+<p>Răspundeți pe caiet. Se punctează și justificarea, nu doar rezultatul.</p>
+<ol>
+  <li>Ce funcții de protecție asigură un MCB? Dar un RCCB? Dar un RCBO?</li>
+  <li>Un MCB C16 are Icn = 6 kA. Ce înseamnă „C” și ce înseamnă „6 kA”? Între ce valori de curent declanșează instantaneu?</li>
+  <li>Un circuit de prize are curentul de calcul Ic = 14 A și conductor de 2,5 mm² Cu cu Iadm = 21 A (după corecții). Alegeți In al întreruptorului și verificați condițiile din I7 art. 4.3.2.1.3.</li>
+  <li>De ce nu trece conductorul PE prin torul unui DDR? Ce s-ar întâmpla dacă ar trece?</li>
+  <li>Într-o rețea TT, priza de pământ are Ra = 120 Ω. Se poate folosi un DDR de 300 mA pentru protecția la defect? Dar unul de 500 mA? (art. 4.1.4.1.14)</li>
+  <li>Într-un tablou avem un RCCB de 300 mA la intrare și RCBO de 30 mA pe circuite. Ce condiții trebuie să îndeplinească RCCB-ul de la intrare ca să nu declanșeze el primul la un defect pe un circuit final?</li>
+  <li>Enumerați trei situații în care I7 impune DDR de cel mult 30 mA.</li>
+  <li>Prin ce se deosebește un MCCB de un MCB din punct de vedere al: curentului nominal, capacității de rupere, reglajelor, montajului?</li>
+  <li>Ce tip de DDR (AC, A, F, B) alegeți pentru: (a) prize obișnuite în locuință; (b) o stație de încărcare auto trifazată; (c) o pompă de căldură cu convertizor monofazat?</li>
+  <li>De ce un RCCB trebuie să aibă în amonte un MCB sau siguranțe, iar un RCBO nu?</li>
+</ol>
+
+<h3>Surse cu imagini de catalog (secțiuni și vederi explodate)</h3>
+<p>Fotografiile de catalog ale producătorilor sunt protejate prin drept de autor și nu sunt încorporate în pagină; le puteți deschide direct la sursă, iar la clasă pot fi proiectate cu menționarea acesteia:</p>
+<ul class="src">
+  <li>Schneider Electric, <i>Electrical Installation Guide</i> — <a href="https://www.electrical-installation.org/enwiki/Standards_and_description_of_circuit-breakers">Standards and description of circuit-breakers</a>: fig. H21 (părțile principale ale unui întreruptor automat), H22–H23 (MCB și RCBO), H25 (Compact NSX cu accesorii), H26 (Masterpact).</li>
+  <li>Schneider Electric, <i>Electrical Installation Guide</i> — <a href="https://www.electrical-installation.org/enwiki/Fundamental_characteristics_of_a_circuit-breaker">Fundamental characteristics of a circuit-breaker</a>: curbe de declanșare, Icu/Ics, limitarea curentului.</li>
+  <li>Eaton — <a href="https://www.eaton.com/us/en-us/products/electrical-circuit-protection/circuit-breakers/circuit-breakers-fundamentals.html">Circuit breakers fundamentals</a>: vederi în secțiune ale întreruptoarelor termic-magnetice.</li>
+  <li>Electrical Engineering Portal — <a href="https://electrical-engineering-portal.com/the-basics-of-molded-case-circuit-breakers-you-must-know">The basics of molded case circuit breakers</a>: construcție, declanșatoare, accesorii.</li>
+  <li>Schneider Electric — <a href="https://www.se.com/us/en/download/document/998-20140003_GMA_Interactive/">Compact NSX &amp; NSXm — catalog</a>.</li>
+</ul><h2>Bibliografie</h2>
+<ol class="src">
+  <li>Schneider Electric, <a href="https://eshop.se.com/in/blog/post/what-is-the-difference-between-mcb-mccb-rcb-rcd-rccb-and-rcbo.html">What is the difference between MCB, MCCB, RCB, RCD, RCCB and RCBO?</a> — punct de plecare; valorile numerice au fost verificate după standardele SR EN.</li>
+  <li>Normativ I7-2011 pentru proiectarea, execuția și exploatarea instalațiilor electrice aferente clădirilor (aprobat prin Ordinul MDRT nr. 2741/2011, M.Of. nr. 802 bis/2011); articolele citate: 4.1.4.1.11, 4.1.4.1.14, 4.1.5.2.1 – 4.1.5.2.8, 4.2.2.8, 4.2.2.9, 4.3.1.1, 4.3.1.2, 4.3.2.1.3, 4.3.5.1, 4.3.5.2, 4.3.6.1, 4.3.7.1, 5.3.4.0.3, 5.3.4.1.2.1, 5.3.4.1.2.3, 5.3.4.3, 7.1.3.5, 7.5.2.1. Text consultat: <a href="https://www.arya.ro/legislatie/pdf.php?slug=normativ-i7-2011&download=1">arya.ro</a>. Notă: normativul a fost completat prin Ordinul 959/2023 (AFDD, art. 4.2.2.10 – 4.2.2.12); verificați ediția în vigoare.</li>
+  <li>Fotografiile aparatelor provin de pe Wikimedia Commons; autorul și licența (CC BY / CC BY-SA / CC0 / domeniu public) sunt indicate sub fiecare fotografie. Schemele (fig. 1–6) sunt desene originale.</li>
+  <li>SR EN 60898-1 (MCB), SR EN 60947-2 (MCCB, DDR industriale), SR EN 61008-1 (RCCB), SR EN 61009-1 (RCBO), SR EN 62423 (DDR tip F și B).</li>
+</ol>
+
+<footer>Material didactic — Prof. Sergiu Podoreanu, Liceul Tehnologic „Grigore C. Moisil” Buzău. Valorile de catalog (game de curenți, capacități de rupere) sunt cele uzuale pe piața europeană la 230/400 V, 50 Hz; pentru un proiect concret se folosesc fișele tehnice ale aparatelor alese.</footer>
+</div>
+
+</body>
+</html>
