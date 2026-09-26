@@ -92,6 +92,44 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding-top:16px;font-si
 .i7q .c{margin:0;color:var(--ink2);font-size:15px;max-width:none}
 .formula{font-family:var(--mono);font-size:16px;background:var(--paper);border:1px solid var(--line);padding:10px 14px;display:inline-block}
 </style>
+
+
+<meta name="robots" content="noindex, nofollow">
+<style id="gate-css">
+html.locked body > *:not(#gate){display:none !important}
+#gate{display:none;position:fixed;inset:0;z-index:9999;background:#F3F5F7;color:#18222D;font-family:"IBM Plex Sans",system-ui,"Segoe UI",Roboto,Arial,sans-serif;align-items:center;justify-content:center;padding:16px}
+html.locked #gate{display:flex}
+#gate form{background:#fff;border:1px solid #CCD5DE;padding:28px 24px;max-width:380px;width:100%}
+#gate h1{font-size:20px;margin:0 0 6px}
+#gate p{margin:0 0 16px;color:#4A5866;font-size:14px;line-height:1.5}
+#gate input{width:100%;font-size:16px;padding:10px 12px;border:1px solid #CCD5DE;border-radius:4px;margin-bottom:12px;box-sizing:border-box}
+#gate button{width:100%;font-size:16px;padding:10px;border:0;border-radius:4px;background:#1F5F8B;color:#fff;cursor:pointer}
+#gate .err{color:#A8541A;font-size:14px;min-height:20px;margin:8px 0 0}
+</style>
+<script id="gate-js">
+(function(){
+  var H='d218a6577e20964a3ab569a021110761bbcf9abef9d535466b7a10e687d23021', S='lectii-aparate-electrice', K='lectii-ae-acces';
+  document.documentElement.classList.add('locked');
+  function sha(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(b){return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('')})}
+  function unlock(){document.documentElement.classList.remove('locked')}
+  document.addEventListener('DOMContentLoaded',function(){
+    var g=document.createElement('div');g.id='gate';
+    g.innerHTML='<form><h1>Lecții — Aparate electrice</h1><p>Materiale pentru Școala de maiștri electricieni, Liceul Tehnologic „Grigore C. Moisil” Buzău. Introduceți parola primită la clasă.</p><input type="password" id="gate-pw" autocomplete="current-password" placeholder="Parola"><button type="submit">Intră</button><div class="err" id="gate-err"></div></form>';
+    document.body.appendChild(g);
+    try{ if(localStorage.getItem(K)===H){unlock();return;} }catch(e){}
+    if(!window.crypto||!crypto.subtle){document.getElementById('gate-err').textContent='Deschideți pagina prin https.';}
+    document.getElementById('gate-pw').focus();
+    g.querySelector('form').addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var v=document.getElementById('gate-pw').value.trim();
+      sha(S+v).then(function(d){
+        if(d===H){ try{localStorage.setItem(K,H)}catch(e){} unlock(); }
+        else { document.getElementById('gate-err').textContent='Parolă greșită.'; document.getElementById('gate-pw').select(); }
+      });
+    });
+  });
+})();
+</script>
 </head>
 <body>
 
