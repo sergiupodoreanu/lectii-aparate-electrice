@@ -6,6 +6,7 @@ Autor: Prof. Sergiu Podoreanu.
 | Lecție | Pagină |
 |---|---|
 | MCB, MCCB, DDR (RCCB) și RCBO — construcție, funcționare, valori, prevederi I7-2011, test | [mcb-mccb-ddr-rcbo/](mcb-mccb-ddr-rcbo/) |
+| Tipurile de DDR (AC, A, F, B), articolele I7-2011, AFDD — detectarea arcului electric | [tipuri-ddr-afdd/](tipuri-ddr-afdd/) |
 
 Paginile sunt HTML de sine stătător; cu GitHub Pages activat (Settings → Pages → branch `main`, folder `/`) se deschid la
 `https://sergiupodoreanu.github.io/lectii-aparate-electrice/mcb-mccb-ddr-rcbo/`.
