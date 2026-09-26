@@ -174,15 +174,16 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding-top:16px;font-si
 <text x="60" y="40" text-anchor="end" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)">i</text>
 <!-- curent prezumat (sinusoida mare) -->
 <path d="M80 290 C 160 290, 220 60, 300 60 S 440 290, 520 290 S 660 520, 740 290" fill="none" stroke="var(--fe)" stroke-width="2.5" stroke-dasharray="7 5"/>
-<text x="300" y="50" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">curent de scurtcircuit prezumat (fără limitare)</text>
+<text x="420" y="110" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">curent de scurtcircuit prezumat</text><text x="420" y="126" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink2)">(fără limitare)</text>
 <!-- valoare de varf -->
 <line x1="80" y1="60" x2="300" y2="60" stroke="var(--line)" stroke-dasharray="3 3"/>
-<text x="84" y="56" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink2)">Icm = k·Icu (vârf)</text>
+<text x="306" y="56" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink2)">vârf prezumat ≈ Icm</text>
 <!-- curent limitat -->
 <path d="M80 290 C 130 290, 160 200, 190 180 L 215 180 C 250 180, 270 290, 300 290" fill="none" stroke="var(--fix)" stroke-width="3"/>
 <circle cx="190" cy="180" r="4" fill="var(--fix)"/>
-<text x="196" y="170" font-family="IBM Plex Sans, sans-serif" font-size="12" font-weight="600" fill="var(--fix)">contactele se deschid</text>
-<text x="196" y="186" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--fix)">curent tăiat (limitat)</text>
+<text x="120" y="150" font-family="IBM Plex Sans, sans-serif" font-size="12" font-weight="600" fill="var(--fix)">contactele se deschid</text>
+<text x="120" y="166" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--fix)">curent tăiat (limitat)</text>
+<line x1="185" y1="168" x2="190" y2="178" stroke="var(--fix)" stroke-width="1"/>
 <line x1="300" y1="295" x2="300" y2="320" stroke="var(--fix)" stroke-width="1.5"/>
 <text x="300" y="334" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--fix)">≈ 5 … 10 ms — arcul e stins</text>
 <!-- Icu explic -->
