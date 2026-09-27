@@ -10,6 +10,7 @@ Autor: Prof. Sergiu Podoreanu.
 | Capacitatea de rupere — Icn/Icu/Ics, Isc prezumat, alegere 4,5/6/10 kA, filiație, I7-2011, exemple, fișe tehnice | [capacitatea-de-rupere/](capacitatea-de-rupere/) |
 | Scule și dispozitive pentru prelucrarea cablurilor — debitare, îndepărtarea mantalei, dezizolare, tuburi terminale, sertizare, scule VDE, test; terminologie DE; 57 fotografii | [scule-prelucrare-cabluri/](scule-prelucrare-cabluri/) |
 | Temă de proiect: echiparea tabloului după schema monofilară din proiect (T.E. FOIȘOR / T.E. GARAJ) — planșe, fișe de lucru PDF | [proiect-echipare-tablou/](proiect-echipare-tablou/) |
+| Programe pentru dimensionarea și desenarea schemelor monofilare — Schrack Design, SIMARIS, Power Design, ABB DOC, xSpider, Sichr, Hagercad, XL Pro³ Calcul, ProfiCAD, QElectroTech, Caneco, pandapower; linkuri oficiale, test | [software-proiectare/](software-proiectare/) |
 
 Accesul la pagini este protejat cu o parolă comunicată la clasă (verificare în pagină, prin hash; nu este o protecție criptografică a conținutului). Paginile au `noindex` și `robots.txt` interzice indexarea.
 

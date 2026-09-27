@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Fișă de curs: programe pentru dimensionarea și desenarea schemelor monofilare — Schrack Design, SIMARIS design, EcoStruxure Power Design, ABB DOC, xSpider, Sichr, Hagercad, XL Pro³ Calcul, ProfiCAD, QElectroTech, Caneco, pandapower.">
+<meta name="author" content="Sergiu Podoreanu">
+<title>Programe pentru scheme monofilare — fișă de curs</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+html{color-scheme:light dark}*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}
+
+:root{
+  --bg:#F3F5F7; --paper:#FFFFFF; --ink:#18222D; --ink2:#4A5866; --line:#CCD5DE;
+  --acc:#1F5F8B; --acc-soft:#E3EEF7; --fix:#A8541A; --fix-soft:#FBEEDF; --ok:#2E7D4F; --ok-soft:#E4F3EA;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --sans:"IBM Plex Sans",system-ui,"Segoe UI",Roboto,Arial,sans-serif;
+  --cu:#B87333; --fe:#7C8894;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131A21; --paper:#1B242E; --ink:#E8EDF2; --ink2:#A7B3BF; --line:#33414F;
+    --acc:#6FB2E0; --acc-soft:#1E3245; --fix:#E8A15E; --fix-soft:#3A2A1A; --ok:#7CC89A; --ok-soft:#1C3527;
+    --cu:#D68F4F; --fe:#9AA6B2; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131A21; --paper:#1B242E; --ink:#E8EDF2; --ink2:#A7B3BF; --line:#33414F;
+  --acc:#6FB2E0; --acc-soft:#1E3245; --fix:#E8A15E; --fix-soft:#3A2A1A; --ok:#7CC89A; --ok-soft:#1C3527;
+  --cu:#D68F4F; --fe:#9AA6B2; color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;padding-block:0 48px;padding-inline:16px}
+.wrap{max-width:900px;margin:0 auto}
+header{padding-block:40px 24px;border-bottom:2px solid var(--ink)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+h1{font-size:clamp(28px,4.5vw,40px);line-height:1.1;margin:8px 0 12px;text-wrap:balance;font-weight:700}
+h2{font-size:24px;margin:48px 0 12px;padding-top:12px;border-top:1px solid var(--line);text-wrap:balance}
+h3{font-size:18px;margin:28px 0 8px}
+p{max-width:70ch;margin:0 0 12px}
+.lead{font-size:18px;color:var(--ink2);max-width:70ch}
+ul,ol{max-width:70ch;padding-left:22px;margin:0 0 12px}
+li{margin-bottom:4px}
+b,strong{font-weight:600}
+code,.m{font-family:var(--mono);font-size:.93em}
+.fig{background:var(--paper);border:1px solid var(--line);padding:16px;margin:16px 0 20px;overflow-x:auto}
+.fig svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.fig figcaption{font-size:14px;color:var(--ink2);margin-top:10px;max-width:70ch}
+.fig figcaption b{color:var(--ink)}
+.fix{border-left:4px solid var(--fix);background:var(--fix-soft);padding:12px 16px;margin:16px 0;max-width:72ch}
+.fix .t{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--fix);margin-bottom:4px}
+.fix p{margin:0 0 6px}
+.i7{border-left:4px solid var(--acc);background:var(--acc-soft);padding:12px 16px;margin:16px 0;max-width:72ch}
+.i7 .t{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);margin-bottom:4px}
+.i7 p{margin:0 0 6px}
+.tw{overflow-x:auto;margin:12px 0 20px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px;background:var(--paper)}
+th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+th{background:var(--acc-soft);font-weight:600}
+td.k{font-weight:600;white-space:nowrap}
+.num{font-variant-numeric:tabular-nums}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:16px 0}
+.card{background:var(--paper);border:1px solid var(--line);padding:14px 16px}
+.card h4{margin:0 0 6px;font-size:16px}
+.card p{margin:0 0 6px;font-size:15px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--ink2);margin:4px 0 12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:6px}
+.src{font-size:14px;color:var(--ink2)}
+.src li{margin-bottom:6px}
+a{color:var(--acc)}
+
+.photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:16px 0 24px}
+.ph{background:var(--paper);border:1px solid var(--line);padding:10px;margin:0;display:flex;flex-direction:column;gap:8px}
+.ph.wide{grid-column:1/-1}
+.ph img{width:100%;height:auto;display:block;background:#fff}
+.ph.small img{max-width:420px;margin:0 auto;image-rendering:auto}
+.ph figcaption{font-size:14px;color:var(--ink2);line-height:1.45}
+.ph figcaption b{color:var(--ink)}
+.ph .cr{font-family:var(--mono);font-size:11px;color:var(--ink2);margin-top:auto;word-break:break-word}
+.ph .cr a{color:var(--acc)}
+.ph ol{font-size:13px;columns:2;column-gap:16px;margin:4px 0 0;padding-left:18px}
+.ph ol li{margin-bottom:2px;break-inside:avoid}
+@media (max-width:520px){.ph ol{columns:1}}
+
+details.teacher{border:1px dashed var(--fix);padding:10px 16px;margin:16px 0;max-width:72ch;background:var(--fix-soft)}
+details.teacher summary{cursor:pointer;font-weight:600;color:var(--fix)}
+details.teacher ol{margin-top:10px}
+footer{margin-top:48px;border-top:1px solid var(--line);padding-top:16px;font-size:14px;color:var(--ink2)}
+
+.i7q{border-left:5px solid var(--acc);background:var(--acc-soft);margin:16px 0;padding:12px 16px;max-width:76ch}
+.i7q .art{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);margin-bottom:6px}
+.i7q .q{font-weight:600;margin:0 0 8px;max-width:none}
+.i7q .c{margin:0;color:var(--ink2);font-size:15px;max-width:none}
+.formula{font-family:var(--mono);font-size:16px;background:var(--paper);border:1px solid var(--line);padding:10px 14px;display:inline-block}
+</style>
+
+
+
+
+<meta name="robots" content="noindex, nofollow">
+<style id="gate-css">
+html.locked body > *:not(#gate){display:none !important}
+#gate{display:none;position:fixed;inset:0;z-index:9999;background:#F3F5F7;color:#18222D;font-family:"IBM Plex Sans",system-ui,"Segoe UI",Roboto,Arial,sans-serif;align-items:center;justify-content:center;padding:16px}
+html.locked #gate{display:flex}
+#gate form{background:#fff;border:1px solid #CCD5DE;padding:28px 24px;max-width:380px;width:100%}
+#gate h1{font-size:20px;margin:0 0 6px}
+#gate p{margin:0 0 16px;color:#4A5866;font-size:14px;line-height:1.5}
+#gate input{width:100%;font-size:16px;padding:10px 12px;border:1px solid #CCD5DE;border-radius:4px;margin-bottom:12px;box-sizing:border-box}
+#gate button{width:100%;font-size:16px;padding:10px;border:0;border-radius:4px;background:#1F5F8B;color:#fff;cursor:pointer}
+#gate .err{color:#A8541A;font-size:14px;min-height:20px;margin:8px 0 0}
+</style>
+<script id="gate-js">
+(function(){
+  var H='d218a6577e20964a3ab569a021110761bbcf9abef9d535466b7a10e687d23021', S='lectii-aparate-electrice', K='lectii-ae-acces';
+  document.documentElement.classList.add('locked');
+  function sha(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(b){return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('')})}
+  function unlock(){document.documentElement.classList.remove('locked')}
+  document.addEventListener('DOMContentLoaded',function(){
+    var g=document.createElement('div');g.id='gate';
+    g.innerHTML='<form><h1>Lecții — Aparate electrice</h1><p>Materiale pentru Școala de maiștri electricieni, Liceul Tehnologic „Grigore C. Moisil” Buzău. Introduceți parola primită la clasă.</p><input type="password" id="gate-pw" autocomplete="current-password" placeholder="Parola"><button type="submit">Intră</button><div class="err" id="gate-err"></div></form>';
+    document.body.appendChild(g);
+    try{ if(localStorage.getItem(K)===H){unlock();return;} }catch(e){}
+    if(!window.crypto||!crypto.subtle){document.getElementById('gate-err').textContent='Deschideți pagina prin https.';}
+    document.getElementById('gate-pw').focus();
+    g.querySelector('form').addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var v=document.getElementById('gate-pw').value.trim();
+      sha(S+v).then(function(d){
+        if(d===H){ try{localStorage.setItem(K,H)}catch(e){} unlock(); }
+        else { document.getElementById('gate-err').textContent='Parolă greșită.'; document.getElementById('gate-pw').select(); }
+      });
+    });
+  });
+})();
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Fișă de curs · Aparate electrice · Școala de maiștri electricieni</div>
+  <h1>Programe pentru dimensionarea și desenarea schemelor monofilare</h1>
+  <p class="lead">Ce programe folosesc proiectanții și electricienii pentru a calcula o instalație de joasă tensiune (secțiuni, curent de scurtcircuit, cădere de tensiune, alegerea aparatelor de protecție) și pentru a desena schema monofilară și tabloul. Toate programele de mai jos lucrează după <b>IEC 60364</b> (baza Normativului I7-2011) și <b>IEC 60909</b> (curenți de scurtcircuit). Linkurile duc la paginile oficiale ale producătorilor.</p>
+  <div class="legend"><span><span class="sw" style="background:var(--ok)"></span>Gratuit</span><span><span class="sw" style="background:var(--fix)"></span>Cu licență (plătit)</span></div>
+  <p class="src">Lecțiile anterioare: <a href="../capacitatea-de-rupere/">Capacitatea de rupere</a> · <a href="../proiect-echipare-tablou/">Temă de proiect: echiparea tabloului</a>.</p>
+</header>
+
+<h2>1. Ce face un program de dimensionare</h2>
+<p>Un program de dimensionare primește <b>rețeaua</b> (sursa: post de transformare sau branșament; coloanele; tablourile; circuitele; consumatorii) și calculează, pentru fiecare circuit:</p>
+<ul>
+  <li><b>curentul de calcul</b> Ic din puterea instalată și coeficienții de utilizare/simultaneitate;</li>
+  <li><b>secțiunea conductoarelor</b> după curentul admisibil Iadm (mod de pozare, temperatură, grupare) și după căderea de tensiune;</li>
+  <li><b>curentul de scurtcircuit</b> Isc la fiecare bară (maxim — pentru capacitatea de rupere; minim — pentru timpul de declanșare și protecția la atingere indirectă);</li>
+  <li><b>aparatele de protecție</b> din catalogul producătorului (MCB, MCCB, DDR, RCBO), cu verificarea <b>selectivității</b> și a <b>filiației</b>;</li>
+  <li><b>schema monofilară</b>, <b>lista de materiale</b> și <b>nota de calcul</b> pentru proiect.</li>
+</ul>
+<div class="fix"><div class="t">Atenție</div><p>Programele de la producători (Schrack, Siemens, Schneider, ABB, Eaton, Hager, Legrand, OEZ) propun <b>numai aparatele din catalogul propriu</b>. Calculul de rețea este însă același, așa că rezultatul (secțiuni, Isc, cădere de tensiune) se poate compara între programe.</p></div>
+
+<h2>2. Programe gratuite de calcul + schemă monofilară (de la producători)</h2>
+<div class="tw">
+<table>
+<thead><tr><th>Program</th><th>Producător · aparate</th><th>Ce face</th><th>Cost</th><th>Link</th></tr></thead>
+<tbody>
+<tr><td class="k">Schrack Design</td><td>Schrack Technik (RO / AT)</td><td>Schemă monofilară, echiparea tabloului (vederi 2D, șine, aparate din catalog), calcul termic după IEC TR 60890, documentație EN 61439: listă de materiale, raport de încercare, declarație de conformitate, etichetă. Se descarcă cu cont de client Schrack (gratuit).</td><td><span class="sw" style="background:var(--ok)"></span>gratuit</td><td><a href="https://www.schrack.com/tools/schrack-design-software-1">schrack.com/tools</a></td></tr>
+<tr><td class="k">Siemens SIMARIS design</td><td>Siemens (Sentron 3VA, 5SY, 3RV)</td><td>Cel mai complet dintre cele gratuite: dimensionare cabluri, scurtcircuit IEC 60909, cădere de tensiune, selectivitate cu curbe reale, schemă monofilară, export. Versiunea <i>basic</i> gratuită; <i>professional</i> (rețele buclate, export DWG) cu licență.</td><td><span class="sw" style="background:var(--ok)"></span>basic gratuit</td><td><a href="https://www.siemens.com/ro/ro/products/energie/medie-tensiune/simaris.html">siemens.com/ro — SIMARIS</a></td></tr>
+<tr><td class="k">Schneider EcoStruxure Power Design</td><td>Schneider Electric (Acti9, Compact NSX) — fostul <i>Ecodial</i></td><td>Calcul JT și MT (posturi de transformare), alegere aparate, schemă monofilară, notă de calcul. Gratuit cu înregistrare.</td><td><span class="sw" style="background:var(--ok)"></span>gratuit</td><td><a href="https://www.se.com/ro/ro/product-range/115901062-ecostruxure-power-design/">se.com/ro — Power Design</a></td></tr>
+<tr><td class="k">ABB e-Design (DOC + CAT)</td><td>ABB (S200, Tmax XT)</td><td><b>DOC</b> = calcul rețea JT/MT + schemă monofilară; <b>CAT</b> = configurarea tabloului (cofret, șine, aparate). Gratuit.</td><td><span class="sw" style="background:var(--ok)"></span>gratuit</td><td><a href="https://library.abb.com/share?cid=9AAC100741&q=doc">library.abb.com — DOC</a></td></tr>
+<tr><td class="k">Eaton xSpider</td><td>Eaton (xEffect, PL7, NZM)</td><td>Cădere de tensiune, distribuția sarcinilor, scurtcircuit trifazat și monofazat, timp de deconectare, selectivitate și protecție de rezervă, curbe de declanșare. Gratuit cu înregistrare.</td><td><span class="sw" style="background:var(--ok)"></span>gratuit</td><td><a href="https://www.eaton.com/ro/ro-ro/catalog/low-voltage-power-distribution-controls-systems/xspider.html">eaton.com/ro — xSpider</a></td></tr>
+<tr><td class="k">OEZ Sichr</td><td>OEZ (Cehia, grupul Siemens)</td><td>Proiectarea și verificarea rețelelor TN-C, TN-C-S și IT; bază de date cu disjunctoare, DDR, descărcătoare (SPD), transformatoare și cabluri. Interfață simplă, foarte bun la scurtcircuit și selectivitate.</td><td><span class="sw" style="background:var(--ok)"></span>gratuit</td><td><a href="https://www.oez.com/technical-support-software-support/software-support">oez.com — Sichr</a></td></tr>
+<tr><td class="k">Hager Hagercad</td><td>Hager</td><td>Tablouri de distribuție până la 4000 A, schemă monofilară, vederi 2D/3D, listă de materiale. Versiunea <i>Basic</i> gratuită; <i>Expert</i> / <i>Premium</i> cu licență (30 de zile test).</td><td><span class="sw" style="background:var(--ok)"></span>basic gratuit</td><td><a href="https://hager.com/de/tools/hagercad-planungssoftware">hager.com — Hagercad</a></td></tr>
+<tr><td class="k">Legrand XL Pro³ Calcul</td><td>Legrand (DPX³, DX³)</td><td>Bilanț de puteri, secțiuni, alegerea protecțiilor, cădere de tensiune, selectivitate; tipărește schema sinoptică, monofilarul pe tablou, fișele de calcul, carnetul de reglaje. Cheia de activare se cere de la reprezentanța Legrand România.</td><td><span class="sw" style="background:var(--ok)"></span>gratuit cu cheie de la Legrand</td><td><a href="https://www.legrand.fr/pro/outils/applis-logiciels-et-configurateurs/logiciel-xlpro3-calcul-6300-pour-les-notes-de-calcul-electriques">legrand.fr — XL Pro³ Calcul</a></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>3. Programe de desenare a schemelor (fără calcul)</h2>
+<p>Aici <b>desenezi</b> schema monofilară și schemele de comandă cu simboluri normalizate; calculul îl faci separat, cu un program din secțiunea 2.</p>
+<div class="tw">
+<table>
+<thead><tr><th>Program</th><th>Ce face</th><th>Cost</th><th>Link</th></tr></thead>
+<tbody>
+<tr><td class="k">ProfiCAD</td><td>Scheme electrice și electronice, scheme de comandă, pneumatică/hidraulică; peste 2000 de simboluri + editor de simboluri; indicator ISO 7200; generează automat lista de materiale, lista de conductoare, borne și cabluri; referințe încrucișate bobină–contacte; export DWG/DXF/PDF. Ușor de învățat, merge fără internet.</td><td><span class="sw" style="background:var(--ok)"></span>gratuit pentru uz necomercial (cu limitări); versiunea completă cu licență permanentă</td><td><a href="https://www.proficad.com/download.aspx">proficad.com/download</a></td></tr>
+<tr><td class="k">QElectroTech</td><td>Program liber (open source) de desenat scheme electrice, cu bibliotecă de simboluri IEC; Windows, Mac, Linux. Potrivit pentru școală.</td><td><span class="sw" style="background:var(--ok)"></span>gratuit</td><td><a href="https://qelectrotech.org/download.php">qelectrotech.org</a></td></tr>
+<tr><td class="k">EPLAN Electric P8</td><td>Standardul din industrie pentru documentația de automatizări (scheme multifilare, liste de cabluri, borne, plăcuțe). Versiunea <i>EPLAN Education</i> este gratuită pentru școli și elevi.</td><td><span class="sw" style="background:var(--fix)"></span>licență (Education gratuit)</td><td><a href="https://www.eplan.com/education">eplan.com/education</a></td></tr>
+<tr><td class="k">AutoCAD Electrical · WSCAD · SEE Electrical</td><td>Programe CAD profesionale pentru scheme electrice; SEE Electrical Expert se leagă cu programul de calcul Caneco.</td><td><span class="sw" style="background:var(--fix)"></span>licență</td><td><a href="https://www.autodesk.com/products/autocad/included-toolsets/autocad-electrical">autodesk.com</a> · <a href="https://www.wscad.com/">wscad.com</a> · <a href="https://www.ige-xao.com/">ige-xao.com</a></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>4. Programe profesionale independente de marcă (licență)</h2>
+<p>Le folosesc birourile de proiectare: au în baza de date aparatele <b>tuturor</b> producătorilor și generează note de calcul acceptate de verificatorii de proiecte.</p>
+<div class="tw">
+<table>
+<thead><tr><th>Program</th><th>Observații</th><th>Link</th></tr></thead>
+<tbody>
+<tr><td class="k">Caneco BT (ALPI)</td><td>Cel mai folosit în Franța și Germania; toate mărcile; monofilar, planșe, cartușe; module Caneco Implantation / Caneco One pentru integrare CAD/BIM.</td><td><a href="https://www.alpi.fr/">alpi.fr</a></td></tr>
+<tr><td class="k">elec calc (Trace Software)</td><td>Echivalentul lui Caneco, calcul JT/MT, multi-producător, integrare BIM (Revit).</td><td><a href="https://www.trace-software.com/">trace-software.com</a></td></tr>
+<tr><td class="k">dmELECT CIEBT</td><td>Spania; calcul JT complet, preț mic.</td><td><a href="https://www.dmelect.com/">dmelect.com</a></td></tr>
+<tr><td class="k">ETAP · DIgSILENT PowerFactory · NEPLAN</td><td>Rețele industriale mari și medie tensiune: flux de putere, stabilitate, arc electric. Supradimensionate pentru instalații de clădiri.</td><td><a href="https://etap.com/">etap.com</a> · <a href="https://www.digsilent.de/">digsilent.de</a> · <a href="https://www.neplan.ch/">neplan.ch</a></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>5. Unelte ajutătoare gratuite</h2>
+<ul>
+  <li><b>Curbe de declanșare și selectivitate</b>: SIMARIS curves (Siemens), Curve Direct (Schneider), CurveSelect (Eaton) — aplicații mici pentru verificarea rapidă a selectivității între două aparate; se găsesc pe paginile de mai sus.</li>
+  <li><b>DEHNsupport Toolbox</b> — dimensionarea descărcătoarelor (SPD), paratrăsnet, distanțe de separare: <a href="https://www.dehn.de/en/dehnsupport-toolbox">dehn.de — DEHNsupport</a>.</li>
+  <li><b>Foi de calcul Excel</b> (secțiuni, cădere de tensiune, scurtcircuit) — bune pentru a înțelege formulele înainte de a folosi un program: <a href="https://electrical-engineering-portal.com/download-center/electrical-software">electrical-engineering-portal.com — Download center</a>.</li>
+</ul>
+
+<h2>6. Calcul și desenare din Python (open source)</h2>
+<p>Pentru cine știe programare: bibliotecile de mai jos fac calculul de rețea sau desenul schemei din cod. Nu au catalog de disjunctoare, dar dau <b>aceleași rezultate de rețea</b> ca programele comerciale și se pot verifica pas cu pas.</p>
+<div class="tw">
+<table>
+<thead><tr><th>Bibliotecă</th><th>Ce face</th><th>Link</th></tr></thead>
+<tbody>
+<tr><td class="k">pandapower</td><td>Flux de putere, scurtcircuit după IEC 60909, cădere de tensiune, încărcarea liniilor și transformatoarelor; bază de date cu cabluri și transformatoare standard; desenează rețeaua. Dezvoltat de Fraunhofer IEE.</td><td><a href="https://www.pandapower.org/">pandapower.org</a> · <a href="https://pandapower.readthedocs.io/">documentație</a></td></tr>
+<tr><td class="k">OpenDSS (opendssdirect.py)</td><td>Motor de simulare pentru rețele de distribuție (EPRI), condus din Python; pentru studii de rețea.</td><td><a href="https://dss-extensions.org/OpenDSSDirect.py/">dss-extensions.org</a></td></tr>
+<tr><td class="k">pypowsybl</td><td>Flux de putere, scurtcircuit, analiză de securitate (RTE, Franța).</td><td><a href="https://pypowsybl.readthedocs.io/">pypowsybl.readthedocs.io</a></td></tr>
+<tr><td class="k">schemdraw</td><td>Desenare scheme electrice din cod, export SVG/PDF, simboluri IEC; potrivit pentru scheme de principiu, mai puțin pentru monofilare de tablou.</td><td><a href="https://schemdraw.readthedocs.io/">schemdraw.readthedocs.io</a></td></tr>
+<tr><td class="k">svgwrite · drawsvg</td><td>Desenarea SVG-ului direct din Python (simboluri trasate în mm, planșă A3 cu tabel); fișierul rezultat se editează în Inkscape.</td><td><a href="https://github.com/mozman/svgwrite">svgwrite</a> · <a href="https://github.com/cduck/drawsvg">drawsvg</a></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>7. Ce folosim la clasă</h2>
+<div class="grid2">
+  <div class="card"><h4>Schrack Design</h4><p>Aparatele pe care le vedeți în tablourile de la noi. Îl folosim pentru <b>echiparea tabloului</b> și documentația EN 61439.</p></div>
+  <div class="card"><h4>SIMARIS design</h4><p>Îl folosim pentru <b>calcul</b>: secțiuni, Isc, cădere de tensiune, selectivitate.</p></div>
+  <div class="card"><h4>ProfiCAD</h4><p>Îl folosim pentru <b>desenarea</b> schemelor monofilare și de comandă cu simboluri normalizate. Versiunea necomercială se poate instala acasă.</p></div>
+</div>
+<div class="i7"><div class="t">Exercițiu</div><p>Același tablou de locuință (branșament monofazat 32 A, 8 circuite) dimensionat în <b>SIMARIS design</b> și în <b>EcoStruxure Power Design</b>; comparați secțiunile și disjunctoarele propuse, apoi echipați tabloul în <b>Schrack Design</b> și desenați monofilarul în <b>ProfiCAD</b>.</p></div>
+
+<h2>8. Test de verificare</h2>
+<ol>
+  <li>Ce calculează un program de dimensionare pentru fiecare circuit? Enumerați cel puțin patru mărimi.</li>
+  <li>De ce programele de la producători propun numai aparatele din catalogul propriu, dar rezultatele de rețea se pot compara între ele?</li>
+  <li>Care este diferența dintre un program de dimensionare (SIMARIS design) și un program de desenare (ProfiCAD)?</li>
+  <li>Ce documente EN 61439 generează Schrack Design pentru un tablou?</li>
+  <li>Numiți două programe gratuite și două cu licență, independente de marcă.</li>
+  <li>Ce standard stă la baza calculului curenților de scurtcircuit în aceste programe?</li>
+</ol>
+
+<footer>Material didactic — Prof. Sergiu Podoreanu, Liceul Tehnologic „Grigore C. Moisil” Buzău. Linkurile sunt cele oficiale ale producătorilor (verificate în septembrie 2026); condițiile de licență se pot schimba — verificați pe pagina producătorului înainte de instalare.</footer>
+</div>
+</body>
+</html>
