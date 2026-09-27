@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scule pentru prelucrarea cablurilor</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+:root{
+  --ground:#EDF0F3; --surface:#FFFFFF; --surface2:#F6F8FA; --ink:#182430; --ink2:#4A5A6A; --line:#CBD3DB;
+  --accent:#C8102E; --accent-soft:#FBE7EA; --de:#1F5FA8; --de-soft:#E4EDF8; --ok:#1E7B4E; --warn:#B8641A; --warn-soft:#FBEEDD;
+  --display:"Barlow Condensed","Arial Narrow",sans-serif; --body:"Source Sans 3","Segoe UI",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ color-scheme:dark;
+  --ground:#0F171F; --surface:#182330; --surface2:#1F2C3A; --ink:#E7ECF1; --ink2:#A9B6C2; --line:#33424F;
+  --accent:#F06A7E; --accent-soft:#3A1C24; --de:#7FB2F0; --de-soft:#1B2E44; --ok:#5DC48C; --warn:#F0A65A; --warn-soft:#3A2A16; } }
+:root[data-theme="dark"]{ color-scheme:dark;
+  --ground:#0F171F; --surface:#182330; --surface2:#1F2C3A; --ink:#E7ECF1; --ink2:#A9B6C2; --line:#33424F;
+  --accent:#F06A7E; --accent-soft:#3A1C24; --de:#7FB2F0; --de-soft:#1B2E44; --ok:#5DC48C; --warn:#F0A65A; --warn-soft:#3A2A16; }
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+.wrap{max-width:900px;margin:0 auto;padding-inline:16px;padding-block:24px 80px}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.1;text-wrap:balance;margin:0}
+h1{font-size:clamp(34px,7vw,56px);font-weight:700;letter-spacing:.01em}
+h2{font-size:clamp(26px,4.5vw,34px);font-weight:700;margin-top:54px;padding-top:16px;border-top:3px solid var(--ink);display:flex;gap:14px;align-items:baseline}
+h2 .n{color:var(--accent);font-size:.8em;min-width:1.6em}
+h3{font-size:22px;font-weight:600;margin-top:28px;color:var(--ink)}
+h4{font-size:18px;font-weight:600;margin-top:18px}
+p{margin:12px 0;max-width:70ch}
+ul,ol{margin:10px 0;padding-left:1.4em;max-width:70ch}
+li{margin:5px 0}
+.kicker{font-family:var(--display);text-transform:uppercase;letter-spacing:.12em;font-size:14px;color:var(--ink2);font-weight:600}
+header{background:var(--surface);border:1px solid var(--line);padding:22px 22px 18px;display:grid;gap:10px}
+header .meta{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:15px;color:var(--ink2);margin-top:6px}
+.de{font-family:var(--body);color:var(--de);background:var(--de-soft);padding:0 .35em;border-radius:3px;font-style:italic;white-space:nowrap}
+.tag{display:inline-block;font-family:var(--display);font-size:13px;text-transform:uppercase;letter-spacing:.08em;padding:2px 8px;border:1px solid var(--line);border-radius:3px;color:var(--ink2)}
+.toc{background:var(--surface);border:1px solid var(--line);padding:16px 20px;margin-top:22px;columns:2;column-gap:28px}
+.toc ol{margin:0;padding-left:1.4em;font-size:15px}
+.toc li{break-inside:avoid;margin:3px 0}
+.toc a{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--line)}
+@media (max-width:560px){.toc{columns:1}}
+.box{border-left:4px solid var(--accent);background:var(--accent-soft);padding:12px 16px;margin:18px 0;max-width:74ch}
+.box.warn{border-color:var(--warn);background:var(--warn-soft)}
+.box.ok{border-color:var(--ok);background:var(--surface2)}
+.box.note{border-color:var(--de);background:var(--de-soft)}
+.box p{margin:6px 0}
+figure{margin:0}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0}
+.figs figure{background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column}
+.figs img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#fff}
+.figs img.contain{object-fit:contain}
+figcaption{font-size:14px;line-height:1.4;padding:8px 10px;color:var(--ink2);border-top:1px solid var(--line)}
+figcaption b{color:var(--ink)}
+.figs.wide{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.diag{background:var(--surface);border:1px solid var(--line);padding:12px;margin:18px 0;overflow-x:auto}
+.diag svg{display:block;width:100%;height:auto;min-width:520px}
+.diag svg text{font-family:var(--body);fill:var(--ink)}
+.diag svg .lbl{font-family:var(--display);font-weight:600;font-size:15px}
+.diag svg .sm{font-size:12px;fill:var(--ink2)}
+.diag figcaption{border:0;padding:8px 2px 0}
+.tbl{overflow-x:auto;margin:16px 0}
+table{border-collapse:collapse;width:100%;font-size:15px;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{font-family:var(--display);font-size:15px;letter-spacing:.03em;text-transform:uppercase;background:var(--surface2)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sw{display:inline-block;width:14px;height:14px;border:1px solid var(--line);vertical-align:-2px;margin-right:6px;border-radius:2px}
+.ex{background:var(--surface);border:1px solid var(--line);padding:14px 18px;margin:16px 0;max-width:76ch}
+.ex .t{font-family:var(--display);font-weight:700;font-size:19px;color:var(--accent)}
+.calc{font-variant-numeric:tabular-nums;background:var(--surface2);padding:8px 12px;border-radius:3px;display:inline-block;margin:4px 0}
+.steps{counter-reset:s;padding-left:0;list-style:none;max-width:74ch}
+.steps li{counter-increment:s;position:relative;padding-left:44px;margin:10px 0}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--ground);font-family:var(--display);font-weight:700;display:flex;align-items:center;justify-content:center}
+details{background:var(--surface);border:1px solid var(--line);padding:12px 18px;margin:18px 0}
+summary{font-family:var(--display);font-size:20px;font-weight:700;cursor:pointer}
+.test ol li{margin:10px 0}
+.credits{font-size:13px;color:var(--ink2);columns:2;column-gap:24px}
+.credits li{break-inside:avoid;margin:2px 0}
+@media (max-width:560px){.credits{columns:1}}
+a{color:var(--de)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:no-preference){details[open] summary{transition:color .2s}}
+</style>
+<meta name="robots" content="noindex, nofollow">
+<style id="gate-css">
+html.locked body > *:not(#gate){display:none !important}
+#gate{display:none;position:fixed;inset:0;z-index:9999;background:#F3F5F7;color:#18222D;font-family:"IBM Plex Sans",system-ui,"Segoe UI",Roboto,Arial,sans-serif;align-items:center;justify-content:center;padding:16px}
+html.locked #gate{display:flex}
+#gate form{background:#fff;border:1px solid #CCD5DE;padding:28px 24px;max-width:380px;width:100%}
+#gate h1{font-size:20px;margin:0 0 6px}
+#gate p{margin:0 0 16px;color:#4A5866;font-size:14px;line-height:1.5}
+#gate input{width:100%;font-size:16px;padding:10px 12px;border:1px solid #CCD5DE;border-radius:4px;margin-bottom:12px;box-sizing:border-box}
+#gate button{width:100%;font-size:16px;padding:10px;border:0;border-radius:4px;background:#1F5F8B;color:#fff;cursor:pointer}
+#gate .err{color:#A8541A;font-size:14px;min-height:20px;margin:8px 0 0}
+</style>
+<script id="gate-js">
+(function(){
+  var H='d218a6577e20964a3ab569a021110761bbcf9abef9d535466b7a10e687d23021', S='lectii-aparate-electrice', K='lectii-ae-acces';
+  document.documentElement.classList.add('locked');
+  function sha(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(b){return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('')})}
+  function unlock(){document.documentElement.classList.remove('locked')}
+  document.addEventListener('DOMContentLoaded',function(){
+    var g=document.createElement('div');g.id='gate';
+    g.innerHTML='<form><h1>Lecții — Aparate electrice</h1><p>Materiale pentru Școala de maiștri electricieni, Liceul Tehnologic „Grigore C. Moisil” Buzău. Introduceți parola primită la clasă.</p><input type="password" id="gate-pw" autocomplete="current-password" placeholder="Parola"><button type="submit">Intră</button><div class="err" id="gate-err"></div></form>';
+    document.body.appendChild(g);
+    try{ if(localStorage.getItem(K)===H){unlock();return;} }catch(e){}
+    if(!window.crypto||!crypto.subtle){document.getElementById('gate-err').textContent='Deschideți pagina prin https.';}
+    document.getElementById('gate-pw').focus();
+    g.querySelector('form').addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var v=document.getElementById('gate-pw').value.trim();
+      sha(S+v).then(function(d){
+        if(d===H){ try{localStorage.setItem(K,H)}catch(e){} unlock(); }
+        else { document.getElementById('gate-err').textContent='Parolă greșită.'; document.getElementById('gate-pw').select(); }
+      });
+    });
+  });
+})();
+</script>
+</head>
+<body>
+
+
+<div class="wrap">
+<p style="font-size:14px"><a href="../">← Lista lecțiilor</a></p>
+<header>
+  <div class="kicker">Liceul Tehnologic „Grigore C. Moisil” Buzău · Școala de maiștri electricieni · Instruire practică</div>
+  <h1>Scule și dispozitive pentru prelucrarea cablurilor în instalațiile electrice</h1>
+  <p style="margin:4px 0 0;max-width:80ch">Debitare, îndepărtarea mantalei, dezizolare, sertizarea tuburilor terminale și a papucilor, conectare. Terminologia germană este dată în paranteză, pentru cataloagele și materialele producătorilor germani (Knipex, Weidmüller, Wago, Klauke, Jokari, Wiha) folosite pe șantierele din Germania.</p>
+  <div class="meta"><span>Prof. Sergiu Podoreanu</span><span>Durată: 4 ore (2 teorie + 2 atelier)</span><span>Nivel: maiștri, anul I</span><span>Versiune: septembrie 2026</span></div>
+</header>
+
+<div class="toc">
+<div class="kicker" style="margin-bottom:6px">Cuprins</div>
+<ol>
+<li><a href="#obiective">Obiective și reguli de securitate</a></li>
+<li><a href="#etape">Cele cinci operații ale prelucrării</a></li>
+<li><a href="#conductoare">Ce prelucrăm: cabluri și conductoare</a></li>
+<li><a href="#taiere">Scule de tăiat (debitare)</a></li>
+<li><a href="#manta">Scule pentru îndepărtarea mantalei</a></li>
+<li><a href="#dezizolare">Scule de dezizolat</a></li>
+<li><a href="#tuburi">Tuburi terminale</a></li>
+<li><a href="#sertizare-tuburi">Cleștii pentru tuburi terminale</a></li>
+<li><a href="#papuci">Papuci de cablu și conectori sertizabili</a></li>
+<li><a href="#cositorire">De ce nu cositorim capetele</a></li>
+<li><a href="#date">Cabluri de date și comunicații</a></li>
+<li><a href="#vde">Scule izolate (VDE)</a></li>
+<li><a href="#accesorii">Accesorii și trusa electricianului</a></li>
+<li><a href="#greseli">Greșeli frecvente și verificarea calității</a></li>
+<li><a href="#exemple">Exemple numerice</a></li>
+<li><a href="#atelier">Fișă de lucru în atelier</a></li>
+<li><a href="#test">Test de evaluare (elevi)</a></li>
+<li><a href="#profesor">Răspunsurile testului (la profesor)</a></li>
+<li><a href="#biblio">Bibliografie și surse imagini</a></li>
+</ol>
+</div>
+
+<h2 id="obiective"><span class="n">1</span>Obiective și reguli de securitate</h2>
+<p>La sfârșitul lecției, cursantul trebuie să poată:</p>
+<ul>
+<li><b>să identifice</b> fiecare sculă după denumirea românească și germană și să spună la ce operație se folosește;</li>
+<li><b>să aleagă</b> scula corectă după tipul conductorului (masiv / flexibil) și după secțiune (mm²);</li>
+<li><b>să execute</b> corect debitarea, îndepărtarea mantalei, dezizolarea și sertizarea unui tub terminal și a unui papuc;</li>
+<li><b>să verifice</b> o îmbinare sertizată (control vizual, probă de tracțiune) și să recunoască greșelile tipice.</li>
+</ul>
+<div class="box">
+<p><b>Regula de bază:</b> toate operațiile de prelucrare se fac pe cabluri <b>scoase de sub tensiune</b>. Înainte de a atinge un conductor se aplică <b>cele 5 reguli</b> (<span class="de">die 5 Sicherheitsregeln</span>): 1 separare; 2 asigurare împotriva reanclanșării; 3 verificarea lipsei tensiunii; 4 legare la pământ și în scurtcircuit; 5 îngrădirea părților vecine rămase sub tensiune. Sculele izolate VDE (cap. 12) sunt o <b>protecție suplimentară</b>, nu un motiv de a lucra sub tensiune.</p>
+</div>
+
+<h2 id="etape"><span class="n">2</span>Cele cinci operații ale prelucrării unui cablu</h2>
+<p>Indiferent de cablu, un capăt de cablu trece prin aceleași operații, în aceeași ordine. Fiecare operație are sculele ei; folosirea unei scule „din altă căsuță” (de exemplu cuțitul la dezizolare) este sursa celor mai multe defecte.</p>
+<figure class="diag">
+<svg viewBox="0 0 900 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fluxul celor cinci operații">
+<defs><marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink2)"/></marker></defs>
+<g font-size="14">
+<rect x="10" y="30" width="160" height="70" rx="4" fill="var(--surface2)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="90" y="55" text-anchor="middle" class="lbl">1 · Debitare</text>
+<text x="90" y="75" text-anchor="middle" class="sm">Ablängen / Schneiden</text>
+<text x="90" y="92" text-anchor="middle" class="sm">tăiere la lungime</text>
+<rect x="190" y="30" width="160" height="70" rx="4" fill="var(--surface2)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="270" y="55" text-anchor="middle" class="lbl">2 · Îndepărtarea mantalei</text>
+<text x="270" y="75" text-anchor="middle" class="sm">Abmanteln</text>
+<text x="270" y="92" text-anchor="middle" class="sm">îndepărtarea mantalei</text>
+<rect x="370" y="30" width="160" height="70" rx="4" fill="var(--surface2)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="450" y="55" text-anchor="middle" class="lbl">3 · Dezizolare</text>
+<text x="450" y="75" text-anchor="middle" class="sm">Abisolieren</text>
+<text x="450" y="92" text-anchor="middle" class="sm">izolația conductorului</text>
+<rect x="550" y="30" width="160" height="70" rx="4" fill="var(--surface2)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="630" y="55" text-anchor="middle" class="lbl">4 · Pregătirea capătului</text>
+<text x="630" y="75" text-anchor="middle" class="sm">Crimpen (Aderendhülse,</text>
+<text x="630" y="92" text-anchor="middle" class="sm">Kabelschuh, Verbinder)</text>
+<rect x="730" y="30" width="160" height="70" rx="4" fill="var(--surface2)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="810" y="55" text-anchor="middle" class="lbl">5 · Conectare</text>
+<text x="810" y="75" text-anchor="middle" class="sm">Anschließen</text>
+<text x="810" y="92" text-anchor="middle" class="sm">clemă, bornă, șurub</text>
+<line x1="170" y1="65" x2="188" y2="65" stroke="var(--ink2)" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="350" y1="65" x2="368" y2="65" stroke="var(--ink2)" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="530" y1="65" x2="548" y2="65" stroke="var(--ink2)" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="710" y1="65" x2="728" y2="65" stroke="var(--ink2)" stroke-width="2" marker-end="url(#ar)"/>
+<text x="90" y="135" text-anchor="middle" class="sm">clește tăietor lateral,</text><text x="90" y="152" text-anchor="middle" class="sm">foarfecă de cablu,</text><text x="90" y="169" text-anchor="middle" class="sm">foarfecă cu clichet</text>
+<text x="270" y="135" text-anchor="middle" class="sm">cuțit de cablu,</text><text x="270" y="152" text-anchor="middle" class="sm">dezizolator de manta rotativ,</text><text x="270" y="169" text-anchor="middle" class="sm">dezizolator de manta universal</text>
+<text x="450" y="135" text-anchor="middle" class="sm">clește dezizolator</text><text x="450" y="152" text-anchor="middle" class="sm">cu găuri calibrate,</text><text x="450" y="169" text-anchor="middle" class="sm">clește automat</text>
+<text x="630" y="135" text-anchor="middle" class="sm">clește pentru tuburi,</text><text x="630" y="152" text-anchor="middle" class="sm">clește de sertizat papuci,</text><text x="630" y="169" text-anchor="middle" class="sm">presă hidraulică</text>
+<text x="810" y="135" text-anchor="middle" class="sm">șurubelniță cu cuplu,</text><text x="810" y="152" text-anchor="middle" class="sm">cleme cu arc,</text><text x="810" y="169" text-anchor="middle" class="sm">sculă de pozat (LSA)</text>
+</g></svg>
+<figcaption>Fig. 1 – Ordinea operațiilor și sculele fiecărei operații. Nu toate capetele au nevoie de toate operațiile: un conductor masiv H07V-U 1,5 mm² intră direct în clema cu arc după dezizolare (nu se sertizează tub).</figcaption>
+</figure>
+
+<h2 id="conductoare"><span class="n">3</span>Ce prelucrăm: cabluri și conductoare</h2>
+<p>Scula se alege după <b>materialul și construcția conductorului</b>, nu după ce avem la îndemână. SR EN 60228 (IEC 60228) împarte conductoarele de cupru în clase:</p>
+<div class="tbl"><table>
+<tr><th>Clasa</th><th>Construcție</th><th>Exemple (Europa, 230/400 V, 50 Hz)</th><th>Ce cere la prelucrare</th></tr>
+<tr><td><b>1</b></td><td>masiv (<span class="de">eindrähtig, „U”</span>)</td><td>H07V-U, NYM-J 3×1,5 … 5×10, NYY până la 16 mm²</td><td>dezizolare curată, fără crestarea firului; <b>fără</b> tub terminal</td></tr>
+<tr><td><b>2</b></td><td>multifilar rigid (<span class="de">mehrdrähtig, „R”</span>)</td><td>NYY-J 4×25 … 240, NAYY (aluminiu)</td><td>papuc tubular sertizat hexagonal sau clemă cu șurub V; nu se sertizează tub terminal</td></tr>
+<tr><td><b>5</b></td><td>flexibil, fire fine (<span class="de">feindrähtig, „K”/„F”</span>)</td><td>H07V-K (în tablouri), H05VV-F, H07RN-F (cordoane, motoare)</td><td><b>obligatoriu tub terminal</b> sau papuc în cleme cu șurub; clemă cu arc <span class="de">Push-in</span> numai dacă producătorul o admite</td></tr>
+<tr><td><b>6</b></td><td>extraflexibil, fire foarte fine (<span class="de">feinstdrähtig, „H”</span>)</td><td>cabluri de sudură, cabluri de baterie, robotică</td><td>tub terminal sau papuc special (secțiune mai mare a tubului)</td></tr>
+</table></div>
+<div class="box note"><p><b>Literele din denumire</b> spun ce clasă avem: H07V-<b>U</b> = masiv, H07V-<b>R</b> = multifilar rigid, H07V-<b>K</b> = flexibil. La cablurile NYM/NYY, clasa se schimbă la 16 mm²: sub această secțiune conductorul este masiv (clasa 1), de la 16 mm² în sus este multifilar (clasa 2).</p></div>
+<div class="figs">
+<figure><img src="img/aeh_h07rnf.jpg" alt="Cordon H07RN-F 5G6 cu tuburi terminale galbene"><figcaption><b>Cordon H07RN-F 5G6 mm²</b> (clasa 5): fiecare conductor flexibil a primit tub terminal galben de 6 mm² înainte de conectare la fișa CEE.</figcaption></figure>
+<figure><img src="img/ks_cablu.jpg" alt="Conductor cu papuci inelari la ambele capete"><figcaption><b>Conductor flexibil</b> cu papuci inelari sertizați la ambele capete: soluția pentru borne cu șurub M5–M12.</figcaption></figure>
+<figure><img src="img/ks_70.jpg" alt="Papuci tubulari 70 mm² M10"><figcaption><b>Papuc tubular 70 mm² / M10</b> pentru conductor multifilar (clasa 2) sertizat hexagonal.</figcaption></figure>
+</div>
+<h3>Secțiune și diametru</h3>
+<p>Multe scule se aleg după <b>secțiunea</b> conductorului (mm²), altele (dezizolatoarele de manta) după <b>diametrul exterior</b> al cablului (mm). Pentru estimări rapide:</p>
+<div class="tbl"><table>
+<tr><th class="num">Secțiune mm²</th><th class="num">Ø conductor masiv mm</th><th class="num">Ø aprox. conductor flexibil cl. 5 mm</th><th>Ø exterior cablu tipic</th></tr>
+<tr><td class="num">1,5</td><td class="num">1,38</td><td class="num">1,7</td><td>NYM-J 3×1,5: ≈ 9 mm; H05VV-F 3G1,5: ≈ 8 mm</td></tr>
+<tr><td class="num">2,5</td><td class="num">1,78</td><td class="num">2,2</td><td>NYM-J 5×2,5: ≈ 12 mm; H07RN-F 5G2,5: ≈ 14 mm</td></tr>
+<tr><td class="num">4</td><td class="num">2,26</td><td class="num">2,8</td><td>NYM-J 5×4: ≈ 14 mm</td></tr>
+<tr><td class="num">6</td><td class="num">2,76</td><td class="num">3,4</td><td>NYM-J 5×6: ≈ 16 mm</td></tr>
+<tr><td class="num">10</td><td class="num">3,57</td><td class="num">4,5</td><td>NYY-J 5×10: ≈ 19 mm</td></tr>
+<tr><td class="num">16</td><td class="num">4,5 (multifilar ≈ 5,2)</td><td class="num">5,6</td><td>NYY-J 5×16: ≈ 22 mm</td></tr>
+<tr><td class="num">25</td><td class="num">— (multifilar ≈ 6,5)</td><td class="num">7,0</td><td>NYY-J 4×25: ≈ 23 mm</td></tr>
+</table></div>
+<p style="font-size:14px;color:var(--ink2)">Diametrul conductorului masiv: d = √(4·S/π). Exemplu: S = 2,5 mm² → d = √(3,18) = 1,78 mm. Diametrele exterioare ale cablurilor sunt orientative; se citesc din fișa tehnică a producătorului (Prysmian, Nexans, Lapp).</p>
+
+<h2 id="taiere"><span class="n">4</span>Scule de tăiat (debitare)</h2>
+<p>Debitarea trebuie să lase o <b>secțiune netedă și rotundă</b>. Un capăt turtit sau cu bavuri nu mai intră în dezizolatorul de manta, în tubul terminal sau în papuc. De aceea, dincolo de câțiva mm², se trece de la cleștele tăietor la foarfeca de cablu, care <b>taie prin forfecare</b> fără să strivească.</p>
+<div class="tbl"><table>
+<tr><th>Scula</th><th>Denumire germană</th><th>Domeniu tipic</th><th>Observații</th></tr>
+<tr><td><b>Clește tăietor lateral</b> (clește de tăiat diagonal)</td><td><span class="de">Seitenschneider</span></td><td>conductoare până la ≈ 4 mm² Cu (Ø 2–4 mm sârmă moale)</td><td>tăiere prin pană (strivire), nu prin forfecare; capătul rămâne ușor turtit; nu se folosește la cabluri groase sau oțel dur</td></tr>
+<tr><td><b>Clește tăietor lateral cu pârghie</b></td><td><span class="de">Kraft-Seitenschneider</span></td><td>sârmă până la Ø 4,5 mm (dur 3 mm)</td><td>pentru sârmă de oțel, cuie, șuruburi; nu pentru capete care se sertizează</td></tr>
+<tr><td><b>Foarfecă de cablu</b></td><td><span class="de">Kabelschere</span></td><td>Cu/Al până la ≈ Ø 15–20 mm, 50 mm² (5×2,5 la 200 mm)</td><td>tăiere prin forfecare, capăt rotund; <b>nu</b> pentru cablu armat (SWA) sau oțel</td></tr>
+<tr><td><b>Foarfecă de cablu cu clichet</b></td><td><span class="de">Ratschen-Kabelschneider</span></td><td>Ø 32–52 mm, până la 240–400 mm² Cu/Al</td><td>clichetul înmulțește forța; se lucrează cu ambele mâini; nu pentru oțel</td></tr>
+<tr><td><b>Foarfecă hidraulică / cu acumulator</b></td><td><span class="de">Hydraulischer Kabelschneider, Akku-Kabelschneider</span></td><td>Ø 50–120 mm, cabluri armate</td><td>pe șantier, la cabluri de medie tensiune și cabluri armate cu bandă de oțel</td></tr>
+<tr><td><b>Clește combinat (universal)</b></td><td><span class="de">Kombizange</span></td><td>apucare, îndoire, tăiere mică</td><td>tăietorul lateral al combinatului este de rezervă; nu se folosește la dezizolare</td></tr>
+</table></div>
+<div class="figs">
+<figure><img src="img/seitenschneider_vde.jpg" alt="Clește tăietor lateral izolat VDE"><figcaption><b>Clește tăietor lateral izolat VDE</b> (<span class="de">VDE-Seitenschneider</span>), 160 mm: scula de bază pentru conductoare până la 4 mm².</figcaption></figure>
+<figure><img src="img/seitenschneider_3.jpg" alt="Clește tăietor lateral cu mânere portocalii"><figcaption><b>Clește tăietor lateral</b> obișnuit, 180 mm. Tăișurile se închid ca o pană: capătul conductorului rămâne ușor turtit.</figcaption></figure>
+<figure><img src="img/kabelschere_1.jpg" alt="Foarfecă de cablu cu tăișuri curbe"><figcaption><b>Foarfecă de cablu</b> (<span class="de">Kabelschere</span>): tăișuri curbe, taie prin forfecare și lasă secțiunea rotundă. Numai pentru Cu și Al.</figcaption></figure>
+<figure><img src="img/kabelschere_ratsche.jpg" alt="Foarfecă de cablu cu clichet, brațe lungi"><figcaption><b>Foarfecă de cablu cu clichet</b> (<span class="de">Ratschen-Kabelschneider</span>) cu brațe lungi, pentru 120–400 mm².</figcaption></figure>
+</div>
+<div class="box warn"><p><b>Nu tăiați</b> cu foarfeca de cablu: cabluri armate cu bandă/sârmă de oțel, cabluri de tracțiune din oțel, șuruburi. Tăișul se ciobește și scula devine bună de aruncat. Pentru acestea există foarfeca de armătură și cleștele pentru cablu de oțel (<span class="de">Drahtseilschere</span>).</p></div>
+
+<h2 id="manta"><span class="n">5</span>Scule pentru îndepărtarea mantalei exterioare</h2>
+<p>Îndepărtarea mantalei (<span class="de">Abmanteln</span>) înseamnă înlăturarea <b>mantalei exterioare</b> a unui cablu cu mai multe conductoare (NYM, NYY, H05VV-F, cablu de date), fără să atingem izolația conductoarelor din interior. Este operația la care se fac cele mai multe greșeli cu cuțitul: o zgârietură pe izolația unui conductor din interior nu se vede după montaj, dar poate da scurtcircuit sau punere la masă după ani.</p>
+<div class="tbl"><table>
+<tr><th>Scula</th><th>Denumire germană</th><th>Domeniu</th><th>Cum lucrează</th></tr>
+<tr><td><b>Cuțit de cablu cu lamă cârlig</b></td><td><span class="de">Kabelmesser (Hakenklinge)</span></td><td>orice diametru</td><td>tăietură longitudinală și circulară; cere experiență; tăierea se face <b>de la corp în afară</b>, niciodată spre mână</td></tr>
+<tr><td><b>Cuțit de cu mantaua îndepărtată cu adâncime reglabilă</b></td><td><span class="de">Abmantelungsmesser mit einstellbarer Klinge</span></td><td>Ø 8–28 mm</td><td>lama iese numai cât grosimea mantalei (0,5–5 mm); nu poate atinge conductoarele dacă adâncimea e reglată corect</td></tr>
+<tr><td><b>Dezizolator de manta rotativ, pentru cablu rotund</b></td><td><span class="de">Rundkabel-Abmantler</span> (Jokari Secura, Knipex 16 20)</td><td>Ø 8–13 mm, 4–28 mm</td><td>se strânge pe cablu, se rotește 2–3 ture (tăietură circulară), apoi se trage (tăietură longitudinală); adâncimea se autoreglează</td></tr>
+<tr><td><b>Dezizolator de manta universal</b></td><td><span class="de">Universal-Abmantelungswerkzeug</span> (Knipex ErgoStrip, Wago)</td><td>cablu rotund 8–13 mm, plat, coaxial, date</td><td>mai multe lăcașuri: circular, longitudinal, plus găuri de dezizolare 0,2–4 mm²</td></tr>
+<tr><td><b>Dezizolator de manta pentru doze</b></td><td><span class="de">Innendosen-Entmantler / Dosenabmantler</span></td><td>NYM în doză</td><td>lamă scurtă pentru cablu deja tras în doză, unde nu e loc pentru cuțit</td></tr>
+<tr><td><b>Clește de instalații</b> (multifuncțional)</td><td><span class="de">Elektro-Installationszange, TriCut</span></td><td>NYM 3×1,5 … 5×2,5</td><td>îndepărtarea mantalei, dezizolare 0,75–2,5 mm², tăiere și sertizare tub 0,5–2,5 mm² într-o singură sculă</td></tr>
+</table></div>
+<div class="figs">
+<figure><img src="img/tricut.jpg" alt="Clește de instalații Wiha TriCut izolat"><figcaption><b>Clește de instalații izolat</b> (<span class="de">Installationszange</span>, aici Wiha TriCut): îndepărtează mantaua de pe NYM, dezizolează 1,5 și 2,5 mm² și taie, cu o singură sculă. Culorile roșu-galben sunt marcajul VDE.</figcaption></figure>
+<figure><img src="img/abisolier_elpress.jpg" alt="Clește de tăiat și dezizolat Elpress"><figcaption><b>Clește combinat de tăiat și dezizolat</b> (Elpress, Suedia): tăietor de cablu în vârf, lăcașuri de dezizolare în falcă.</figcaption></figure>
+<figure><img src="img/zangen_laden.jpg" alt="Raft cu clești într-un magazin german"><figcaption><b>Raft de clești într-un magazin german</b>: fiecare operație are cleștele ei. Cataloagele Knipex sau Wiha listează pentru fiecare sculă domeniul exact (mm², Ø mm).</figcaption></figure>
+</div>
+<h3>Cum se îndepărtează corect mantaua unui NYM-J 3×1,5</h3>
+<ol class="steps">
+<li><b>Stabiliți pe ce lungime</b> se îndepărtează mantaua: în doză de aparat ≈ 100–120 mm, în doză de derivație ≈ 80–100 mm, în tablou după traseul până la clemă plus 50 mm rezervă.</li>
+<li>Puneți dezizolatorul de manta rotativ pe cablu, la cotă, și <b>rotiți 2–3 ture</b>; lama taie mantaua circular fără să atingă conductoarele (adâncime autoreglată).</li>
+<li>Trageți scula spre capăt: lama taie mantaua <b>longitudinal</b>.</li>
+<li>Îndoiți mantaua la tăietura circulară, desfaceți-o și <b>rupeți</b> restul; verificați că izolația conductoarelor nu are nicio urmă de lamă.</li>
+<li>La NYM, mantaua interioară de umplutură (cauciuc/PVC) se rupe cu mâna; nu se taie cu cuțitul lângă conductoare.</li>
+</ol>
+
+<h2 id="dezizolare"><span class="n">6</span>Scule de dezizolat</h2>
+<p>Dezizolarea (<span class="de">Abisolieren</span>) înlătură izolația <b>unui singur conductor</b> pe lungimea cerută de clemă sau de tubul terminal. Cerințele: lungime exactă, <b>nicio crestare</b> a firului masiv, <b>niciun fir tăiat</b> din conductorul flexibil. Un conductor de 1,5 mm² clasa 5 are 30 de fire de 0,25 mm; dacă cleștele taie 5 dintre ele, secțiunea a scăzut cu 17 % și capătul se va încălzi.</p>
+<div class="tbl"><table>
+<tr><th>Scula</th><th>Denumire germană</th><th>Domeniu</th><th>Avantaje / limite</th></tr>
+<tr><td><b>Clește dezizolator cu găuri calibrate</b></td><td><span class="de">Abisolierzange mit Abisolierlöchern</span></td><td>0,5–6 mm² (găuri marcate)</td><td>ieftin, robust; trebuie ales lăcașul corect; unele au șurub de reglaj al deschiderii (<span class="de">Einstellschraube</span>)</td></tr>
+<tr><td><b>Clește dezizolator automat</b> (autoreglabil)</td><td><span class="de">Automatische Abisolierzange, Selbsteinstellende Abisolierzange</span> (Knipex PreciStrip16, Weidmüller Stripax, Wago Quickstrip)</td><td>0,08–16 mm² (PreciStrip16), 0,03–16 mm² (Quickstrip Vario)</td><td>cuțitele se închid automat la grosimea izolației; opritor de lungime reglabil (5–20 mm); ideal la cablarea tablourilor cu sute de capete</td></tr>
+<tr><td><b>Clește dezizolator „pistol”</b></td><td><span class="de">Abisolierzange in Pistolenform</span></td><td>0,2–6 mm²</td><td>prinde și trage izolația într-o singură strângere; lucru rapid într-o mână</td></tr>
+<tr><td><b>Cuțit de dezizolat cu lamă rotativă (pentru secțiuni mari)</b></td><td><span class="de">Abisolierwerkzeug für große Querschnitte</span></td><td>16–240 mm², Ø 4–28 mm</td><td>se rotește pe conductor, taie circular și longitudinal izolația groasă a conductoarelor NYY, H07V-K 35–95 mm²</td></tr>
+<tr><td><b>Mașină de dezizolat</b></td><td><span class="de">Abisoliermaschine</span> (Schleuniger, Komax)</td><td>0,05–16 mm²; mii de capete/oră</td><td>în producția de tablouri și cablaje; lungime programată, repetabilitate perfectă</td></tr>
+</table></div>
+<div class="figs">
+<figure><img src="img/abisolier_1.jpg" alt="Clește dezizolator cu șurub de reglaj, desen explicativ"><figcaption><b>Clește dezizolator simplu</b> cu șurub de reglaj (<span class="de">Einstellschraube</span>) și tăiș (<span class="de">Schneide</span>): șurubul limitează închiderea ca lama să nu atingă firul.</figcaption></figure>
+<figure><img src="img/abisolier_vde.jpg" alt="Clește dezizolator izolat VDE"><figcaption><b>Clește dezizolator izolat VDE</b> cu găuri calibrate și arc de deschidere.</figcaption></figure>
+<figure><img src="img/abisolier_auto.jpg" alt="Clește dezizolator automat cu mânere roșii"><figcaption><b>Clește dezizolator automat</b>: fălcile prind conductorul, cuțitele se reglează singure și trag izolația.</figcaption></figure>
+<figure><img src="img/abisolier_2.jpg" alt="Clește dezizolator automat vedere de sus"><figcaption><b>Clește automat</b>, vedere de sus: falca de prindere (stânga) și cuțitele profilate (dreapta).</figcaption></figure>
+<figure><img src="img/abisolier_beta.jpg" alt="Clește dezizolator tip pistol Beta"><figcaption><b>Clește dezizolator tip pistol</b> (Beta 1602): capătul conductorului intră frontal, o strângere = dezizolat.</figcaption></figure>
+<figure><img src="img/abisolier_pinza.jpg" alt="Două clești dezizolatoare comparate"><figcaption><b>Comparație</b>: clește cu găuri calibrate (stânga) și clește tăietor lateral (dreapta). Cu tăietorul lateral NU se dezizolează.</figcaption></figure>
+<figure><img src="img/abisolier_detail.jpg" alt="Detaliu cuțite clește dezizolator"><figcaption><b>Detaliu cuțite</b> ale unui clește automat: profilul în V taie numai izolația.</figcaption></figure>
+<figure><img src="img/masina_abisolier.jpg" alt="Mașină de dezizolat Schleuniger"><figcaption><b>Mașină de dezizolat</b> (Schleuniger UniStrip 2300): lungimea se programează, capetele ies identice.</figcaption></figure>
+</div>
+<h3>Lungimea de dezizolare</h3>
+<p>Lungimea nu se „ghicește”: fiecare clemă și fiecare tub terminal au o lungime prescrisă, de obicei <b>ștanțată pe clemă</b> (de exemplu „11 mm” pe cleme Wago 221) sau dată în catalog.</p>
+<figure class="diag">
+<svg viewBox="0 0 900 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lungimea de dezizolare și tubul terminal">
+<g font-size="14">
+<rect x="20" y="70" width="330" height="46" rx="3" fill="#2B65B5"/>
+<rect x="350" y="80" width="200" height="26" rx="13" fill="#C98A4B"/>
+<g stroke="#8A5A2A" stroke-width="1"><line x1="352" y1="86" x2="548" y2="86"/><line x1="352" y1="93" x2="548" y2="93"/><line x1="352" y1="100" x2="548" y2="100"/></g>
+<rect x="390" y="72" width="130" height="42" rx="4" fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="5 4"/>
+<rect x="356" y="66" width="34" height="54" rx="6" fill="#1E1E1E" opacity=".85"/>
+<text x="185" y="99" fill="#fff" text-anchor="middle">izolație conductor (H07V-K 2,5 mm² – albastru = N)</text>
+<line x1="350" y1="140" x2="550" y2="140" stroke="var(--ink)" stroke-width="1.5"/><line x1="350" y1="132" x2="350" y2="148" stroke="var(--ink)" stroke-width="1.5"/><line x1="550" y1="132" x2="550" y2="148" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="450" y="162" text-anchor="middle" class="lbl">L dezizolare = lungimea tubului terminal (+ 1 mm)</text>
+<line x1="390" y1="40" x2="520" y2="40" stroke="var(--ink2)" stroke-width="1.5"/><line x1="390" y1="33" x2="390" y2="47" stroke="var(--ink2)" stroke-width="1.5"/><line x1="520" y1="33" x2="520" y2="47" stroke="var(--ink2)" stroke-width="1.5"/>
+<text x="455" y="28" text-anchor="middle" class="sm">tub (partea metalică) 8 mm</text>
+<text x="373" y="60" text-anchor="middle" class="sm">guler</text>
+<text x="373" y="135" text-anchor="middle" class="sm">izolant</text>
+<text x="20" y="200" class="sm">Cupru vizibil între guler și izolația conductorului: max. 1 mm. Fire ieșite peste capătul tubului: max. 0,5 mm (se retează la nevoie).</text>
+<text x="20" y="218" class="sm">Tub izolat 2,5 mm² (DIN 46228-4): albastru, lungime metalică 8 mm; tub de 12 mm pentru cleme adânci (contactoare, întreruptoare automate).</text>
+</g></svg>
+<figcaption>Fig. 2 – Conductor dezizolat exact pe lungimea tubului terminal. Prea scurt: firele nu ajung în capătul tubului, sertizarea prinde gol. Prea lung: cupru dezgolit în afara clemei.</figcaption>
+</figure>
+<div class="tbl"><table>
+<tr><th>Unde se conectează</th><th class="num">Lungime dezizolare</th><th>Observație</th></tr>
+<tr><td>Tub terminal 0,5–2,5 mm² (lungime metalică 8 mm)</td><td class="num">8–9 mm</td><td>tuburi de 6 mm pentru cleme mici, de 10–12 mm pentru cleme adânci</td></tr>
+<tr><td>Tub terminal 4–6 mm² (10–12 mm)</td><td class="num">10–12 mm</td><td>după lungimea tubului ales</td></tr>
+<tr><td>Tub terminal 10–16 mm² (12 mm)</td><td class="num">12–13 mm</td><td>tuburi lungi 18 mm pentru borne de întreruptoare</td></tr>
+<tr><td>Clemă cu arc Wago 221 / 2273</td><td class="num">11 mm</td><td>ștanțat pe clemă; masiv sau flexibil direct (221), numai masiv la 2273</td></tr>
+<tr><td>Clemă șir cu arc Phoenix PT 2,5 / Weidmüller A2C</td><td class="num">10 mm</td><td>tub terminal admis, nu obligatoriu (verificați fișa tehnică)</td></tr>
+<tr><td>Clemă cu șurub 2,5 mm² (întreruptor automat, priză)</td><td class="num">8–12 mm</td><td>după adâncimea bornei; cuprul să nu iasă din bornă</td></tr>
+<tr><td>Papuc tubular 70 mm²</td><td class="num">≈ 30 mm</td><td>= lungimea manșonului papucului + 1–2 mm</td></tr>
+</table></div>
+
+<h2 id="tuburi"><span class="n">7</span>Tuburi terminale</h2>
+<p>Tubul terminal (<span class="de">Aderendhülse</span>) este un tub subțire de cupru cositorit, sertizat pe capătul unui conductor <b>flexibil</b> (clasa 5 sau 6), cu sau fără guler de plastic. Rolul lui: ține firele împreună, împiedică <b>firele răzlețe</b> (care pot atinge borna vecină) și dă un capăt care rezistă la strângerea șurubului fără să se rupă firele. <b>Fără tub, un conductor flexibil nu se introduce în clemă cu șurub</b> (regulă din DIN VDE 0100-520 și din instrucțiunile tuturor producătorilor de aparate).</p>
+<div class="tbl"><table>
+<tr><th>Tip</th><th>Denumire germană</th><th>Normă</th><th>Când se folosește</th></tr>
+<tr><td><b>Tub neizolat</b></td><td><span class="de">Aderendhülse unisoliert</span></td><td>DIN 46228-1</td><td>când nu e loc pentru guler (cleme înguste), în aparate; nu marchează culoarea secțiunii</td></tr>
+<tr><td><b>Tub izolat</b> (cu guler de plastic)</td><td><span class="de">Aderendhülse isoliert / mit Kunststoffkragen</span></td><td>DIN 46228-4</td><td>uzual în tablouri; gulerul ghidează firele la introducere și protejează izolația; culoarea gulerului = secțiunea</td></tr>
+<tr><td><b>Tub dublu</b> (pentru două conductoare)</td><td><span class="de">Zwillings-Aderendhülse, Twin</span></td><td>—</td><td>două conductoare de aceeași secțiune în aceeași bornă (punte între cleme)</td></tr>
+<tr><td><b>Tub lung</b> 12, 18 mm</td><td><span class="de">lange Ausführung</span></td><td>—</td><td>borne adânci: contactoare, întreruptoare automate cu bornă în cutie</td></tr>
+</table></div>
+<h3>Codul de culori DIN 46228-4 (codul german)</h3>
+<p>Atenție: există și un cod francez (diferit) și coduri proprii ale unor producători. Pe ambalaj scrie „DIN” sau „FR”. În Germania și în cataloagele Weidmüller, Phoenix Contact, Klauke, Knipex se folosește codul DIN de mai jos.</p>
+<div class="tbl"><table>
+<tr><th class="num">mm²</th><th>Culoare guler</th><th class="num">Lungime uzuală tub (mm)</th><th class="num">mm²</th><th>Culoare guler</th><th class="num">Lungime uzuală tub (mm)</th></tr>
+<tr><td class="num">0,14</td><td><span class="sw" style="background:#9a9a9a"></span>gri</td><td class="num">6</td><td class="num">6</td><td><span class="sw" style="background:#f2c400"></span>galben</td><td class="num">12</td></tr>
+<tr><td class="num">0,25</td><td><span class="sw" style="background:#f2c400"></span>galben</td><td class="num">6–8</td><td class="num">10</td><td><span class="sw" style="background:#d21f1f"></span>roșu</td><td class="num">12</td></tr>
+<tr><td class="num">0,34</td><td><span class="sw" style="background:#2fb3b3"></span>turcoaz</td><td class="num">6–8</td><td class="num">16</td><td><span class="sw" style="background:#1d5fbf"></span>albastru</td><td class="num">12</td></tr>
+<tr><td class="num">0,5</td><td><span class="sw" style="background:#ffffff"></span>alb</td><td class="num">8</td><td class="num">25</td><td><span class="sw" style="background:#f2c400"></span>galben</td><td class="num">16</td></tr>
+<tr><td class="num">0,75</td><td><span class="sw" style="background:#9a9a9a"></span>gri</td><td class="num">8</td><td class="num">35</td><td><span class="sw" style="background:#d21f1f"></span>roșu</td><td class="num">16</td></tr>
+<tr><td class="num">1,0</td><td><span class="sw" style="background:#d21f1f"></span>roșu</td><td class="num">8</td><td class="num">50</td><td><span class="sw" style="background:#1d5fbf"></span>albastru</td><td class="num">20</td></tr>
+<tr><td class="num">1,5</td><td><span class="sw" style="background:#111111"></span>negru</td><td class="num">8</td><td class="num">70</td><td><span class="sw" style="background:#f2c400"></span>galben</td><td class="num">20</td></tr>
+<tr><td class="num">2,5</td><td><span class="sw" style="background:#1d5fbf"></span>albastru</td><td class="num">8</td><td class="num">95</td><td><span class="sw" style="background:#d21f1f"></span>roșu</td><td class="num">25</td></tr>
+<tr><td class="num">4</td><td><span class="sw" style="background:#9a9a9a"></span>gri</td><td class="num">10</td><td class="num">120</td><td><span class="sw" style="background:#1d5fbf"></span>albastru</td><td class="num">27</td></tr>
+</table></div>
+<div class="box note"><p><b>Regulă de reținut:</b> de la 6 mm² în sus, culorile se repetă din trei în trei: <b>galben – roșu – albastru</b> (6 galben, 10 roșu, 16 albastru, 25 galben, 35 roșu, 50 albastru …). Sub 6 mm² trebuie învățate: 0,5 alb, 0,75 gri, 1 roșu, 1,5 negru, 2,5 albastru, 4 gri.</p></div>
+<div class="figs">
+<figure><img src="img/aeh_1.jpg" alt="Tuburi terminale izolate și neizolate cu conductoare"><figcaption><b>Tuburi izolate și neizolate</b>, alături de conductoare dezizolate și de un clește cu profil pătrat (stânga).</figcaption></figure>
+<figure><img src="img/aeh_2.jpg" alt="Tuburi terminale colorate pe riglă"><figcaption><b>Tuburi izolate</b> de diferite secțiuni pe riglă: gulerul colorat arată secțiunea; lungimea metalică crește cu secțiunea.</figcaption></figure>
+<figure><img src="img/aeh_din.jpg" alt="Sortiment de tuburi terminale DIN 46228-4 din anii 1990"><figcaption><b>Sortiment DIN 46228-4</b> (GKV Graupner, ≈ 1990): codul de culori german este neschimbat de decenii.</figcaption></figure>
+<figure><img src="img/aeh_dubla.jpg" alt="Tuburi terminale simple și duble"><figcaption><b>Tuburi simple și duble</b> (<span class="de">Twin-Aderendhülsen</span>): tubul dublu primește două conductoare în aceeași bornă.</figcaption></figure>
+<figure><img src="img/aeh_macro.jpg" alt="Tuburi terminale neizolate macro"><figcaption><b>Tuburi neizolate</b> în detaliu: tub de cupru cositorit cu gura evazată pentru intrarea firelor.</figcaption></figure>
+<figure><img src="img/aeh_sertizata.jpg" alt="Tuburi terminale sertizate pe conductoare"><figcaption><b>Tuburi sertizate</b> cu profil pătrat: amprenta uniformă pe toată lungimea metalică.</figcaption></figure>
+</div>
+
+<h2 id="sertizare-tuburi"><span class="n">8</span>Cleștii pentru tuburi terminale</h2>
+<p>Sertizarea (<span class="de">Crimpen, Verpressen</span>) este o îmbinare <b>nedemontabilă</b>, prin deformare plastică: tubul și firele sunt presate până devin un singur corp, fără goluri. Calitatea depinde de trei lucruri: <b>tubul potrivit secțiunii</b>, <b>cleștele potrivit tubului</b> și <b>presarea completă</b> (cleștii buni au clichet: nu se deschid până nu s-a atins forța de presare).</p>
+<figure class="diag">
+<svg viewBox="0 0 900 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Profiluri de sertizare pentru tuburi terminale">
+<g font-size="14">
+<g transform="translate(60,30)">
+<path d="M20,20 L80,20 L95,80 L5,80 Z" fill="#C98A4B" stroke="var(--ink)" stroke-width="2"/>
+<circle cx="50" cy="52" r="16" fill="#E0A060" stroke="var(--ink)" stroke-width="1"/>
+<g fill="#8A5A2A"><circle cx="44" cy="46" r="3"/><circle cx="56" cy="46" r="3"/><circle cx="50" cy="56" r="3"/><circle cx="40" cy="56" r="3"/><circle cx="60" cy="56" r="3"/></g>
+<text x="50" y="115" text-anchor="middle" class="lbl">Trapezoidal</text>
+<text x="50" y="133" text-anchor="middle" class="sm">Trapezpressung</text>
+<text x="50" y="150" text-anchor="middle" class="sm">clește simplu, 0,25–16 mm²</text>
+<text x="50" y="167" text-anchor="middle" class="sm">borne cu șurub</text>
+</g>
+<g transform="translate(260,30)">
+<rect x="15" y="20" width="70" height="60" rx="4" fill="#C98A4B" stroke="var(--ink)" stroke-width="2"/>
+<circle cx="50" cy="50" r="16" fill="#E0A060" stroke="var(--ink)" stroke-width="1"/>
+<g fill="#8A5A2A"><circle cx="44" cy="44" r="3"/><circle cx="56" cy="44" r="3"/><circle cx="50" cy="54" r="3"/><circle cx="40" cy="54" r="3"/><circle cx="60" cy="54" r="3"/></g>
+<text x="50" y="115" text-anchor="middle" class="lbl">Pătrat</text>
+<text x="50" y="133" text-anchor="middle" class="sm">Vierkantpressung (4 mandrine)</text>
+<text x="50" y="150" text-anchor="middle" class="sm">Weidmüller PZ 6, Wago Variocrimp</text>
+<text x="50" y="167" text-anchor="middle" class="sm">cleme cu arc și șurub</text>
+</g>
+<g transform="translate(460,30)">
+<polygon points="50,15 85,35 85,70 50,90 15,70 15,35" fill="#C98A4B" stroke="var(--ink)" stroke-width="2"/>
+<circle cx="50" cy="52" r="16" fill="#E0A060" stroke="var(--ink)" stroke-width="1"/>
+<g fill="#8A5A2A"><circle cx="44" cy="46" r="3"/><circle cx="56" cy="46" r="3"/><circle cx="50" cy="56" r="3"/><circle cx="40" cy="56" r="3"/><circle cx="60" cy="56" r="3"/></g>
+<text x="50" y="115" text-anchor="middle" class="lbl">Hexagonal</text>
+<text x="50" y="133" text-anchor="middle" class="sm">Sechskantpressung</text>
+<text x="50" y="150" text-anchor="middle" class="sm">autoreglabil 0,08–16 mm²</text>
+<text x="50" y="167" text-anchor="middle" class="sm">cleme rotunde, borne adânci</text>
+</g>
+<g transform="translate(660,30)">
+<path d="M15,25 Q50,10 85,25 L85,70 Q50,95 15,70 Z" fill="#C98A4B" stroke="var(--ink)" stroke-width="2"/>
+<path d="M15,25 Q50,45 85,25" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
+<path d="M15,70 Q50,50 85,70" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
+<circle cx="50" cy="48" r="14" fill="#E0A060" stroke="var(--ink)" stroke-width="1"/>
+<g fill="#8A5A2A"><circle cx="45" cy="43" r="3"/><circle cx="55" cy="43" r="3"/><circle cx="50" cy="52" r="3"/><circle cx="42" cy="52" r="3"/><circle cx="58" cy="52" r="3"/></g>
+<text x="50" y="115" text-anchor="middle" class="lbl">Cu amprente (WM)</text>
+<text x="50" y="133" text-anchor="middle" class="sm">Wellenpressung / Dornpressung</text>
+<text x="50" y="150" text-anchor="middle" class="sm">Knipex 97 72, Klauke K</text>
+<text x="50" y="167" text-anchor="middle" class="sm">tuburi mari, 10–150 mm²</text>
+</g>
+<text x="20" y="215" class="sm">Secțiuni prin tubul sertizat. Toate profilurile sunt corecte dacă tubul, cleștele și forța se potrivesc; producătorul clemei poate recomanda un profil (Weidmüller: pătrat pentru clemele proprii).</text>
+</g></svg>
+<figcaption>Fig. 3 – Profilurile de sertizare uzuale pentru tuburi terminale.</figcaption>
+</figure>
+<div class="tbl"><table>
+<tr><th>Clește</th><th>Denumire germană</th><th>Domeniu</th><th>Observații</th></tr>
+<tr><td><b>Clește simplu pentru tuburi</b> (profil trapezoidal), fără clichet</td><td><span class="de">Aderendhülsenzange</span></td><td>0,25–2,5 sau 0,5–6 mm²</td><td>ieftin, în fiecare trusă; forța depinde de mână, nu garantează presarea completă</td></tr>
+<tr><td><b>Clește autoreglabil cu clichet</b>, introducere frontală</td><td><span class="de">selbsteinstellende Crimpzange mit Fronteinführung</span> (Knipex 97 53 04, Weidmüller PZ 6 Roto)</td><td>0,08–10 (16) mm²</td><td>cel mai folosit în tablouri; profil pătrat sau hexagonal; presează pe toată lungimea tubului</td></tr>
+<tr><td><b>Clește cu capete rotative</b> (360°)</td><td><span class="de">Crimpzange mit drehbarem Crimpkopf</span> (Knipex Twistor16)</td><td>0,14–16 mm²</td><td>capul se rotește: sertizare în poziții incomode, în tablou montat</td></tr>
+<tr><td><b>Clește cu matrițe pentru tuburi mari</b></td><td><span class="de">Presszange für große Aderendhülsen</span> (Klauke K 30, Knipex 97 72 180)</td><td>10–150 mm²</td><td>presare cu amprente (WM); pentru capete de motoare mari, invertoare, baterii</td></tr>
+<tr><td><b>Clește cu benzi de tuburi</b> (alimentare automată)</td><td><span class="de">Crimpzange mit Magazin / Bandaderendhülsen</span></td><td>0,5–2,5 mm²</td><td>tuburile vin pe bandă; un ciclu = un capăt sertizat; productivitate mare</td></tr>
+</table></div>
+<div class="figs">
+<figure><img src="img/aehz_knipex.jpg" alt="Clește Knipex pentru tuburi terminale"><figcaption><b>Clește autoreglabil cu clichet</b> (Knipex 97 71 180), profil pătrat, 0,25–16 mm². Clichetul nu eliberează până nu s-a presat complet.</figcaption></figure>
+<figure><img src="img/aehz_2.jpg" alt="Două clești de sertizat tuburi terminale"><figcaption><b>Clește cu clichet și clește simplu</b>: cel simplu (dreapta) e pentru intervenții rapide, cel cu clichet pentru tablouri.</figcaption></figure>
+<figure><img src="img/aehz_10.jpg" alt="Clește hexagonal cu tuburi terminale colorate"><figcaption><b>Clește hexagonal autoreglabil</b> până la 10 mm² și tuburi izolate de mai multe secțiuni.</figcaption></figure>
+<figure><img src="img/aehz_klauke150.jpg" alt="Clește Klauke pentru tuburi până la 150 mm²"><figcaption><b>Clește Klauke pentru tuburi mari</b>, până la 150 mm²: cap cu matrițe, brațe lungi.</figcaption></figure>
+<figure><img src="img/aehz_crimping.jpg" alt="Etapele sertizării unui tub terminal"><figcaption><b>Cele patru etape</b>: dezizolare, introducerea tubului, așezarea în clește, tub sertizat.</figcaption></figure>
+<figure><img src="img/aeh_sertizata2.jpg" alt="Tub terminal sertizat gri"><figcaption><b>Tub sertizat corect</b>: amprentă uniformă, niciun fir în afara tubului, gulerul intact.</figcaption></figure>
+</div>
+<h3>Procedura corectă</h3>
+<ol class="steps">
+<li>Alegeți tubul <b>după secțiunea nominală</b> a conductorului (culoarea gulerului) și după adâncimea bornei (lungimea tubului).</li>
+<li>Dezizolați exact pe lungimea metalică a tubului; nu răsuciți firele (răsucirea împiedică umplerea uniformă a tubului).</li>
+<li>Introduceți conductorul până firele ating capătul tubului; gulerul trebuie să ajungă peste izolație.</li>
+<li>Așezați tubul în clește (la cel cu introducere frontală, cu gulerul spre exterior) și <b>strângeți până clichetul eliberează</b>.</li>
+<li>Verificați: tracțiune cu mâna (tubul nu alunecă), nicio răsucire a tubului pe conductor, niciun fir liber, capătul tubului fără bavuri care ar zgâria clema.</li>
+</ol>
+
+<h2 id="papuci"><span class="n">9</span>Papuci de cablu și conectori sertizabili</h2>
+<p>Papucul de cablu (<span class="de">Kabelschuh</span>) transformă capătul conductorului într-o piesă cu ochi, furcă sau lamelă, pentru borne cu șurub sau fișe plate. Pentru fiecare tip există un <b>clește sau o matriță anume</b>; sertizarea unui papuc cu un clește nepotrivit (sau cu cleștele combinat) dă cele mai periculoase defecte: contact aparent bun la montaj, care se încălzește în funcționare.</p>
+<div class="tbl"><table>
+<tr><th>Tip</th><th>Denumire germană</th><th>Secțiuni uzuale</th><th>Scula</th></tr>
+<tr><td><b>Papuc inelar izolat</b> (cod culoare: roșu 0,5–1,5, albastru 1,5–2,5, galben 4–6 mm²)</td><td><span class="de">Ringkabelschuh isoliert</span></td><td>0,5–6 mm²</td><td>clește pentru conectori izolați, cu trei lăcașuri roșu/albastru/galben; cel bun are clichet</td></tr>
+<tr><td><b>Papuc inelar / furcă neizolat</b> (sertizabil)</td><td><span class="de">Quetschkabelschuh, Gabelkabelschuh</span></td><td>0,5–10 mm²</td><td>clește cu profil B (<span class="de">Kerbpressung</span>), care îndoaie aripile manșonului peste fire</td></tr>
+<tr><td><b>Papuc tubular de cupru</b> (DIN 46235) și papuc standard</td><td><span class="de">Rohrkabelschuh, Presskabelschuh</span></td><td>6–400 mm²</td><td>sertizare hexagonală (DIN 48083) cu clește cu matrițe, presă hidraulică manuală sau cu acumulator; matrița este marcată cu codul secțiunii (ex. „6” pentru 6 mm², „22” pentru 70 mm² la Klauke) și lasă amprenta codului pe papuc</td></tr>
+<tr><td><b>Papuc pentru aluminiu / Al–Cu</b></td><td><span class="de">Al-Presskabelschuh, Al/Cu-Presskabelschuh</span></td><td>16–300 mm²</td><td>numai papuci umpluți cu pastă de contact, sertizare hexagonală; conductorul de Al se periază înainte</td></tr>
+<tr><td><b>Fișă plată / conector plat 6,3 mm</b></td><td><span class="de">Flachsteckhülse, Flachstecker</span></td><td>0,5–2,5 mm²</td><td>clește pentru conectori plați (profil B dublu: fire + izolație)</td></tr>
+<tr><td><b>Mufă de îmbinare cap la cap</b></td><td><span class="de">Stoßverbinder</span></td><td>0,5–16 mm²; 16–240 mm² (tubulară)</td><td>ca la papucii de aceeași secțiune; se acoperă cu tub termocontractibil</td></tr>
+<tr><td><b>Conector cu amprente (contacte de pini)</b></td><td><span class="de">Vierdorn-Crimpzange, Indent-Crimp</span></td><td>0,08–6 mm² (AWG 28–10)</td><td>contacte rotunde din conectori industriali (Harting, Phoenix); 4 sau 8 amprente; cu reglaj de poziție</td></tr>
+</table></div>
+<div class="figs">
+<figure><img src="img/ks_ring.jpg" alt="Trei papuci inelari neizolați"><figcaption><b>Papuci inelari neizolați</b> (<span class="de">Ringkabelschuhe</span>) de trei mărimi, pe hârtie milimetrică.</figcaption></figure>
+<figure><img src="img/ks_sortiment.jpg" alt="Cutie cu sortiment de papuci și conectori"><figcaption><b>Sortiment de papuci și conectori</b> într-o cutie de șantier, cu cleștii lor.</figcaption></figure>
+<figure><img src="img/ks_3pasi.jpg" alt="Papuc izolat roșu în trei etape de sertizare"><figcaption><b>Papuc inelar izolat roșu</b> (0,5–1,5 mm²): înainte, în timpul și după sertizare.</figcaption></figure>
+<figure><img src="img/ks_1.jpg" alt="Papuc tubular și clemă"><figcaption><b>Papuc tubular</b> mare (stânga) și clemă de legare; manșonul se sertizează hexagonal.</figcaption></figure>
+<figure><img src="img/ks_screw.jpg" alt="Papuc sertizat sub șurub"><figcaption><b>Papuc inelar sub șurubul bornei</b>: șaiba și șurubul strâng pe inel, nu pe fire.</figcaption></figure>
+<figure><img src="img/cz_izolati.jpg" alt="Clește pentru conectori izolați"><figcaption><b>Clește pentru conectori izolați</b> (roșu/albastru/galben) cu tăietor și găuri de dezizolare; varianta fără clichet.</figcaption></figure>
+<figure><img src="img/cz_flach.jpg" alt="Clește de sertizat conectori plați"><figcaption><b>Clește pentru fișe plate</b> (<span class="de">Crimpzange für Flachsteckverbinder</span>), profil B dublu.</figcaption></figure>
+<figure><img src="img/cz_quetsch.jpg" alt="Clește cu cutie de conectori"><figcaption><b>Clește de sertizat</b> cu cutia lui de conectori izolați: cleștele nu merge cu conectorii altui sistem.</figcaption></figure>
+<figure><img src="img/cz_indent.jpg" alt="Clește cu amprente cu numărător"><figcaption><b>Clește cu patru amprente</b> cu contor și reglaj pentru contacte de conectori industriali.</figcaption></figure>
+<figure><img src="img/cz_klauke.jpg" alt="Clește hidraulic cu acumulator Klauke"><figcaption><b>Presă cu acumulator</b> (Klauke) cu cap rotativ și matrițe hexagonale pentru papuci tubulari 6–300 mm².</figcaption></figure>
+<figure><img src="img/cz_hidraulic.jpg" alt="Presă hidraulică manuală în cutie"><figcaption><b>Presă hidraulică manuală</b> cu set de matrițe hexagonale: sertizare 16–300 mm² pe șantier.</figcaption></figure>
+<figure><img src="img/cz_klauke_multi.jpg" alt="Presă multifuncțională Klauke 3 în 1"><figcaption><b>Presă multifuncțională 3-în-1</b>: același corp presează papuci, taie cablu și perforează tablă, cu capete interschimbabile.</figcaption></figure>
+</div>
+<div class="box"><p><b>Regula matriței:</b> la papucii tubulari, <b>secțiunea papucului = secțiunea conductorului = codul matriței</b>. Un papuc de 70 mm² sertizat cu matrița de 50 strivește firele (secțiune redusă, fire rupte); sertizat cu matrița de 95 rămâne slab (rezistență de contact mare, încălzire). Amprenta codului pe papuc este dovada pentru recepție.</p></div>
+
+<h2 id="cositorire"><span class="n">10</span>De ce nu cositorim capetele conductoarelor</h2>
+<p>Cositorirea capătului unui conductor flexibil ca înlocuitor al tubului terminal este <b>interzisă</b> în cleme cu șurub (DIN VDE 0100-520, instrucțiunile producătorilor de aparate) și este o greșeală frecventă la cei veniți din electronică. Motivul este fizic: cositorul <b>curge la rece</b> (fluaj). Sub presiunea șurubului, în câteva luni capătul cositorit se subțiază, șurubul rămâne slab, rezistența de contact crește și borna se încălzește. Cu cât curentul e mai mare, cu atât mai repede. Sertizarea nu are acest defect: cuprul presat pe cupru își păstrează forma.</p>
+
+<h2 id="date"><span class="n">11</span>Cabluri de date și comunicații</h2>
+<p>Cablurile de rețea (Cat. 5e/6/6A), telefonie și coaxiale au sculele lor, pentru că <b>nu se sertizează cu clește de tuburi și mantaua nu se îndepărtează cu cuțitul</b> (mantaua e subțire, perechile se deteriorează ușor).</p>
+<div class="tbl"><table>
+<tr><th>Scula</th><th>Denumire germană</th><th>La ce</th></tr>
+<tr><td><b>Dezizolator de manta pentru cablu de date</b></td><td><span class="de">Datenkabel-Entmantler</span></td><td>tăietură circulară la 0,3–0,5 mm adâncime pe cabluri Ø 4,5–8 mm</td></tr>
+<tr><td><b>Sculă de pozat LSA-Plus</b> (cu tăietor)</td><td><span class="de">LSA-Anlegewerkzeug</span></td><td>apasă conductorul în contactul cu tăiere a izolației (<span class="de">Schneidklemme</span>) al prizelor RJ45, patch-panel-urilor și regletelor telefonice; conductorul <b>nu se dezizolează</b></td></tr>
+<tr><td><b>Clește de sertizat RJ45 / RJ11</b></td><td><span class="de">Crimpzange für Modularstecker</span></td><td>presează contactele mufei prin izolația conductoarelor și strânge descărcătorul de tracțiune</td></tr>
+<tr><td><b>Clește de sertizat coaxial</b> (hexagonal)</td><td><span class="de">Koax-Crimpzange</span></td><td>mufe BNC, F, N sertizabile pe RG-58, RG-59, RG-6; F-compresie are sculă proprie</td></tr>
+<tr><td><b>Tester de cablu</b></td><td><span class="de">Kabeltester</span></td><td>continuitate și ordinea perechilor (T568A/B); testerele de certificare măsoară și atenuarea</td></tr>
+</table></div>
+<div class="figs">
+<figure><img src="img/lsa_1.jpg" alt="Sculă LSA și clește RJ45"><figcaption><b>Sculă de pozat LSA-Plus</b> (sus) și <b>clește de sertizat RJ45</b> (jos).</figcaption></figure>
+<figure><img src="img/lsa_2.jpg" alt="Vârful sculei LSA"><figcaption><b>Vârful sculei LSA</b>: o parte apasă conductorul în contact, cealaltă taie surplusul.</figcaption></figure>
+<figure><img src="img/lsa_3.jpg" alt="Conductoare pozate într-o priză RJ45"><figcaption><b>Priză RJ45</b> cu conductoarele pozate în contactele cu tăierea izolației, după codul de culori de pe priză.</figcaption></figure>
+<figure><img src="img/rj45_cz.jpg" alt="Clește RJ45 cu tăietor și dezizolator"><figcaption><b>Clește RJ45/RJ11</b> cu tăietor de cablu și lamă de manta încorporate.</figcaption></figure>
+<figure><img src="img/rj45_p5.jpg" alt="Cablu UTP cu mantaua îndepărtată, perechi vizibile"><figcaption><b>Cablu UTP cu mantaua îndepărtată</b>: mantaua îndepărtată pe ≈ 25 mm, perechile rămân răsucite cât mai aproape de mufă.</figcaption></figure>
+<figure><img src="img/cabel_set_lsa.jpg" alt="Trusă pentru cabluri de rețea"><figcaption><b>Trusă pentru rețele</b>: dezizolator de manta, tester RJ45/RJ11, sculă LSA, clește RJ45.</figcaption></figure>
+</div>
+
+<h2 id="vde"><span class="n">12</span>Scule izolate (VDE)</h2>
+<p>Sculele izolate după <b>SR EN 60900 (IEC 60900)</b>, marcate cu simbolul VDE și „1000 V”, au mânerele izolate încercate la 10 kV, iar fiecare sculă e verificată individual în fabrică. Marcajul cuprinde: simbolul dublu-triunghi ⧋ cu „1000 V”, numele producătorului, anul fabricației, norma. Culoarea uzuală în Germania: roșu cu galben (Knipex, Wiha), dar culoarea nu e o cerință a normei.</p>
+<ul>
+<li><b>Înainte de fiecare folosire</b>: control vizual al izolației (crăpături, tăieturi, urme de arc, mâner slăbit). O sculă cu izolația deteriorată se scoate din uz.</li>
+<li>Sculele VDE se păstrează separat de celelalte, nu se aruncă în lada cu scule de tablă.</li>
+<li>Pe unele modele există inel pentru <b>legarea sculei</b> (<span class="de">Tethered Tools</span>) la lucrul la înălțime, ca scula să nu cadă pe echipamente sub tensiune sau pe oameni.</li>
+<li><b>Sculele VDE nu autorizează lucrul sub tensiune.</b> Lucrul sub tensiune se face numai de personal instruit special, cu procedură scrisă și echipament complet.</li>
+</ul>
+<div class="figs">
+<figure><img src="img/seitenschneider_vde.jpg" alt="Clește tăietor lateral VDE"><figcaption><b>Clește tăietor lateral VDE</b>: izolație dublă (două straturi de culori diferite) ca deteriorarea stratului exterior să fie vizibilă.</figcaption></figure>
+<figure><img src="img/tricut.jpg" alt="Clește de instalații VDE roșu-galben"><figcaption><b>Clește de instalații VDE</b>: marcajul VDE și „1000 V” sunt ștanțate pe corp.</figcaption></figure>
+<figure><img src="img/abisolier_vde.jpg" alt="Clește dezizolator VDE"><figcaption><b>Clește dezizolator VDE</b>, cu opritoare pe mânere împotriva alunecării mâinii spre metal.</figcaption></figure>
+</div>
+
+<h2 id="accesorii"><span class="n">13</span>Accesorii și trusa electricianului</h2>
+<div class="tbl"><table>
+<tr><th>Accesoriu / sculă</th><th>Denumire germană</th><th>Observații</th></tr>
+<tr><td><b>Tub termocontractibil</b> și suflantă cu aer cald</td><td><span class="de">Schrumpfschlauch, Heißluftgebläse</span></td><td>raport de contracție 2:1 sau 3:1; cu adeziv interior pentru etanșare; se alege diametrul înainte de contracție ≥ Ø piesei și după contracție ≤ Ø conductorului</td></tr>
+<tr><td><b>Coliere de cablu</b> și clește de strâns coliere</td><td><span class="de">Kabelbinder, Kabelbinderzange</span></td><td>cleștele strânge la forță reglată și taie la ras, fără margine ascuțită; în exterior numai coliere rezistente la UV (negre)</td></tr>
+<tr><td><b>Cleme de legătură</b> (cu șurub, cu arc, cu pârghie)</td><td><span class="de">Lüsterklemme, Verbindungsklemme, Hebelklemme</span></td><td>clema cu șurub cere tub terminal la flexibil; clema cu pârghie (Wago 221) admite masiv și flexibil dezizolat la 11 mm, fără tub</td></tr>
+<tr><td><b>Șurubelniță dinamometrică</b></td><td><span class="de">Drehmomentschraubendreher</span></td><td>bornele au cuplu prescris (ex. 2,5 N·m la 25 mm², 0,5 N·m la cleme de 2,5 mm²); obligatorie la tablouri conform SR EN 61439</td></tr>
+<tr><td><b>Bandă de tras cablu, arc de tras</b></td><td><span class="de">Kabeleinziehband, Einziehfeder</span></td><td>tragerea conductoarelor prin tuburi; capătul se leagă în „ochi” și se izolează cu bandă ca să nu agațe</td></tr>
+<tr><td><b>Trusă electrician</b></td><td><span class="de">Elektriker-Werkzeugsatz</span></td><td>minim: tăietor lateral VDE, combinat VDE, dezizolator, dezizolator de manta, clește tuburi cu clichet, cuțit de cablu, set șurubelnițe VDE, creion de tensiune, tester bipolar</td></tr>
+</table></div>
+<div class="figs">
+<figure><img src="img/schrumpf_1.jpg" alt="Tuburi termocontractibile colorate"><figcaption><b>Tub termocontractibil</b> în culori: pentru izolarea îmbinărilor și marcarea conductoarelor.</figcaption></figure>
+<figure><img src="img/schrumpf_2.jpg" alt="Suflantă cu aer cald pe un cablu"><figcaption><b>Suflantă cu aer cald</b> la contractarea tubului: se încălzește uniform, de la mijloc spre capete.</figcaption></figure>
+<figure><img src="img/kabelbinder_tool.jpg" alt="Clește de strâns coliere roșu"><figcaption><b>Clește de strâns coliere</b> cu forță reglabilă și tăiere la ras.</figcaption></figure>
+<figure><img src="img/kabelbinder_gun.jpg" alt="Pistol de coliere în mână"><figcaption><b>Pistol de coliere</b> în lucru: colierul e tras la forță constantă și tăiat fără muchie ascuțită.</figcaption></figure>
+<figure><img src="img/luster_1.jpg" alt="Cleme cu șurub 2,5 mm²"><figcaption><b>Cleme cu șurub</b> („cleme de lustră”) 1,5–2,5 mm²: la flexibil, numai cu tub terminal.</figcaption></figure>
+<figure><img src="img/klemm_3.jpg" alt="Cleme cu șurub și cu arc"><figcaption><b>Cleme cu șurub și cleme cu arc</b>: pentru fiecare tip, lungimea de dezizolare este alta.</figcaption></figure>
+<figure><img src="img/scule_set.jpg" alt="Trusă de scule pentru instalații electrice"><figcaption><b>Trusă de scule pentru instalații</b>: clești, cuțit de cablu, șurubelnițe, tuburi terminale, cleme.</figcaption></figure>
+</div>
+
+<h2 id="greseli"><span class="n">14</span>Greșeli frecvente și verificarea calității</h2>
+<div class="tbl"><table>
+<tr><th>Greșeala</th><th>Ce se întâmplă</th><th>Cum se verifică / se evită</th></tr>
+<tr><td>Dezizolare cu cuțitul sau cu tăietorul lateral</td><td>fir masiv crestat → se rupe la îndoire; fire tăiate din flexibil → secțiune redusă, încălzire</td><td>control vizual la lumină: firul nu are urmă circulară; numărul de fire e complet; se folosește dezizolator</td></tr>
+<tr><td>Flexibil în clemă cu șurub fără tub terminal</td><td>fire strivite, fire răzlețe spre borna vecină, contact slab</td><td>tub terminal la orice conductor clasa 5/6 în clemă cu șurub</td></tr>
+<tr><td>Tub prea mare pentru conductor</td><td>presarea nu umple tubul; conductorul iese la tracțiune</td><td>proba de tracțiune (mâna, 20–50 N); culoarea gulerului = secțiunea</td></tr>
+<tr><td>Tub prea mic</td><td>firele nu intră toate; unele rămân afară</td><td>toate firele intră în tub; niciun fir peste guler</td></tr>
+<tr><td>Sertizare incompletă (clește fără clichet, strâns slab)</td><td>rezistență de contact mare → încălzire lentă, borna se înnegrește</td><td>numai clești cu clichet la lucrări de tablou; tubul nu se rotește pe conductor</td></tr>
+<tr><td>Papuc sertizat cu clește combinat sau cu ciocanul</td><td>amprentă neuniformă, fisuri; contact care se degradează în timp</td><td>clește sau presă cu matriță de aceeași secțiune; amprenta codului pe papuc</td></tr>
+<tr><td>Capăt cositorit în clemă cu șurub</td><td>fluajul cositorului → șurub slăbit în câteva luni</td><td>interzis; se înlocuiește cu tub terminal</td></tr>
+<tr><td>Cupru dezgolit în afara clemei (dezizolare prea lungă)</td><td>risc de atingere și scurtcircuit între borne vecine</td><td>lungimea de pe clemă; max. 1 mm de cupru vizibil</td></tr>
+<tr><td>Cuplu de strângere incorect</td><td>prea slab: încălzire; prea tare: filet rupt, conductor strivit</td><td>șurubelniță dinamometrică la cuplul din fișa tehnică</td></tr>
+</table></div>
+<div class="figs">
+<figure><img src="img/aeh_arsa.jpg" alt="Tub terminal ars"><figcaption><b>Tub terminal ars</b>: sertizare slabă sau tub nepotrivit → rezistență de contact → încălzire până la carbonizare.</figcaption></figure>
+<figure><img src="img/schuko_failed.jpg" alt="Fișă Schuko topită"><figcaption><b>Fișă topită</b> din cauza unui contact slab la bornă: căldura (I²·R) s-a acumulat în plastic.</figcaption></figure>
+<figure><img src="img/aeh_sertizata2.jpg" alt="Tub sertizat corect"><figcaption><b>Așa trebuie să arate</b>: tub bine sertizat, firele umplu tubul, gulerul peste izolație.</figcaption></figure>
+</div>
+<h3>Controlul unei îmbinări sertizate</h3>
+<ol class="steps">
+<li><b>Vizual:</b> amprenta uniformă pe toată lungimea; niciun fir în afara tubului/papucului; izolația intră în guler; fără fisuri în manșon.</li>
+<li><b>Tracțiune:</b> tragerea cu mâna nu mișcă tubul. Norma DIN EN 60352-2 cere pentru 1,5 mm² o forță de smulgere de minimum 50 N, pentru 2,5 mm² 60 N, pentru 6 mm² 80 N (valori orientative din normă pentru îmbinări sertizate).</li>
+<li><b>Electric:</b> la lucrări importante, măsurarea rezistenței de contact cu microohmmetru (ordinul zecilor de µΩ la papuci tubulari) sau, în funcționare, verificarea cu camera termică a bornelor sub sarcină.</li>
+</ol>
+
+<h2 id="exemple"><span class="n">15</span>Exemple numerice</h2>
+<div class="ex"><div class="t">Exemplul 1 – Cablarea unui tablou cu H07V-K 2,5 mm²</div>
+<p>Se conectează 40 de conductoare H07V-K 2,5 mm² (clasa 5) la un șir de cleme cu șurub și la întreruptoare automate. Ce alegem?</p>
+<ul><li>Tub terminal izolat DIN 46228-4 pentru <b>2,5 mm² → guler albastru</b>, lungime metalică 8 mm (12 mm pentru bornele adânci ale automatelor).</li>
+<li>Dezizolare: <b>8 mm</b> (respectiv 12 mm) cu cleștele automat cu opritor reglat la 8 mm.</li>
+<li>Clește autoreglabil cu clichet 0,25–6 mm² sau 0,08–10 mm², profil pătrat sau hexagonal.</li>
+<li>Cuplu: 0,5–0,6 N·m la clemele de 2,5 mm², 2,0 N·m la bornele automatelor (din fișa tehnică Schrack/ABB).</li></ul></div>
+<div class="ex"><div class="t">Exemplul 2 – Racordul unui motor trifazat de 4 kW</div>
+<p>Motor 4 kW, 400 V, cos φ = 0,82, randament η = 0,86, alimentat prin cordon H07RN-F. Curentul nominal:</p>
+<div class="calc">I = P / (√3 · UL · cos φ · η) = 4000 / (1,732 · 400 · 0,82 · 0,86) = 4000 / 488,6 = <b>8,2 A</b></div>
+<p>Cordon: H07RN-F 4G1,5 (1,5 mm² admite ≈ 16–18 A în cordon). Conductoarele sunt clasa 5 → la bornele cu șurub ale cutiei de borne: <b>tuburi terminale 1,5 mm² (negre), 8 mm</b>, sau papuci inelari izolați albaștri (1,5–2,5 mm²) dacă bornele motorului sunt cu prezon M4/M5. Conductorul PE (verde-galben) primește papuc inelar sub șurubul de pământ.</p></div>
+<div class="ex"><div class="t">Exemplul 3 – Papuc tubular pe NYY-J 4×70 mm²</div>
+<p>Racordul unui tablou general la un cablu NYY-J 4×70 mm² (clasa 2, multifilar), borne M10.</p>
+<ul><li>Papuc tubular Cu DIN 46235 <b>70 mm² / M10</b>, manșon ≈ 30 mm → dezizolare ≈ 32 mm cu cuțitul de dezizolat cu lamă rotativă.</li>
+<li>Sertizare hexagonală cu presa hidraulică, <b>matrița 70</b> (cod Klauke „22”); 1–2 presări pe lungimea manșonului; amprenta rămâne pe papuc.</li>
+<li>Cuplu la M10: ≈ 30 N·m (fișa tehnică a barelor). Tub termocontractibil peste manșon, în culoarea fazei.</li></ul></div>
+<div class="ex"><div class="t">Exemplul 4 – Cât contează un contact slab?</div>
+<p>O bornă corect sertizată la 2,5 mm² are rezistența de contact de ordinul 0,2 mΩ. Una slab sertizată poate ajunge la 5 mΩ. La un circuit de 20 A:</p>
+<div class="calc">P bun = I² · R = 20² · 0,0002 = <b>0,08 W</b> &nbsp;&nbsp;|&nbsp;&nbsp; P slab = 20² · 0,005 = <b>2 W</b></div>
+<p>2 W într-o bornă de plastic închisă înseamnă zeci de grade în plus; plasticul se înmoaie, șurubul se slăbește și mai mult, rezistența crește și procesul se accelerează. Așa apar bornele înnegrite din tablouri.</p></div>
+<div class="ex"><div class="t">Exemplul 5 – Fire tăiate la dezizolare</div>
+<p>Conductor H07V-K 1,5 mm² = 30 fire × Ø 0,25 mm (secțiunea unui fir = π·0,125² = 0,049 mm²). Dacă dezizolarea cu cuțitul taie 6 fire:</p>
+<div class="calc">S rămasă = 24 · 0,049 = <b>1,18 mm²</b> (−21 %); rezistența pe metru crește de la 12,1 mΩ la ≈ 15,3 mΩ</div>
+<p>Capătul se comportă ca un conductor de 1,0 mm² pe o porțiune scurtă: local se încălzește mai mult, iar la vibrații firele rămase se rup unul câte unul.</p></div>
+
+<h2 id="atelier"><span class="n">16</span>Fișă de lucru în atelier (2 ore)</h2>
+<p>Materiale: 1 m NYM-J 3×1,5, 1 m H07V-K 2,5 (albastru), 0,5 m H07RN-F 3G1,5, 0,3 m NYY-J 1×16, tuburi terminale 1,5 și 2,5 mm², papuci inelari izolați albaștri, un papuc tubular 16/M6, cleme Wago 221 și cleme cu șurub, cutie de borne de motor. Scule: trusa de la cap. 13 și presa cu matrițe.</p>
+<ol class="steps">
+<li><b>Îndepărtarea mantalei NYM-J 3×1,5</b> pe 100 mm cu dezizolatorul de manta rotativ. Criteriu: nicio urmă pe izolația conductoarelor (verificare cu lupa de către coleg).</li>
+<li><b>Dezizolare</b> a celor trei conductoare la 11 mm și conectare în cleme Wago 221. Criteriu: cupru vizibil sub 1 mm.</li>
+<li><b>Tuburi terminale</b>: 10 capete H07V-K 2,5 cu tub albastru 8 mm, cleștele cu clichet. Criteriu: proba de tracțiune la toate cele 10; profesorul secționează unul cu tăietorul lateral și arată umplerea.</li>
+<li><b>Papuci inelari izolați</b>: 4 capete H07RN-F 1,5 cu papuc albastru M5 și montare în cutia de borne a motorului cu șurubelniță dinamometrică la cuplul prescris.</li>
+<li><b>Papuc tubular 16 mm²</b> pe NYY 1×16: dezizolare 18 mm, sertizare cu matrița 16, tub termocontractibil. Criteriu: amprenta matriței vizibilă, fără fisuri.</li>
+<li><b>Identificare</b>: 12 scule pe masă, fiecare cursant scrie denumirea RO și DE și operația (5 minute).</li>
+</ol>
+
+<h2 id="test"><span class="n">17</span>Test de evaluare</h2>
+<div class="test">
+<p><b>Nume:</b> ______________________ &nbsp; <b>Data:</b> __________ &nbsp; Timp de lucru: 25 minute. Fiecare întrebare valorează 1 punct; 1 punct din oficiu.</p>
+<ol>
+<li>Enumerați, în ordine, cele cinci operații de prelucrare a unui capăt de cablu și dați denumirea germană a fiecăreia.</li>
+<li>Un conductor H07V-<b>K</b> 4 mm² este masiv, multifilar rigid sau flexibil? Ce clasă IEC 60228 are și ce se montează obligatoriu pe capătul lui înainte de o clemă cu șurub?</li>
+<li>De ce nu se debitează un cablu NYY 5×16 cu cleștele tăietor lateral? Ce sculă se folosește?</li>
+<li>Ce culoare are gulerul tubului terminal DIN 46228-4 pentru 1,5 mm²? Dar pentru 2,5 mm² și 6 mm²?</li>
+<li>Un conductor H07V-K 2,5 mm² trebuie sertizat cu un tub izolat de 8 mm. Pe ce lungime se dezizolează și de ce nu mai lung?</li>
+<li>Numiți două profiluri de sertizare pentru tuburi terminale și un producător de clește pentru fiecare.</li>
+<li>De ce este interzisă cositorirea capătului unui conductor flexibil înainte de a-l strânge într-o clemă cu șurub?</li>
+<li>Ce înseamnă marcajul „⧋ 1000 V” pe un clește și ce nu vă permite acest marcaj?</li>
+<li>Calculați puterea disipată într-o bornă cu rezistența de contact de 4 mΩ parcursă de 25 A. Comparați cu o bornă bună de 0,2 mΩ.</li>
+<li>Un coleg a sertizat un papuc tubular de 50 mm² cu matrița „35”. Ce se întâmplă cu îmbinarea și cum verificați pe papuc ce matriță s-a folosit?</li>
+</ol>
+</div>
+
+<div class="box note" id="profesor"><p><b>Răspunsurile testului</b> și baremul se află la profesor și nu sunt publicate pe această pagină.</p></div>
+
+<h2 id="biblio"><span class="n">18</span>Bibliografie și surse imagini</h2>
+<h3>Bibliografie</h3>
+<ul>
+<li>KabelForum / Crimppedia – <i>Grundlagen der Crimptechnik – Kompendium</i>, ed. 2024-10 (800 pag., PDF) și biblioteca tehnică <a href="https://crimppedia.com">crimppedia.com</a> (capitolele Schneiden, Abisolieren, Abmanteln, Handwerkzeuge).</li>
+<li>KNIPEX – <i>Broschüre Elektro</i> și catalogul general, <a href="https://www.knipex.de/downloads">knipex.de/downloads</a>; blog „Must-Haves für Elektriker”.</li>
+<li>Weidmüller – catalog <i>Werkzeuge</i> (Stripax, PZ 6 Roto, Kabelmesser); Wago – Quickstrip Vario, Variocrimp (elektrotechnik.vogel.de, 2023).</li>
+<li>Klauke – catalog scule de presare și matrițe (coduri de matriță, DIN 46235, DIN 48083).</li>
+<li>Europa-Lehrmittel – <i>Fachkunde Elektrotechnik</i>, capitolul Verbindungstechnik / Leitungen; Westermann – <i>Arbeitsblätter Schaltungstechnik</i>.</li>
+<li>Norme: SR EN 60228 (clase de conductoare), DIN 46228-1/-4 (tuburi terminale), DIN 46235, DIN 48083 (papuci tubulari și sertizare hexagonală), SR EN 60900 (scule izolate), DIN VDE 0100-520 / SR HD 60364-5-52 (conexiuni), SR EN 61439 (tablouri).</li>
+</ul>
+<h3>Surse imagini</h3>
+<p style="font-size:14px;color:var(--ink2)">Fotografiile provin de pe Wikimedia Commons, sub licențe Creative Commons (CC BY / CC BY-SA); autorul și licența exactă se află pe pagina fiecărui fișier (<code>commons.wikimedia.org/wiki/File:&lt;nume&gt;</code>). Desenele (fig. 1–3) sunt originale.</p>
+<ul class="credits" id="credits"></ul>
+</div>
+<script>
+(function(){
+var c={"abisolier_2": {"file": "Pince à dénuder.jpg", "artist": "Ludo", "license": "CC BY-SA 3.0"}, "abisolier_beta": {"file": "Beta 1602.jpg", "artist": "Carnby", "license": "CC BY-SA 4.0"}, "abisolier_detail": {"file": "Abisolierzange detail.jpg", "artist": "Stefan (Diskussion)", "license": "Public domain"}, "abisolier_elpress": {"file": "Early 2010s cutting and stripping pliers SCT001 by Swedish company Elpress.jpg", "artist": "R. Henrik Nilsson", "license": "CC BY 4.0"}, "abisolier_pinza": {"file": "Pinza16a.JPG", "artist": "Petar43", "license": "CC BY-SA 4.0"}, "abisolier_vde": {"file": "Pince à dénuder isolée Facom.jpg", "artist": "", "license": ""}, "aeh_1": {"file": "Wire ferrules with and without insulation.jpg", "artist": "Simon A. Eugster", "license": "CC BY-SA 3.0"}, "aeh_arsa": {"file": "Burnt wire ferrule.jpg", "artist": "Phiarc", "license": "CC BY-SA 4.0"}, "aeh_din": {"file": "Ca 1990 sample assortment of DIN 46228 T4 wire ferrules for electrical conductors by GKV Graupner Germany.jpg", "artist": "R. Henrik Nilsson", "license": "CC BY 4.0"}, "aeh_dubla": {"file": "Adereindhulzen enkel en dubbel.jpg", "artist": "", "license": ""}, "aeh_h07rnf": {"file": "Gummischlauchleitung H07RN-F 5G6 Aderendhülsen CEE 2012 04 03.jpg", "artist": "Bahntech", "license": "CC BY-SA 3.0"}, "aeh_macro": {"file": "Lautsprecherkabel Aderendhuelsen Makro.jpg", "artist": "RobertKuhlmann", "license": "CC BY-SA 3.0"}, "aeh_sertizata": {"file": "Adereindhulzen gekrompen.jpg", "artist": "Philip Bosma", "license": "CC BY-SA 4.0"}, "aeh_sertizata2": {"file": "Wire ferrule crimped.jpg", "artist": "", "license": ""}, "aehz_10": {"file": "Crimping tool for up to 10 sq.mm. ferrules.jpg", "artist": "Retired electrician", "license": "CC0"}, "aehz_2": {"file": "Aderendhülsenzangen.jpg", "artist": "Simon A. Eugster", "license": "CC BY 3.0"}, "aehz_crimping": {"file": "Crimping.JPG", "artist": "Dmitry G", "license": "CC BY-SA 3.0"}, "aehz_klauke150": {"file": "Klauke krimptang voor adereindhulzen tot 150 qmm.jpg", "artist": "Philip Bosma", "license": "CC BY-SA 4.0"}, "aehz_knipex": {"file": "Knipex 9771180.JPG", "artist": "Dmitry G", "license": "CC BY-SA 3.0"}, "cabel_set_lsa": {"file": "Cable stripper, cable tester (RJ45, RJ11), LSA-Tool and crimping tool.jpg", "artist": "", "license": ""}, "cz_flach": {"file": "Crimpzange für Flachsteckverbinder 15.jpg", "artist": "Banffy", "license": "CC BY-SA 4.0"}, "cz_hidraulic": {"file": "Ручной гидравлический пресс для обжима наконечников (кримпер) 01.jpg", "artist": "Mixabest", "license": "CC BY-SA 3.0"}, "cz_indent": {"file": "4-8 indent crimping tool .jpg", "artist": "Rennsteig Werkzeuge GmbH", "license": "CC BY-SA 4.0"}, "cz_izolati": {"file": "Crimp pliers.jpg", "artist": "", "license": ""}, "kabelbinder_gun": {"file": "Panduit's Cable Tie Gun.jpg", "artist": "", "license": ""}, "kabelbinder_tool": {"file": "Cable-tie-tool hg.jpg", "artist": "Hannes Grobe", "license": "CC BY-SA 4.0"}, "kabelschere_1": {"file": "Klein Journeyman cable cutters.jpg", "artist": "J.C. Fields (Talk) (Uploads)", "license": "CC BY-SA 3.0"}, "klemm_3": {"file": "Klemmverbindungen3.jpg", "artist": "", "license": ""}, "ks_1": {"file": "Kabelschuh.jpg", "artist": "Ulfbastel", "license": "Public domain"}, "ks_3pasi": {"file": "Crimping three steps.jpg", "artist": "Hundehalter", "license": "CC BY-SA 3.0"}, "ks_70": {"file": "70mm² M10 terminals.JPG", "artist": "Dmitry G", "license": "CC BY-SA 3.0"}, "ks_cablu": {"file": "Kabel mit Kabelschuhen.jpg", "artist": "Talonola", "license": "CC BY-SA 4.0"}, "ks_ring": {"file": "Ringkabelschuhe.jpg", "artist": "XYZschaap", "license": "CC BY-SA 4.0"}, "ks_screw": {"file": "Screw terminal with crimped wire.jpg", "artist": "Simon A. Eugster", "license": "CC BY-SA 3.0"}, "ks_sortiment": {"file": "Dornbirn-Split ring terminals assortment-01ASD.jpg", "artist": "Asurnipal", "license": "CC BY-SA 4.0"}, "lsa_1": {"file": "LSA-Tool and crimping tool.jpg", "artist": "", "license": ""}, "luster_1": {"file": "Lüsterklemmen 1,5x2,5mm² 1744.JPG", "artist": "", "license": ""}, "masina_abisolier": {"file": "Schleuniger Unistrip 2300 wire stripping machine.jpg", "artist": "", "license": ""}, "rj45_cz": {"file": "Crimpzange RJ45 - RJ11 - RJ12 - IMGP1079.JPG", "artist": "Johann H. Addicks - addicks@gmx.net", "license": "GFDL 1.2"}, "rj45_p5": {"file": "Assemblaggio cavo RJ45 passo 5.jpg", "artist": "Giacomo Alessandroni", "license": "CC BY-SA 4.0"}, "schrumpf_1": {"file": "Heat-shrink tubing.jpg", "artist": "oomlout", "license": "CC BY-SA 2.0"}, "schrumpf_2": {"file": "Heatgun and shrinkwrap.JPG", "artist": "", "license": ""}, "schuko_failed": {"file": "Failed schuko plug.jpg", "artist": "", "license": ""}, "scule_set": {"file": "Tools for electric works.JPG", "artist": "Dmitry G", "license": "CC BY-SA 3.0"}, "seitenschneider_3": {"file": "Diagonal pliers 2017 - A1.jpg", "artist": "Fructibus", "license": "CC0"}, "seitenschneider_vde": {"file": "Pince coupante isolée Facom.jpg", "artist": "", "license": ""}, "tricut": {"file": "TriCut Z14106-170.JPG", "artist": "Dmitry G", "license": "CC BY-SA 3.0"}, "zangen_laden": {"file": "Various types of pliers on display in German hardware store, 2023.jpg", "artist": "", "license": ""}};
+var ul=document.getElementById('credits');
+Object.keys(c).sort().forEach(function(k){
+  var v=c[k]; var li=document.createElement('li');
+  var a=document.createElement('a'); a.href='https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(v.file.replace(/ /g,'_')); a.textContent=v.file; a.target='_blank'; a.rel='noopener';
+  li.appendChild(a); li.appendChild(document.createTextNode((v.artist?' – '+v.artist:'')+(v.license?' ('+v.license+')':'')));
+  ul.appendChild(li);
+});
+})();
+</script>
+
+</body>
+</html>
