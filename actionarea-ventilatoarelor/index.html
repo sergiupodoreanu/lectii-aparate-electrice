@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Lecție pentru Școala de maiștri electricieni: acționarea ventilatoarelor cu convertizor de frecvență — legile ventilatorului, metode de reglare, alegerea și parametrizarea convertizorului, exemple din zootehnie și industrie, verificări.">
+<meta name="author" content="Sergiu Podoreanu">
+<title>Acționarea ventilatoarelor cu convertizor</title>
+<meta name="robots" content="noindex, nofollow">
+<style id="gate-css">
+html.locked body > *:not(#gate){display:none !important}
+#gate{display:none;position:fixed;inset:0;z-index:9999;background:#F3F5F7;color:#18222D;font-family:"IBM Plex Sans",system-ui,"Segoe UI",Roboto,Arial,sans-serif;align-items:center;justify-content:center;padding:16px}
+html.locked #gate{display:flex}
+#gate form{background:#fff;border:1px solid #CCD5DE;padding:28px 24px;max-width:380px;width:100%}
+#gate h1{font-size:20px;margin:0 0 6px}
+#gate p{margin:0 0 16px;color:#4A5866;font-size:14px;line-height:1.5}
+#gate input{width:100%;font-size:16px;padding:10px 12px;border:1px solid #CCD5DE;border-radius:4px;margin-bottom:12px;box-sizing:border-box}
+#gate button{width:100%;font-size:16px;padding:10px;border:0;border-radius:4px;background:#1F5F8B;color:#fff;cursor:pointer}
+#gate .err{color:#A8541A;font-size:14px;min-height:20px;margin:8px 0 0}
+</style>
+<script id="gate-js">
+(function(){
+  var H='d218a6577e20964a3ab569a021110761bbcf9abef9d535466b7a10e687d23021', S='lectii-aparate-electrice', K='lectii-ae-acces';
+  document.documentElement.classList.add('locked');
+  function sha(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(b){return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('')})}
+  function unlock(){document.documentElement.classList.remove('locked')}
+  document.addEventListener('DOMContentLoaded',function(){
+    var g=document.createElement('div');g.id='gate';
+    g.innerHTML='<form><h1>Lecții — Aparate electrice</h1><p>Materiale pentru Școala de maiștri electricieni, Liceul Tehnologic „Grigore C. Moisil” Buzău. Introduceți parola primită la clasă.</p><input type="password" id="gate-pw" autocomplete="current-password" placeholder="Parola"><button type="submit">Intră</button><div class="err" id="gate-err"></div></form>';
+    document.body.appendChild(g);
+    try{ if(localStorage.getItem(K)===H){unlock();return;} }catch(e){}
+    if(!window.crypto||!crypto.subtle){document.getElementById('gate-err').textContent='Deschideți pagina prin https.';}
+    document.getElementById('gate-pw').focus();
+    g.querySelector('form').addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var v=document.getElementById('gate-pw').value.trim();
+      sha(S+v).then(function(d){
+        if(d===H){ try{localStorage.setItem(K,H)}catch(e){} unlock(); }
+        else { document.getElementById('gate-err').textContent='Parolă greșită.'; document.getElementById('gate-pw').select(); }
+      });
+    });
+  });
+})();
+</script>
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: o singură coloană de citit (max 900px), galerii de poze pe grilă, scheme pe toată lățimea. Tonuri de gri-albastru „tablou electric” cu accent oțel. */
+:root{--bg:#f6f7f9;--fg:#1c2230;--muted:#5a6475;--accent:#1d5fa8;--accent2:#b3261e;--card:#ffffff;--line:#d5dae3;--soft:#e9eef6;
+ --serif:'Source Serif 4',Georgia,'Times New Roman',serif;--sans:'IBM Plex Sans','Segoe UI',Arial,sans-serif;--mono:'IBM Plex Mono',Consolas,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151a22;--fg:#e6eaf0;--muted:#a3adbd;--accent:#7fb2ee;--accent2:#ff8a80;--card:#1e2530;--line:#343d4c;--soft:#232b38;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#151a22;--fg:#e6eaf0;--muted:#a3adbd;--accent:#7fb2ee;--accent2:#ff8a80;--card:#1e2530;--line:#343d4c;--soft:#232b38;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.55;margin:0;padding-block:24px 60px;padding-inline:clamp(16px,4vw,48px)}
+.wrap{max-width:960px;margin:0 auto}
+h1,h2,h3,h4{font-family:var(--serif);text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:700}
+h2{font-size:1.55rem;font-weight:600;margin-block:48px 16px;padding-top:12px;border-top:2px solid var(--accent)}
+h3{font-size:1.2rem;font-weight:600;margin-block:24px 8px}
+h4{font-size:1.05rem;font-weight:600;margin-bottom:6px}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 12px;padding-left:22px}
+li{margin-bottom:6px}
+a{color:var(--accent)}
+.hero{padding-block:8px 20px}
+.eyebrow{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.lead{font-size:1.05rem;color:var(--muted);max-width:70ch;margin-top:14px}
+.cuprins{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.cuprins a{background:var(--soft);color:var(--fg);text-decoration:none;font-size:.85rem;padding:5px 10px;border-radius:4px;border:1px solid var(--line)}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:12px 0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:12px 0}
+.grid2>div,.grid3>div{background:var(--card);border:1px solid var(--line);padding:14px 16px;min-width:0}
+.galerie{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:16px 0 20px}
+figure{margin:0;min-width:0}
+.foto img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--soft);border:1px solid var(--line)}
+figcaption{font-size:.82rem;color:var(--muted);margin-top:6px;line-height:1.4}
+.src{display:block;font-size:.72rem;color:var(--muted);opacity:.85}
+.schema{margin:18px 0 22px;background:#fff;border:1px solid var(--line);padding:10px}
+.schema img{width:100%;display:block}
+.schema figcaption{color:var(--fg);padding-top:8px;border-top:1px dashed var(--line);margin-top:8px}
+.schema .src{color:var(--muted)}
+.formule{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:14px 0}
+.formule>div{background:var(--card);border-left:4px solid var(--accent);padding:12px 14px;min-width:0}
+.formule .f{display:block;font-family:var(--mono);font-size:1.05rem;font-weight:500;margin-bottom:4px}
+.formule span:last-child{font-size:.88rem;color:var(--muted)}
+.exemplu{background:var(--card);border:1px solid var(--line);padding:16px 18px;margin:14px 0}
+.atentie{border-left:4px solid var(--accent2);padding-left:12px;color:var(--fg)}
+.nota{font-size:.85rem;color:var(--muted)}
+.tabel{width:100%;border-collapse:collapse;font-size:.9rem;margin:14px 0;display:block;overflow-x:auto}
+.tabel thead{background:var(--soft)}
+.tabel th,.tabel td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.tabel td{font-variant-numeric:tabular-nums}
+.dict td:first-child{white-space:nowrap}
+.pasi ul{margin-top:6px}
+.pasi li,.test li{margin-bottom:10px}
+.biblio li{font-size:.92rem}
+@media (max-width:480px){h2{font-size:1.35rem}.schema{padding:6px}}
+</style>
+</head>
+<body>
+
+<div class='wrap'>
+<header class="hero">
+  <p class="eyebrow">Școala de maiștri electricieni · Liceul Tehnologic „Grigore C. Moisil” Buzău · prof. Sergiu Podoreanu</p>
+  <h1>Acționarea ventilatoarelor cu convertizor de frecvență</h1>
+  <p class="lead">Ce este un ventilator, de ce la 80 % din turație consumă doar jumătate din curent, cum se alege metoda de reglare și convertizorul potrivit, cum se cablează, cum se verifică — și ce se face în grajdurile de porci, vaci și păsări, în centralele de aer, în cabinele de vopsire, la cazane, în tuneluri.
+  Toate cifrele vin din documentația producătorilor, cu sursa lângă fiecare.</p>
+  <nav class="cuprins" aria-label="Cuprins">
+    <a href="#r0">Recapitulare: convertizorul</a><a href="#c0">0. Dicționarul lecției</a><a href="#c1">1. Ventilatorul</a><a href="#c2">2. Legile de similitudine</a><a href="#c3">3. Cum schimbăm turația</a>
+    <a href="#c4">4. Motorul</a><a href="#c5">5. Cum aleg — pas cu pas</a><a href="#c6">6. Funcțiile convertizorului</a><a href="#c7">7. Exemple din practică</a>
+    <a href="#c8">8. Instalarea</a><a href="#c9">9. Verificări și măsurători</a><a href="#c10">10. Punerea în funcțiune</a><a href="#c10b">10b. Parametri pe modele</a><a href="#c11">11. Cazuri rezolvate</a><a href="#c12">12. Test și temă</a><a href="#biblio">Bibliografie</a>
+  </nav>
+</header>
+
+
+<section id="r0">
+<h2>Recapitulare: reglarea turației motorului asincron cu convertizor de frecvență</h2>
+
+<h3>R.1 Turația de sincronism, turația rotorului, alunecarea</h3>
+<p>Înfășurarea trifazată a statorului, alimentată cu un sistem trifazat de tensiuni de frecvență f₁, produce un <b>câmp magnetic învârtitor</b> cu <b>turația de sincronism</b>:</p>
+<div class="formule">
+<div><span class="f">n₁ = 60 · f₁ / p</span><span>n₁ – turația de sincronism (min⁻¹); f₁ – frecvența tensiunii de alimentare (Hz); p – numărul de perechi de poli</span></div>
+<div><span class="f">s = (n₁ − n) / n₁</span><span>s – alunecarea; n – turația rotorului (min⁻¹); la sarcina nominală s = 0,02…0,05</span></div>
+<div><span class="f">n = n₁ · (1 − s)</span><span>turația rotorului este mai mică decât cea de sincronism; la s = 0 nu se induc curenți în rotor și cuplul este nul</span></div>
+</div>
+
+<table class="tabel"><thead><tr><th>Notație</th><th>Semnificație</th><th>Unitate / valoare uzuală</th></tr></thead><tbody>
+<tr><td>indicele 1 / indicele 2</td><td>mărime a statorului / a rotorului</td><td></td></tr>
+<tr><td><b>U₁</b></td><td>tensiunea de fază aplicată înfășurării statorice (la convertizor: valoarea efectivă a tensiunii de ieșire)</td><td>V; U₁N = 230 V pe fază (400 V între faze)</td></tr>
+<tr><td><b>f₁</b></td><td>frecvența tensiunii statorice</td><td>Hz; f₁N = 50 Hz; la convertizor 0…50 Hz</td></tr>
+<tr><td><b>n₁</b></td><td>turația de sincronism (a câmpului învârtitor)</td><td>min⁻¹; 1 500 min⁻¹ la 2p = 4, 50 Hz</td></tr>
+<tr><td><b>n</b></td><td>turația rotorului</td><td>min⁻¹; ≈ 1 440 min⁻¹ la sarcina nominală</td></tr>
+<tr><td><b>s</b></td><td>alunecarea, s = (n₁ − n) / n₁</td><td>0,02…0,05 la sarcina nominală; 1 la pornire</td></tr>
+<tr><td><b>f₂</b></td><td>frecvența curenților rotorici, f₂ = s · f₁</td><td>1…2,5 Hz la sarcina nominală</td></tr>
+<tr><td><b>p</b> / <b>2p</b></td><td>numărul de perechi de poli / numărul de poli</td><td>p = 2 la motorul de 1 500 min⁻¹</td></tr>
+<tr><td><b>Φ</b></td><td>fluxul magnetic util pe pol</td><td>Wb; menținut constant prin U₁/f₁ = constant</td></tr>
+<tr><td><b>w₁, kw₁</b></td><td>numărul de spire pe fază și factorul de înfășurare al statorului</td><td>constante constructive</td></tr>
+<tr><td><b>R₁, L₁σ</b> / <b>R₂′, L₂σ′</b></td><td>rezistența și inductivitatea de dispersie ale statorului / ale rotorului, raportate la stator</td><td>parametrii schemei echivalente, determinați de convertizor la autotune</td></tr>
+<tr><td><b>M, M N</b></td><td>cuplul electromagnetic / cuplul nominal</td><td>N·m; M N = 9 550 · P N / n N</td></tr>
+<tr><td><b>U₁N, f₁N, I₁N, P N, n N</b></td><td>valorile nominale de pe plăcuța motorului</td><td></td></tr>
+<tr><td><b>Ud</b></td><td>tensiunea circuitului intermediar de c.c. al convertizorului</td><td>≈ √2 · 400 V ≈ 565 V</td></tr>
+<tr><td><b>fc</b></td><td>frecvența de comutație a invertorului (PWM)</td><td>2…16 kHz</td></tr>
+</tbody></table>
+<p>Pentru un motor cu 2p = 4 poli (p = 2): la f₁ = 50 Hz, n₁ = 1 500 min⁻¹ și n ≈ 1 440 min⁻¹ (s = 4 %); la f₁ = 25 Hz, n₁ = 750 min⁻¹; la f₁ = 10 Hz, n₁ = 300 min⁻¹. Din relația n = 60 · f₁ · (1 − s) / p rezultă cele trei metode de reglare a turației motorului asincron: modificarea numărului de poli (motor Dahlander, în trepte), modificarea alunecării (reducerea tensiunii, rezistențe rotorice – cu pierderi mari) și <b>modificarea frecvenței f₁</b> – singura metodă continuă și economică, realizată cu convertizorul de frecvență.</p>
+<figure class="schema"><img src="svg/18_formula_turatiei_Uf.svg" alt="Schema R1. Turația de sincronism pentru 2p = 2, 4, 6, 8 la 50 Hz; alunecarea; caracteristica U₁/f₁ = constant."><figcaption>Schema R1. Turația de sincronism pentru 2p = 2, 4, 6, 8 la 50 Hz; alunecarea; caracteristica U₁/f₁ = constant. <span class="src">SVG editabil în Inkscape (svg/18_formula_turatiei_Uf.svg)</span></figcaption></figure>
+
+<h3>R.2 Structura convertizorului de frecvență cu circuit intermediar de tensiune continuă</h3>
+<p>Convertizorul de frecvență realizează o conversie în două trepte: c.a. → c.c. → c.a. Elementele componente:</p>
+<ol class="pasi">
+<li><b>Redresorul</b> – punte trifazată cu diode (B6), necomandată; transformă tensiunea de rețea 3 × 400 V / 50 Hz în tensiune continuă pulsatorie.</li>
+<li><b>Circuitul intermediar de tensiune continuă</b> – baterie de condensatoare electrolitice (și, la convertizoarele de calitate, bobine de filtrare); netezește tensiunea redresată la Ud ≈ √2 · 400 V ≈ 565 V. Condensatoarele rămân încărcate după deconectarea de la rețea; manualele impun un timp de așteptare (4…15 min, după putere) înaintea oricărei intervenții.</li>
+<li><b>Invertorul</b> – punte trifazată cu șase tranzistoare IGBT și diode de nul; comută tensiunea continuă cu frecvența de comutație fc = 2…16 kHz și formează, prin <b>modulație în lățime de impulsuri (PWM)</b>, un sistem trifazat de tensiuni de frecvență f₁ și valoare efectivă U₁ reglabile. Curentul în motor este aproape sinusoidal, deoarece inductivitatea înfășurărilor filtrează impulsurile; zgomotul magnetic al motorului are frecvența fc.</li>
+<li><b>Partea de comandă</b> – microprocesor care primește referința (0–10 V, 4–20 mA, tastatură, rețea de comunicație), calculează f₁ și U₁ după legea de comandă aleasă și generează semnalele PWM; conține protecțiile (supracurent, supratensiune în circuitul intermediar, protecție termică a motorului I²t, PTC).</li>
+</ol>
+<figure class="schema"><img src="svg/17_structura_convertizor.svg" alt="Schema R2. Convertizor de frecvență cu circuit intermediar de tensiune continuă: redresor, filtru, invertor PWM, partea de comandă."><figcaption>Schema R2. Convertizor de frecvență cu circuit intermediar de tensiune continuă: redresor, filtru, invertor PWM, partea de comandă. <span class="src">SVG editabil în Inkscape (svg/17_structura_convertizor.svg)</span></figcaption></figure>
+
+<h3>R.3 Legea de comandă U₁/f₁ = constant</h3>
+<p>Tensiunea indusă în înfășurarea statorică este U₁ ≈ E₁ = 4,44 · f₁ · w₁ · kw₁ · Φ, deci fluxul magnetic este Φ ≈ U₁ / (4,44 · f₁ · w₁ · kw₁). Dacă frecvența se reduce la tensiune constantă, fluxul crește, circuitul magnetic se saturează, curentul de magnetizare crește puternic și motorul se încălzește. Pentru a menține fluxul la valoarea nominală, convertizorul reduce tensiunea proporțional cu frecvența: <b>U₁ / f₁ = U₁N / f₁N = 400 V / 50 Hz = 8 V/Hz</b> (25 Hz → 200 V; 10 Hz → 80 V). La flux constant, cuplul maxim și caracteristica mecanică se păstrează, deplasate paralel – motorul dezvoltă cuplul nominal la orice turație din domeniul 0…f₁N.</p>
+<ul>
+<li><b>Compensarea rezistenței statorice</b> (supracreștere de tensiune la frecvențe mici): sub ≈ 5 Hz căderea de tensiune pe R₁ devine comparabilă cu U₁; convertizorul adaugă o tensiune suplimentară reglabilă (Danfoss 1-55/1-56, Siemens P1310, Schneider UFr) pentru a asigura cuplul de pornire.</li>
+<li><b>Domeniul de slăbire a câmpului</b>: peste f₁N tensiunea rămâne U₁N (limitată de tensiunea circuitului intermediar), fluxul scade invers proporțional cu f₁, cuplul maxim scade cu 1/f₁²; puterea rămâne aproximativ constantă.</li>
+<li><b>Caracteristica U/f pătratică</b> pentru sarcini cu cuplu rezistent proporțional cu pătratul turației (ventilatoare, pompe centrifuge): U₁ ~ f₁², de exemplu 25 Hz → ≈ 110 V. Fluxul redus la turații mici micșorează pierderile în fier și zgomotul magnetic, fără pierdere de cuplu util, pentru că sarcina cere la 25 Hz doar un sfert din cuplul nominal (schema 6).</li>
+</ul>
+
+<h3>R.4 Metode de comandă: scalară și vectorială</h3>
+<div class="grid2">
+<div><h4>Comanda scalară (U/f)</h4><p>Convertizorul impune numai valoarea efectivă U₁ și frecvența f₁, după o caracteristică U₁ = f(f₁) liniară sau pătratică, fără informații despre starea rotorului. Turația nu este reglată în buclă închisă: la creșterea sarcinii scade cu alunecarea (2…5 %); unele convertizoare adaugă o compensare a alunecării estimată din curent. Nu necesită identificarea parametrilor motorului; admite mai multe motoare în paralel pe un convertizor și filtru sinus la ieșire. Este comanda standard pentru ventilatoare și pompe. Denumiri de producător: Danfoss „U/f”, „VVC+” cu caracteristică VT; Siemens P1300 = 0 (liniar) / 2 (pătratic); Schneider Ctt = Std / PUMP / UFq; ABB 99.04 = Scalar; Ziehl-Abegg Fcontrol – exclusiv scalar.</p></div>
+<div><h4>Comanda vectorială (cu orientare după câmp)</h4><p>Convertizorul măsoară curenții statorici și, pe baza modelului matematic al motorului (parametri determinați prin autotune: R₁, R₂', L₁σ, L₂σ', Lm), descompune curentul statoric în două componente ortogonale: una care produce fluxul (id) și una care produce cuplul (iq), reglate independent, ca la motorul de curent continuu cu excitație separată. Rezultă cuplu nominal și peste nominal de la turație zero, reglarea precisă a turației (± 0,5 % fără traductor, ± 0,01 % cu traductor de turație) și răspuns dinamic rapid. Necesară la acționări cu cuplu constant și cerințe dinamice: transportoare, extrudere, macarale, lifturi, mașini-unelte. Admite un singur motor pe convertizor și, de regulă, nu admite filtru sinus. Denumiri: Siemens P1300 = 20 (fără traductor) / 21 (cu traductor); Schneider Ctt = UUC / PErF / SVC; ABB 99.04 = Vector; Danfoss „Flux sensorless” / „Flux with motor feedback”.</p></div>
+</div>
+<table class="tabel"><thead><tr><th>Criteriu</th><th>scalar U/f liniar</th><th>scalar U/f pătratic</th><th>vectorial fără traductor</th><th>vectorial cu traductor</th></tr></thead><tbody>
+<tr><td>cuplu disponibil la turație mică</td><td>≈ 100 % M N de la ≈ 3–5 Hz (cu compensare R₁)</td><td>redus, conform sarcinii pătratice</td><td>≈ 150 % M N de la ≈ 0,5 Hz</td><td>≈ 150 % M N la 0 Hz, menținere în poziție</td></tr>
+<tr><td>precizia reglării turației</td><td>± s (2…5 %)</td><td>± s</td><td>≈ ± 0,5 %</td><td>≈ ± 0,01 %</td></tr>
+<tr><td>mai multe motoare pe un convertizor</td><td>admis</td><td>admis</td><td>nu</td><td>nu</td></tr>
+<tr><td>filtru sinus la ieșire</td><td>admis</td><td>admis</td><td>în general nu</td><td>nu</td></tr>
+<tr><td>identificarea motorului (autotune)</td><td>opțională</td><td>opțională</td><td>obligatorie</td><td>obligatorie</td></tr>
+<tr><td>aplicații tipice</td><td>pompe, transportoare ușoare, motoare vechi, motoare în paralel</td><td><b>ventilatoare, pompe centrifuge</b></td><td>transportoare, mixere, extrudere, compresoare</td><td>macarale, lifturi, mașini-unelte, înfășurătoare</td></tr>
+</tbody></table>
+<p><b>Concluzie pentru acționarea ventilatoarelor:</b> comandă scalară cu caracteristică U/f pătratică, frecvență minimă 15…20 Hz (răcirea motorului, debitul minim de aer), timpi de accelerare și decelerare mari (30…90 s), prindere din mers și eliminarea frecvențelor de rezonanță. Capitolele următoare detaliază alegerea, instalarea, parametrizarea și verificarea acestei acționări.</p>
+</section>
+
+<section id="c0">
+<h2>0. Dicționarul lecției — termenii, pe înțelesul tuturor</h2>
+<p>Citiți întâi acest tabel. Fiecare termen apare apoi în lecție cu <b>litere groase</b> la prima folosire.</p>
+<table class="tabel dict">
+<thead><tr><th>Termen</th><th>Ce înseamnă, simplu</th><th>De reținut</th></tr></thead>
+<tbody>
+<tr><td><b>Ventilator</b></td><td>o „roată cu palete” învârtită de un motor, care împinge aerul dintr-un loc în altul</td><td>face două lucruri: mută <b>aer</b> (debit) și îl <b>împinge</b> prin canale (presiune)</td></tr>
+<tr><td><b>Debit (Q)</b></td><td>câți metri cubi de aer trec într-o oră: m³/h</td><td>un porc de 100 kg are nevoie de ≈ 14 m³/h iarna și ≈ 108 m³/h vara (DIN 18910)</td></tr>
+<tr><td><b>Presiune (Δp)</b></td><td>cât de tare „apasă” ventilatorul aerul ca să-l treacă prin filtre și canale; se măsoară în pascali (Pa)</td><td>1 000 Pa ≈ 0,01 bar ≈ 10 cm coloană de apă; un grajd cere 30–50 Pa, o centrală de aer 500–1 000 Pa</td></tr>
+<tr><td><b>Turație (n)</b></td><td>de câte ori se învârte axul pe minut: min⁻¹ (rot/min)</td><td>la 50 Hz motorul cu 4 poli merge cu ≈ 1 450 min⁻¹</td></tr>
+<tr><td><b>Frecvență (f)</b></td><td>de câte ori pe secundă își schimbă sensul curentul din priză: 50 Hz în Europa</td><td>frecvența „învârte” câmpul magnetic din motor: n = 60 · f / p</td></tr>
+<tr><td><b>Câmp învârtitor</b></td><td>„magnetul rotitor” făcut de cele trei faze în stator; el trage rotorul după el</td><td>3 000 min⁻¹ la 2 poli, 1 500 la 4 poli, 1 000 la 6 poli, 750 la 8 poli (la 50 Hz)</td></tr>
+<tr><td><b>Alunecare (s)</b></td><td>rotorul rămâne mereu puțin în urma câmpului, „fără să-l ajungă vreodată” (formularea din cursurile franceze)</td><td>2–5 % la sarcină nominală; fără alunecare nu există cuplu</td></tr>
+<tr><td><b>Cuplu (M)</b></td><td>„forța de răsucire” de la ax, în N·m; cât de greu e de învârtit ventilatorul</td><td>M = 9 550 · P / n</td></tr>
+<tr><td><b>Cuplu pătratic (variabil)</b></td><td>la ventilator, cuplul crește cu <b>pătratul</b> turației: la jumătate de turație, un sfert de cuplu</td><td>de aceea puterea scade cu cubul: la jumătate de turație, o optime de putere</td></tr>
+<tr><td><b>Convertizor de frecvență (CF)</b></td><td>aparat care ia curentul de 50 Hz din rețea și face din el „o rețea nouă”, cu frecvența și tensiunea pe care le vrem noi</td><td>redresor → circuit intermediar de c.c. (≈ 565 V) → invertor cu tranzistoare → motor</td></tr>
+<tr><td><b>U/f constant</b></td><td>când scădem frecvența, scădem și tensiunea, în aceeași proporție</td><td>bobina statorului are reactanța X = 2πfL; la f mic, cu U neschimbat, curentul ar crește și fierul s-ar satura</td></tr>
+<tr><td><b>Curbă U/f pătratică</b></td><td>la ventilatoare tensiunea se scade și mai mult decât frecvența, pentru că motorul nu are nevoie de cuplu mare la turație mică</td><td>25 Hz → ≈ 110 V în loc de 200 V; motor mai rece și mai silențios</td></tr>
+<tr><td><b>PWM (modulație în lățime de impulsuri)</b></td><td>invertorul nu dă o sinusoidă adevărată, ci mii de impulsuri dreptunghiulare pe secundă, mai late sau mai înguste; motorul „vede” media lor</td><td>frecvența impulsurilor (2–16 kHz) este fluieratul pe care îl auzim din motor</td></tr>
+<tr><td><b>Filtru sinus</b></td><td>bobine și condensatoare care netezesc impulsurile PWM înapoi într-o sinusoidă</td><td>cu el nu mai e nevoie de cablu ecranat și se pot lega mai multe motoare</td></tr>
+<tr><td><b>Filtru du/dt</b></td><td>filtru mai mic, care doar rotunjește fronturile impulsurilor</td><td>pentru cabluri de motor de 50–150 m</td></tr>
+<tr><td><b>Cablu ecranat</b></td><td>cablu cu o „cămașă” metalică în jurul conductoarelor; perturbațiile se întorc prin ea la convertizor în loc să se răspândească</td><td>ecranul se prinde de jur împrejur (360°) la ambele capete, nu cu o „codiță”</td></tr>
+<tr><td><b>Motor asincron standard (IEC)</b></td><td>motorul trifazat obișnuit, cu rotor „în colivie”</td><td>la convertizor: izolație după SR EN 60034-17 și termistori PTC</td></tr>
+<tr><td><b>Motor cu rotor exterior</b></td><td>motor „întors pe dos”: partea care se rotește este afară și poartă direct paletele</td><td>brevetat de Emil Ziehl; se reglează și prin tensiune; la convertizor cere filtru sinus</td></tr>
+<tr><td><b>Ventilator EC</b></td><td>ventilator cu motor cu magneți permanenți și convertizorul pus chiar în motor</td><td>se comandă cu 0–10 V; randamentul cel mai mare</td></tr>
+<tr><td><b>Transformator în trepte</b></td><td>„cutie” care dă motorului 80, 100, 130, 170 sau 230 V; la tensiune mai mică, motorul mic merge mai încet</td><td>numai pentru motoare mici „comandabile în tensiune”; frecvența rămâne 50 Hz</td></tr>
+<tr><td><b>Regulator electronic de tensiune (triac)</b></td><td>taie o parte din fiecare undă de tensiune, ca un variator de lumină</td><td>„la fel de eficient ca reglarea luminii apăsând repede întrerupătorul” (curs Bac Pro MELEC); motorul se încălzește cu 10–20 K</td></tr>
+<tr><td><b>Clapetă (registru)</b></td><td>o „ușă” în canal care închide parțial drumul aerului</td><td>reglează debitul, dar ventilatorul merge tot la turație plină: energie irosită</td></tr>
+<tr><td><b>Referință (valoare prescrisă)</b></td><td>ce vrem să obțină reglajul: „300 Pa în canal”, „20 °C în grajd”, „800 ppm CO₂”</td><td>se dă din potențiometru, din 0–10 V sau din tastatura convertizorului</td></tr>
+<tr><td><b>Reacție (măsură)</b></td><td>ce măsoară traductorul în realitate</td><td>4–20 mA sau 0–10 V de la traductorul de presiune, temperatură, CO₂</td></tr>
+<tr><td><b>Regulator PID</b></td><td>„creierul” care compară referința cu reacția și corectează turația până se potrivesc</td><td>este gata făcut în convertizor; se reglează un câștig (P) și un timp (I)</td></tr>
+<tr><td><b>Bandă de reglare</b></td><td>la grajduri: intervalul de temperatură în care ventilația urcă de la minim la maxim</td><td>iarna 3–4 K, vara 5–7 K (LWK Niedersachsen, top agrar)</td></tr>
+<tr><td><b>Ventilație minimă</b></td><td>debitul sub care nu se coboară niciodată, ca animalele/oamenii să aibă aer curat</td><td>la grajd tipic 20 %; la clădiri f min 15–20 Hz</td></tr>
+<tr><td><b>PTC / termocontact (TB)</b></td><td>„termometru” pus în bobinajul motorului: PTC își crește rezistența la cald, termocontactul se deschide</td><td>singura protecție termică bună la turație variabilă</td></tr>
+<tr><td><b>Curent de scurgere</b></td><td>un curent mic care se scurge prin capacitățile cablului și filtrului spre pământ, din cauza impulsurilor PWM</td><td>> 3,5 mA → conductor PE gros (10 mm²) sau dublu; DDR obișnuit poate declanșa fals</td></tr>
+<tr><td><b>DDR (RCD) tip B</b></td><td>dispozitiv diferențial care „vede” și curenții continui din spatele convertizorului</td><td>tipurile AC și A nu-i văd; recomandat 300 mA</td></tr>
+<tr><td><b>Prindere din mers</b></td><td>convertizorul „ghicește” turația cu care se învârte deja ventilatorul (din tiraj sau vânt) și pornește sincronizat</td><td>fără ea: supracurent la pornire</td></tr>
+<tr><td><b>Frecvențe de evitare</b></td><td>turații la care instalația vibrează (rezonanță); convertizorul sare peste ele</td><td>se găsesc la punerea în funcțiune, prin baleiere lentă</td></tr>
+<tr><td><b>Ocolire (bypass)</b></td><td>drum de rezervă: motorul primește curent direct din rețea dacă se strică convertizorul</td><td>cu 2 contactoare interblocate sau cu un comutator manual 0 – AUTO – 100 %</td></tr>
+<tr><td><b>Mod incendiu</b></td><td>ventilatorul merge la turația maximă „până cade”, orice s-ar întâmpla</td><td>contact NC (deschis = incendiu) de la centrala de detecție</td></tr>
+<tr><td><b>STO (cuplu oprit în siguranță)</b></td><td>intrare care taie sigur comanda tranzistoarelor: motorul nu mai poate porni</td><td>nu separă galvanic; pentru lucrări, separatorul blocat cu lacăt</td></tr>
+</tbody></table>
+</section>
+
+<section id="c1">
+<h2>1. Ventilatorul și instalația de aer</h2>
+<h3>1.1 Trei feluri de ventilatoare</h3>
+<div class="grid3">
+  <div><h4>Centrifugal (radial)</h4><p>Aerul intră prin mijloc și este aruncat spre margine, ca apa dintr-o găleată învârtită. Dă presiune mare. Cu <b>pale curbate înapoi</b> este eficient și „nu se supraîncarcă”; cu pale înainte e mic și silențios. Fără carcasă spirală se numește <b>ventilator cu rotor liber</b> și e standardul din centralele de tratare a aerului (CTA).</p></div>
+  <div><h4>Axial</h4><p>Aerul trece drept prin el, ca la o elice. Debit mare, presiune mică. Este ventilatorul de grajd, de perete, de acoperiș, de tunel, de turn de răcire.</p></div>
+  <div><h4>Cu motor EC</h4><p>Ventilator la care convertizorul este construit în motor. Un singur cablu de alimentare, un fir de comandă 0–10 V. Cel mai economic, dar nu se repară cu piese universale.</p></div>
+</div>
+<div class="galerie">
+<figure class="foto"><img src="img/ventilator_centrifugal_1.jpg" alt="Ventilator centrifugal în linie (inline)" loading="lazy"><figcaption>Ventilator centrifugal în linie (inline)<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Inline_Centrifugal_Fan.jpg">Wikimedia Commons</a> · Saud · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/ventilator_centrifugal_2.jpg" alt="Ventilator centrifugal de înaltă presiune" loading="lazy"><figcaption>Ventilator centrifugal de înaltă presiune<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:High_Pressure_Centrifugal_Fan.jpg">Wikimedia Commons</a> · SAF · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/ventilator_axial_1.jpg" alt="Ventilator axial de tunel (Lämmerbuckel, 1937) — debit mare, presiune mică" loading="lazy"><figcaption>Ventilator axial de tunel (Lämmerbuckel, 1937) — debit mare, presiune mică<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:L%C3%A4mmerbuckeltunnel%2C_km_151%2C181_Axialventilator_Typ_1400_N_8_E_Mit_dem_Bau_des_Tunnels_wurde_Ende_1937_begonnen._Mitte_1938_durchgebrochen._Arbeiten_19_-_LABW_-_Staatsarchiv_Ludwigsburg_EL_75_VI_a_Nr_3289.jpeg">Wikimedia Commons</a> · autor necunoscut · <a href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/rotor_ventilator_1.jpg" alt="Rotor de ventilator axial de mină, expus într-un parc (Sprockhövel, Germania)" loading="lazy"><figcaption>Rotor de ventilator axial de mină, expus într-un parc (Sprockhövel, Germania)<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Niedersprockh%C3%B6vel-Park_am_Malakowturm_01.jpg">Wikimedia Commons</a> · Dat doris · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/ventilator_ec_2.jpg" alt="Ventilator centrifugal EC cu rotor liber și grilă de aspirație (ebm-papst RadiCal)" loading="lazy"><figcaption>Ventilator centrifugal EC cu rotor liber și grilă de aspirație (ebm-papst RadiCal)<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:RadiCal_FlowGrid.png">Wikimedia Commons</a> · Fischer &amp; Friends · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/ventilator_ec_3.jpg" alt="Ventilator compact cu motor cu rotor exterior (Papst, 230 V, 19 W)" loading="lazy"><figcaption>Ventilator compact cu motor cu rotor exterior (Papst, 230 V, 19 W)<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Ebm-papst-4650N.jpg">Wikimedia Commons</a> · Mary Joanna · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></span></figcaption></figure>
+</div>
+<h3>1.2 Curba ventilatorului și curba instalației</h3>
+<p>Gândiți-vă la un furtun de grădină. Cu cât vrem mai multă apă, cu atât mai mult trebuie să apese pompa. La aer e la fel: instalația (canale, filtre, grile) „se opune” cu o presiune care crește cu <b>pătratul</b> debitului. Ventilatorul, la o turație dată, poate da presiune mai mare la debit mic și mai mică la debit mare. Locul unde cele două curbe se întâlnesc este <b>punctul de funcționare</b>.</p>
+<p>Ca să scădem debitul avem două drumuri, și diferența dintre ele e toată lecția:</p>
+<ul>
+<li><b>Închidem o clapetă</b> — e ca și cum am apăsa pe furtun cu degetul: pompa apasă la fel de tare, dar apa nu mai trece. Ventilatorul merge la turație plină, presiunea în plus se pierde pe clapetă, în căldură și zgomot. ABB o explică astfel: nimeni nu conduce mașina „cu pedala de accelerație la maxim și reglând viteza numai din frână”.</li>
+<li><b>Scădem turația</b> — pompa apasă exact cât trebuie. Ventilatorul produce doar presiunea de care are nevoie instalația.</li>
+</ul>
+<figure class="schema"><img src="svg/01_curbe_ventilator_instalatie.svg" alt="Schema 1. Reglarea debitului cu clapetă (A) și prin turație (B): la 60 % debit, varianta B consumă circa 22 % din puterea nominală."><figcaption>Schema 1. Reglarea debitului cu clapetă (A) și prin turație (B): la 60 % debit, varianta B consumă circa 22 % din puterea nominală. <span class="src">SVG editabil în Inkscape (svg/01_curbe_ventilator_instalatie.svg)</span></figcaption></figure>
+<div class="galerie">
+<figure class="foto"><img src="img/centrala_tratare_aer_1.jpg" alt="Centrală de tratare a aerului (CTA)" loading="lazy"><figcaption>Centrală de tratare a aerului (CTA)<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:HVAC_Air_Handler_Unit%2C_pic2.JPG">Wikimedia Commons</a> · Alf van Beem · <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/centrala_tratare_aer_2.jpg" alt="CTA — priza de aer și secțiunea ventilatorului" loading="lazy"><figcaption>CTA — priza de aer și secțiunea ventilatorului<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Air_Handler_Unit_aanzuiging.JPG">Wikimedia Commons</a> · Alf van Beem · <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/canal_ventilatie_2.jpg" alt="Canal de ventilație cu tranziție rotund–rectangular" loading="lazy"><figcaption>Canal de ventilație cu tranziție rotund–rectangular<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:OC_Fairground_ductwork.jpg">Wikimedia Commons</a> · Eric Polk · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/canal_ventilatie_3.jpg" alt="Rețea de canale de aer într-o hală industrială" loading="lazy"><figcaption>Rețea de canale de aer într-o hală industrială<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Pantex_Plant_Building_12-44-1_Air_Ducts.png">Wikimedia Commons</a> · United States Department of Energy · Public domain</span></figcaption></figure>
+</div>
+</section>
+
+<section id="c2">
+<h2>2. Legile de similitudine (legile ventilatorului)</h2>
+<p>Pentru același ventilator în aceeași instalație, când turația se schimbă, se schimbă totul după trei reguli simple. Le găsiți la fel în manualul Danfoss, în cursul belgian Energie+, în fișa Vostermans și în subiectele de BTS:</p>
+<div class="formule">
+<div><span class="f">Q₂ / Q₁ = n₂ / n₁</span><span>debitul crește și scade odată cu turația</span></div>
+<div><span class="f">Δp₂ / Δp₁ = (n₂ / n₁)²</span><span>presiunea, cu pătratul turației</span></div>
+<div><span class="f">P₂ / P₁ = (n₂ / n₁)³</span><span>puterea absorbită, cu cubul turației</span></div>
+</div>
+<figure class="schema"><img src="svg/02_legile_de_similitudine.svg" alt="Schema 2. La 80 % turație: debit 80 %, presiune 64 %, putere 51 %. La 50 % turație puterea scade la 12,5 %."><figcaption>Schema 2. La 80 % turație: debit 80 %, presiune 64 %, putere 51 %. La 50 % turație puterea scade la 12,5 %. <span class="src">SVG editabil în Inkscape (svg/02_legile_de_similitudine.svg)</span></figcaption></figure>
+<div class="exemplu">
+<h4>Exemplul din fișa Vostermans (producător olandez de ventilatoare de grajd)</h4>
+<table class="tabel"><thead><tr><th>Turație</th><th>Debit</th><th>Presiune</th><th>Putere</th></tr></thead>
+<tbody><tr><td>1 400 min⁻¹</td><td>10 000 m³/h</td><td>80 Pa</td><td>500 W</td></tr><tr><td>700 min⁻¹ (jumătate)</td><td>5 000 m³/h (jumătate)</td><td>20 Pa (un sfert)</td><td><b>62,5 W (o optime)</b></td></tr></tbody></table>
+<p>Vostermans o spune și ca regulă de buzunar: <b>„la fiecare 20 % mai puțină turație, consumul se înjumătățește”</b>.</p>
+<h4>Exemplul din subiectul de BTS Électrotechnique 2017 (Franța)</h4>
+<p>Un moto-ventilator merge la 50 Hz în punctul A: 1 483 min⁻¹, 10 N·m → P = 1 553 W. La 25 Hz (tensiune 115 V, legea U/f) ajunge în punctul B: 745 min⁻¹, 2,5 N·m → P = <b>195 W</b>, adică de 8 ori mai puțin. Concluzia cerută elevilor: „când debitul e mai mic, este avantajos să alimentăm moto-ventilatorul prin variator”.</p>
+<h4>Exemplul de pe site-ul esco-antriebstechnik (Germania)</h4>
+<p>Ventilator de 15 kW, 4 000 h/an, din care 60 % din timp la 70 % turație: P = 15 · 0,7³ = <b>5,1 kW</b>. Energie cu convertizor ≈ 36 300 kWh/an față de ≈ 60 000 kWh cu clapetă: ≈ 39 % economie.</p>
+<p class="atentie">Legile țin cât timp instalația nu are o presiune „fixă” de învins (un filtru înfundat, o suprapresiune impusă). Atunci câștigul e mai mic — ca la pompele cu înălțime statică din lecția trecută.</p>
+</div>
+</section>
+
+<section id="c3">
+<h2>3. Cum putem schimba turația — și cât costă fiecare metodă</h2>
+<p>Ordinea de mai jos este chiar ordinea din fișa DLG „Lüftung von Schweineställen” (cap. 4.4), de la cea mai economică la cea mai risipitoare:</p>
+<table class="tabel">
+<thead><tr><th></th><th>Metoda</th><th>Cum lucrează</th><th>Ce spune documentația</th></tr></thead>
+<tbody>
+<tr><td>a</td><td><b>Ventilator EC</b></td><td>motor cu magneți + convertizor integrat</td><td>DLG: economie „în medie peste 50 %” față de ventilatorul standard cu triac, amortizare ≈ 3 ani; Chambres d'agriculture Bretagne (test 2019): <b>69 %</b> economie</td></tr>
+<tr><td>b</td><td><b>Convertizor de frecvență</b> (cu filtru sinus la ventilatoare speciale)</td><td>schimbă frecvența și tensiunea</td><td>Bretagne: <b>38 %</b> economie cu variator pe ventilator asincron clasic; Ziehl-Abegg: 206,78 €/an economie pe un ventilator Ø 630, amortizare sub 2,5 ani</td></tr>
+<tr><td>c</td><td><b>Transformator în trepte</b></td><td>scade tensiunea la 80/100/130/170/230 V</td><td>DLG: pierderi 2 % la 230 V și 15 % la treapta minimă; treapta minimă ≈ 80 V (1~) / 100 V (3~); <b>atenție</b>: la tensiune redusă curentul crește — ventilatorul Multifan 6E71: 3,15 A la 230 V, dar 3,44 A la 180 V (DLG-Prüfbericht 5015)</td></tr>
+<tr><td>d</td><td><b>Regulator electronic cu triac</b></td><td>taie o parte din undă</td><td>DLG: motoarele se încălzesc cu <b>10–20 K</b>, consumul e cu <b>10–20 % mai mare</b> decât la transformator; „ieftin la cumpărare, dar foarte scump la costul total”</td></tr>
+<tr><td>—</td><td><b>Clapetă / registru</b></td><td>închide drumul aerului</td><td>curs Bac Pro MELEC: la 80 % debit puterea e încă 95 % fără variator, dar 50 % cu variator; TROX: la −25 % debit clapeta scade puterea de la 21,1 la 20,2 kW, turația de la 10,4 la 5,7 kW</td></tr>
+<tr><td>—</td><td><b>Motor cu 2 turații (Dahlander)</b></td><td>schimbă numărul de poli</td><td>Danfoss, turn de răcire 30 kW: motor cu 2 turații 111 375 kWh/an, convertizor 49 176 kWh/an (−44 %)</td></tr>
+</tbody></table>
+<figure class="schema"><img src="svg/04_metode_reglare_turatie.svg" alt="Schema 3. Cele patru feluri de a schimba turația unui ventilator."><figcaption>Schema 3. Cele patru feluri de a schimba turația unui ventilator. <span class="src">SVG editabil în Inkscape (svg/04_metode_reglare_turatie.svg)</span></figcaption></figure>
+<figure class="schema"><img src="svg/03_comparatie_putere_absorbita.svg" alt="Schema 4. Puterea absorbită la debit redus — clapetă, clapete de aspirație cu palete, convertizor (după ghidul Danfoss)."><figcaption>Schema 4. Puterea absorbită la debit redus — clapetă, clapete de aspirație cu palete, convertizor (după ghidul Danfoss). <span class="src">SVG editabil în Inkscape (svg/03_comparatie_putere_absorbita.svg)</span></figcaption></figure>
+<div class="galerie">
+<figure class="foto"><img src="img/turn_racire_3.jpg" alt="Comutator cu 3 trepte de turație pe un ventilator mic — reglare prin schimbarea tensiunii" loading="lazy"><figcaption>Comutator cu 3 trepte de turație pe un ventilator mic — reglare prin schimbarea tensiunii<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Kinzo_Cooling_tower_fan%2C_Oude_Pekela_%282018%29_05.jpg">Wikimedia Commons</a> · Donald Trung Quoc Don (chữ Hán: 徵國單) - Wikimedia Commons · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/convertizor_danfoss_1.jpg" alt="Convertizor de frecvență cu panou de operare local" loading="lazy"><figcaption>Convertizor de frecvență cu panou de operare local<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Variable_frequency_drive.jpg">Wikimedia Commons</a> · Rahat (Talk * Contributions) 11:43, 6 April 2015 (UTC) · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/convertizor_danfoss_3.png" alt="Schema bloc: rețea sinusoidală → convertizor → tensiune PWM cu frecvență variabilă → motor" loading="lazy"><figcaption>Schema bloc: rețea sinusoidală → convertizor → tensiune PWM cu frecvență variabilă → motor<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Variable-frequency_Drive_System.png">Wikimedia Commons</a> · Original uploader was C J Cowie at en.wikipedia · <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/convertizor_siemens_2.jpg" alt="Convertizor de frecvență de uz general, cu afișaj" loading="lazy"><figcaption>Convertizor de frecvență de uz general, cu afișaj<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Variable_Frequency_Drive_%28VFD%29_-_3.jpeg">Wikimedia Commons</a> · Suyash.dwivedi · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></span></figcaption></figure>
+</div>
+<p><b>De ce transformatorul și triacul nu merg la un motor obișnuit?</b> Pentru că frecvența rămâne 50 Hz, deci câmpul învârtitor rămâne la 1 500 min⁻¹. Motorul e doar „ținut în frâu” prin alunecare mare, iar diferența se face căldură în rotor. Cursul BTS spune că ar fi „un bilanț energetic deplorabil”. Merg numai motoarele mici, construite special (rotor exterior, rezistență mare în rotor). Convertizorul, în schimb, schimbă chiar viteza câmpului: motorul lucrează cu alunecare mică la orice turație.</p>
+</section>
+
+<section id="c4">
+<h2>4. Motorul ventilatorului</h2>
+<h3>4.1 Motorul asincron standard (IEC)</h3>
+<p>În CTA, la ventilatoarele mari de acoperiș și în industrie: motor trifazat cu rotor în colivie, 4 poli (1 450 min⁻¹), IE3, cuplat direct sau prin curele. Pentru convertizor verificăm:</p>
+<ul>
+<li><b>izolația</b> potrivită pentru impulsuri: SR EN 60034-17 — Helios cere la ventilatoarele sale vârfuri sub <b>1 000 V</b> și creșteri sub <b>500 V/µs</b> la bornele motorului; Leroy-Somer recomandă frecvență de comutație de minimum 3 kHz;</li>
+<li><b>termistori PTC</b> în bobinaj (bornele T1-T2) — Ziehl-Abegg: la PTC se testează cu maximum 2,5 V, nu cu megohmmetrul;</li>
+<li><b>răcirea la turație mică</b>: ventilatorul propriu al motorului merge și el mai încet; la ventilator (cuplu pătratic) nu e o problemă, dar Ziehl-Abegg spune că sub 15 % din turația nominală funcționarea „nu are sens”;</li>
+<li><b>rulmenții</b>: la motoare mari (Danfoss: de la ≈ 100 kW) impulsurile trec prin rulmenți; soluții ABB (Technical Guide 5): cablu simetric cu 3 PE, ecran la 360°, benzi de echipotențial late de 50–100 mm, rulment izolat pe partea opusă acționării.</li>
+</ul>
+<div class="galerie">
+<figure class="foto"><img src="img/motor_asincron_3.jpg" alt="Motoare asincrone trifazate IEC cu ventilatorul propriu de răcire demontat" loading="lazy"><figcaption>Motoare asincrone trifazate IEC cu ventilatorul propriu de răcire demontat<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Silniki_by_Zureks.jpg">Wikimedia Commons</a> · Zureks · <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/placuta_motor_1.jpg" alt="Plăcuța unui motor Loher: Δ/Y 220/380 V, 1460 min⁻¹, 50 Hz, clasa de izolație, IP 44" loading="lazy"><figcaption>Plăcuța unui motor Loher: Δ/Y 220/380 V, 1460 min⁻¹, 50 Hz, clasa de izolație, IP 44<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Typenschild_eines_Drehstromasynchronmotors.jpg">Wikimedia Commons</a> · Rotkaeppchen68 · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/ventilator_curea_3.jpg" alt="Ventilator axial cu transmisie prin curea și motor asincron — la convertizor se supraveghează ruperea curelei" loading="lazy"><figcaption>Ventilator axial cu transmisie prin curea și motor asincron — la convertizor se supraveghează ruperea curelei<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Belt-driven_ventilation_fan_and_motor.jpg">Wikimedia Commons</a> · takomabibelot · <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/motor_asincron_1.jpg" alt="Motor asincron cu rotor bobinat (cu inele) — construcție veche, azi înlocuită de convertizor" loading="lazy"><figcaption>Motor asincron cu rotor bobinat (cu inele) — construcție veche, azi înlocuită de convertizor<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Slip_ring_induction_motor.jpg">Wikimedia Commons</a> · Oliver Wallscheid · <a href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0</a></span></figcaption></figure>
+</div>
+<h3>4.2 Motorul cu rotor exterior</h3>
+<p>Producătorii de ventilatoare (Ziehl-Abegg, ebm-papst, Rosenberg) fac motoare „întoarse pe dos”: rotorul este afară și poartă paletele. Se pot regla prin tensiune (transformator, triac), au termocontacte <b>TB</b> sau termistori <b>TP</b> în bobinaj. La convertizor, ebm-papst cere „filtru sinus cu acțiune pe toți polii (fază-fază și fază-pământ)” și acordul producătorului.</p>
+<h3>4.3 Motorul EC</h3>
+<p>Motor sincron cu magneți permanenți, alimentat de electronica proprie: rețea → redresor → circuit de c.c. → invertor → motor. ebm-papst: se comandă „prin semnal 0–10 V sau Modbus-RTU”. Vostermans (ECplus): peste 80 % economie față de sistemele clasice în testul IFIP; controlerul separat IP65, motor IP55, comutator de ocolire opțional, contact de alarmă pentru computerul de climă. Pentru electrician ventilatorul EC este un consumator: nu se alege convertizor, dar se respectă curentul de scurgere și filtrul din instrucțiuni.</p>
+<div class="galerie">
+<figure class="foto"><img src="img/motor_rotor_exterior_3.png" alt="Desenul de brevet al lui Emil Ziehl pentru motorul cu rotor exterior — principiul folosit azi de Ziehl-Abegg și ebm-papst" loading="lazy"><figcaption>Desenul de brevet al lui Emil Ziehl pentru motorul cu rotor exterior — principiul folosit azi de Ziehl-Abegg și ebm-papst<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Au%C3%9Fenl%C3%A4ufer_Emil_Ziehl_Patentzeichnung.png">Wikimedia Commons</a> · Emil Ziehl · Public domain</span></figcaption></figure>
+<figure class="foto"><img src="img/ventilator_acoperis_3.jpg" alt="Ventilator de acoperiș pentru evacuare, cu capac contra intemperiilor" loading="lazy"><figcaption>Ventilator de acoperiș pentru evacuare, cu capac contra intemperiilor<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Attic-fan-weatherproof-cap.jpg">Wikimedia Commons</a> · Gazebo · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/ventilator_acoperis_1.jpg" alt="Căciulă de ventilație pe acoperiș" loading="lazy"><figcaption>Căciulă de ventilație pe acoperiș<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Ventilation_cap_on_roof.jpg">Wikimedia Commons</a> · W.carter · Public domain</span></figcaption></figure>
+</div>
+</section>
+
+<section id="c5">
+<h2>5. Cum aleg — metoda, tipul, mărimea: pas cu pas</h2>
+<figure class="schema"><img src="svg/16_arbore_decizie.svg" alt="Schema 5. Drumul alegerii: ce ventilator am → metoda de reglare → mărimea după curent → locul → protecțiile → parametrii."><figcaption>Schema 5. Drumul alegerii: ce ventilator am → metoda de reglare → mărimea după curent → locul → protecțiile → parametrii. <span class="src">SVG editabil în Inkscape (svg/16_arbore_decizie.svg)</span></figcaption></figure>
+<ol class="pasi">
+<li><b>Ce ventilator am?</b>
+  <ul>
+  <li><b>Ventilator mic monofazat cu rotor exterior „comandabil în tensiune”</b> (grajd, seră, ventilator de perete): merge cu transformator în trepte (cel mai ieftin, dar în trepte și cu pierderi la treapta mică), cu regulator cu triac (zgomot, +10–20 % consum) sau, cel mai bine, cu un <b>convertizor cu filtru sinus</b> gândit pentru ventilatoare (Ziehl-Abegg Fcontrol FTET 4/6/10 A la 230 V): cablu neecranat, lungime nelimitată de convertizor, se pot folosi ventilatoarele existente.</li>
+  <li><b>Motor asincron trifazat standard</b> (CTA, hală, uscător, cazan): <b>convertizor de frecvență</b>. Pentru un singur motor cu cablu ecranat merge orice CF; pentru mai multe motoare, motoare vechi sau cu rotor exterior: CF cu filtru sinus.</li>
+  <li><b>Instalație nouă</b>: <b>ventilator EC</b> — nu mai e nevoie de convertizor, cablu ecranat sau filtru.</li>
+  </ul></li>
+<li><b>Ce tip de convertizor?</b> Pentru clădiri: seriile HVAC (Danfoss VLT HVAC FC 102, Siemens SINAMICS G120P / G120X, Schneider Altivar 212 și 610, ABB ACH580) — au gata regulator PID, mod incendiu, detectare curea, oprire la debit mic. Pentru zootehnie: convertizoare cu filtru sinus și funcții de climă (Ziehl-Abegg Fcontrol FTET, Helios FU, computere de climă SKOV, Fancom, Big Dutchman cu ieșire 0–10 V). Pentru industrie: CF universal (G120C, ATV320, FC 302, ACS580) cu curbă U/f pătratică activată.</li>
+<li><b>Ce mărime?</b> După <b>curentul de pe plăcuța motorului</b>, nu după kW — regula predată și în Germania („FU nach Motornennstrom dimensionieren — nicht nach Leistung”) și în Franța. Exercițiul din cursul francez: pompă → P la ax 7,61 kW → motor 11 kW → I n = 20,3 A → convertizor cu I ≥ 22 A. Pentru ventilatoare se folosește coloana de suprasarcină „normală” (110 % / 60 s), nu „grea” (150 %). La mai multe motoare pe un convertizor cu filtru sinus: I convertizor ≥ suma curenților maximi ai motoarelor (Ziehl-Abegg).</li>
+<li><b>Unde stă?</b> IP20 în tablou (cablu ecranat până la motor) sau IP54/IP55 lângă ventilator. În grajd, toate manualele Ziehl-Abegg spun același lucru: <b>„nu direct în adăpost, ci într-o anticameră”</b>, din cauza amoniacului și hidrogenului sulfurat; temperatură până la 40–55 °C cu reducere de curent peste temperatura nominală.</li>
+<li><b>Ce mai trebuie?</b> Filtru de rețea CEM categoria C1/C2 în clădiri (C3 numai în industrie); siguranțe gG sau disjunctor C după manual; DDR tip B 300 mA dacă instalația cere protecție diferențială; PTC/TB; separator de service cu contact anticipat; la ventilatoarele vitale (grajd, desfumare) comutator de ocolire 0 – AUTO – 100 % și alarmă.</li>
+<li><b>Ce parametri?</b> Date de plăcuță, curbă U/f pătratică, f min 15–20 Hz (grajd: ventilație minimă 20 %), rampe lungi, prindere din mers, frecvențe de evitare găsite la punerea în funcțiune.</li>
+</ol>
+</section>
+
+<section id="c6">
+<h2>6. Ce știe să facă un convertizor „de ventilație”</h2>
+<div class="grid2">
+<div><h4>Curba U/f pătratică</h4><p>Tensiunea scade mai repede decât frecvența. Ziehl-Abegg livrează Fcontrol cu ea activată din fabrică („UF quadratisch = ON”), Danfoss o numește „VT”, Siemens p1300 = 2, Schneider curba „P”.</p></div>
+<div><h4>Regulator PID intern</h4><p>Danfoss FC 102: exemplu de programare pentru temperatură (senzor 4–20 mA, referință de la potențiometru) în ghidul de proiectare, cap. 2.8. Siemens G120P are „macro-ul 105”: reglare de presiune pentru ventilator + mod de urgență cu referință fixă.</p></div>
+<div><h4>Prindere din mers</h4><p>Danfoss 1-73 „Flying start”; Siemens p1200 = 1 („Fangen”); Schneider F301. Ziehl-Abegg: „Fangmodus”. Obligatorie la ventilatoare de acoperiș, evacuare, tunel.</p></div>
+<div><h4>Frecvențe de evitare</h4><p>Danfoss: până la 4 benzi („semi-automatic bypass”); Siemens p1091…p1094 cu lățime p1101; Ziehl-Abegg: 3 benzi. Turnurile de răcire au adesea rezonanțe (Danfoss).</p></div>
+<div><h4>Ventilație minimă / oprire la debit mic</h4><p>FTET: „ventilație minimă” 6…100 %, din fabrică 20 %, are prioritate peste orice. În clădiri: f min 15–20 Hz; sub prag ventilatorul se oprește și repornește când presiunea scade.</p></div>
+<div><h4>Rampe lungi</h4><p>FTET: timp de accelerare/decelerare din fabrică 20–40 s după mărime; Danfoss FC 102 propune 60 s. Fără rezistență de frânare — Danfoss cere una doar dacă vântul poate supra-tura ventilatorul.</p></div>
+<div><h4>Ruperea curelei</h4><p>Danfoss 22-6*: dacă cuplul estimat scade sub prag peste 15 Hz → avarie. ABB ACH580: „supraveghere de subsarcină, de ex. curea ruptă”.</p></div>
+<div><h4>Mod incendiu</h4><p>Danfoss 24-0*: toate comenzile de oprire sunt ignorate, jurnal cu ultimele 10 evenimente care nu se poate șterge, garanția expiră; Siemens ESM la 1 350–1 500 min⁻¹ pe DI5. Detalii în schema 13.</p></div>
+<div><h4>Încălzire de stand-by</h4><p>Ziehl-Abegg „Motorheizung”: un curent continuu mic în bobinaj împiedică înghețarea și condensul la ventilatoarele oprite iarna (grajduri, exterior).</p></div>
+<div><h4>Repornire automată</h4><p>După pană, ventilatorul repornește singur (Siemens p1210 = 26; FTET: „după căderea rețelei urmează repornire automată”). Permis la ventilatoare, nu la mașini-unelte.</p></div>
+</div>
+<figure class="schema"><img src="svg/11_curba_Uf_liniar_patratic.svg" alt="Schema 6. Caracteristica U/f liniară și pătratică: la 25 Hz motorul de ventilator primește ≈ 110 V în loc de 200 V."><figcaption>Schema 6. Caracteristica U/f liniară și pătratică: la 25 Hz motorul de ventilator primește ≈ 110 V în loc de 200 V. <span class="src">SVG editabil în Inkscape (svg/11_curba_Uf_liniar_patratic.svg)</span></figcaption></figure>
+<figure class="schema"><img src="svg/07_reglare_presiune_constanta_VAV.svg" alt="Schema 7. Presiune constantă în canal (VAV): traductorul la 2/3 din canal, PID-ul convertizorului ține 300 Pa."><figcaption>Schema 7. Presiune constantă în canal (VAV): traductorul la 2/3 din canal, PID-ul convertizorului ține 300 Pa. <span class="src">SVG editabil în Inkscape (svg/07_reglare_presiune_constanta_VAV.svg)</span></figcaption></figure>
+<figure class="schema"><img src="svg/08_reglare_CO2_temperatura_CAV.svg" alt="Schema 8. Reglare după CO₂ într-o încăpere (CAV) cu două convertizoare."><figcaption>Schema 8. Reglare după CO₂ într-o încăpere (CAV) cu două convertizoare. <span class="src">SVG editabil în Inkscape (svg/08_reglare_CO2_temperatura_CAV.svg)</span></figcaption></figure>
+<figure class="schema"><img src="svg/13_montaj_traductor_presiune.svg" alt="Schema 9. Unde se montează traductorul de presiune."><figcaption>Schema 9. Unde se montează traductorul de presiune. <span class="src">SVG editabil în Inkscape (svg/13_montaj_traductor_presiune.svg)</span></figcaption></figure>
+<div class="galerie">
+<figure class="foto"><img src="img/senzor_co2_2.jpg" alt="Senzor de CO₂ de încăpere — reacție pentru reglarea ventilației după ocupare" loading="lazy"><figcaption>Senzor de CO₂ de încăpere — reacție pentru reglarea ventilației după ocupare<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Aranet4_carbon_dioxide_sensor.jpg">Wikimedia Commons</a> · Foonarres · <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a></span></figcaption></figure>
+</div>
+</section>
+
+<section id="c7">
+<h2>7. Exemple din practică — ce spun documentele</h2>
+
+<h3>7.1 Grajdul de porci</h3>
+<p><b>Cât aer trebuie.</b> DIN 18910-1 (tabelele reproduse de LAVES Niedersachsen) dă debitul pe animal: porc de 100 kg — <b>108 m³/h vara</b> (zona I), 72 m³/h vara (zona II), <b>14,1 m³/h iarna</b>. Scroafă cu purcei 250 kg: 187 / 125 / 27 m³/h. DLG: „vara debitul este de 10 ori, în cazuri extreme de 20 ori, cel de iarnă”. Exact această plajă 1 : 10 este motivul pentru care reglarea de turație contează atât de mult în zootehnie.</p>
+<p><b>Exemplul DLG (anexa 1): grajd cu 500 porci la îngrășat</b>, populare–depopulare totală, 25–28 kg → 100–120 kg. Debit de vară: 84 m³/h × 500 = <b>42 000 m³/h</b>. Ventilatoare de <b>Ø 630 mm, 230 V, 10 500 m³/h la 30 Pa</b> → 4 bucăți. Admisia de vară: fantă de 6 cm pe 47,6 m (viteză max. 4 m/s); iarna aer prin tavan poros (150 m³/m²/h). Reglarea: „cu ajutorul unui computer de climă”. Rezistența de proiectare uzuală: 50 Pa.</p>
+<figure class="schema"><img src="svg/14_schema_compartiment_grajd.svg" alt="Schema 10. Un compartiment de porci: senzori → computer de climă cu convertizor și filtru sinus (în anticameră) → ventilator de evacuare + clapete cu servomotor; clapete de admisie cu arc, comutator 0–AUTO–100 %, alarmă, grup electrogen. După exemplul de conectare din manualul Ziehl-Abegg FTET (12.4.1) și DLG-Merkblatt 422."><figcaption>Schema 10. Un compartiment de porci: senzori → computer de climă cu convertizor și filtru sinus (în anticameră) → ventilator de evacuare + clapete cu servomotor; clapete de admisie cu arc, comutator 0–AUTO–100 %, alarmă, grup electrogen. După exemplul de conectare din manualul Ziehl-Abegg FTET (12.4.1) și DLG-Merkblatt 422. <span class="src">SVG editabil în Inkscape (svg/14_schema_compartiment_grajd.svg)</span></figcaption></figure>
+<p><b>Cum reglează computerul de climă</b> (Ziehl-Abegg FTET): valoare prescrisă 20 °C; <b>bandă de reglare</b> 2–20 K (din fabrică 4 K): pe această bandă ventilația urcă de la minim la maxim; <b>ventilație minimă</b> 20 % (are prioritate — niciodată oprit complet); curbă de creștere pe zile (ziua 1: 26 °C / 10 %; ziua 120: 20 °C / mai mult); alarmă la −5 K / +5 K față de prescris, cu întârziere 60 s; până la 5 grupuri de ventilatoare: unul reglat, celelalte în trepte; senzor de admisie și de umiditate; Modbus până la 32 aparate. LWK Niedersachsen: bandă mai mare de 4 °C iarna; Strukamp (top agrar): 3–4 °C iarna, 5–7 °C vara.</p>
+<figure class="schema"><img src="svg/15_curba_reglare_temperatura_ventilatie.svg" alt="Schema 11. Curba de reglare a regulatorului de grajd: ventilație minimă 20 % sub valoarea prescrisă, creștere liniară pe banda de reglare, alarme."><figcaption>Schema 11. Curba de reglare a regulatorului de grajd: ventilație minimă 20 % sub valoarea prescrisă, creștere liniară pe banda de reglare, alarme. <span class="src">SVG editabil în Inkscape (svg/15_curba_reglare_temperatura_ventilatie.svg)</span></figcaption></figure>
+<p><b>Ce cere legea germană</b> (Tierschutz-Nutztierhaltungsverordnung § 3 alin. 6): unde ventilația depinde de o instalație electrică, trebuie să existe <b>un dispozitiv de rezervă</b> care asigură aer la pană și <b>o alarmă</b> care anunță pana. DLG-Merkblatt 422 detaliază: se supraveghează căderea tensiunii, a unei faze, scăderea cu peste 15 %, declanșarea protecțiilor, „instalațiile de reglare a turației — transformatoare și convertizoare”; ventilatoarele pe circuite separate; clapetele de avarie se deschid cu arc sau cu acumulator; alarma merge ≥ 2 h fără rețea; grup electrogen = suma consumatorilor + 20–25 %; test alarmă săptămânal, test grup lunar. Limite de gaze în grajdul de porci: NH₃ 20 ppm, CO₂ 3 000 ppm, H₂S 5 ppm; zgomot maxim 85 dB(A).</p>
+<p><b>Cât se economisește.</b> Ziehl-Abegg (flyer Fcontrol agricultură): pe un ventilator Ø 630 de 6 poli, 1~ 230 V, trecerea de la regulator cu triac la Fcontrol economisește <b>206,78 €/an</b>; un Fcontrol de 6 A (≈ 1 000 €) cu 2 ventilatoare se amortizează în <b>sub 2,5 ani</b>. SKOV (Danemarca), „Dynamic MultiStep”: mai multe ventilatoare la ≈ 50 % în loc de puține la 100 % — consumul scade de la 5,3 la 2,9 kWh pe porc produs (−45 %). Chambres d'agriculture Bretagne: martor 15,99 kWh/loc/an, EC 4,97 kWh/loc/an.</p>
+<p><b>Reguli de montaj în grajd</b> (Ziehl-Abegg): aparatul în anticameră; IP54; 0–55 °C; cablu de motor neecranat cu filtru sinus; cabluri de comandă max. 30 m, ecranate peste 20 m, la 20 cm de forță; DDR tip B 300 mA la aparatele trifazate; la mai multe ventilatoare pe un aparat „se recomandă insistent” să nu se folosească intrarea TB comună (altfel un ventilator defect le oprește pe toate), ci câte un aparat de protecție pe ventilator; comutator de ocolire S-D-25/50 (0 – AUTO – 100 %), la 100 % ventilatoarele merg direct din rețea, fără protecția TB.</p>
+<div class="galerie">
+<figure class="foto"><img src="img/ventilator_grajd_2.jpg" alt="Ventilatoare de hală de păsări — convertizoarele se montează în anticameră, nu în adăpost" loading="lazy"><figcaption>Ventilatoare de hală de păsări — convertizoarele se montează în anticameră, nu în adăpost<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Poultry_House_Fans.jpg">Wikimedia Commons</a> · Alabama Extension · <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a></span></figcaption></figure>
+</div>
+
+<h3>7.2 Hala de păsări</h3>
+<p>Legea germană (TierSchNutztV § 19): pentru pui broiler „cel puțin <b>4,5 m³/h pe kilogram</b> de greutate vie”, iar la peste 30 °C afară, temperatura din hală „cu cel mult 3 °C peste cea exterioară”. DIN 18910: pui de 2 kg — 7,9 m³/h vara, 0,9 m³/h iarna; găină ouătoare de 2 kg — 5,8 / 0,7 m³/h. ClimatBat (Chambres d'agriculture): ≈ 5 m³/h pe kg, „≈ 200 m³/h pe m²”, viteza aerului la animal ≥ 1 m/s vara. ITAVI: minim 3 m³/h/kg la pulverizare de apă.</p>
+<p>La păsări computerele de climă (SKOV DOL 534, Fancom Lumina) lucrează în <b>trepte cu ciclu de timp</b> pentru ventilația minimă („o treaptă stă pornită/oprită cel puțin 1 minut”) și dau ieșire 0–10 V pentru ventilatoarele reglate; SKOV: primul ventilator pe ciclu nu trebuie să dea mai mult de 5 × ventilația minimă; exemplu broiler: 0,12 m³/h pe pasăre la ventilația minimă. Ventilatoarele Multifan (Vostermans) există în trei variante de motor: E (triac), T (transformator), F (frecvență).</p>
+
+<h3>7.3 Grajdul de vaci</h3>
+<p>Aici ventilatoarele nu evacuează aer, ci <b>răcoresc</b>: DLG-Merkblatt 450 cere 800–1 200 m³/h instalate pe vacă, sub 40 W la 1 000 m³/h, viteza aerului ≥ 1 m/s la animal, pornire de la 16 °C sau THI > 67. LfL Bayern: ventilatoarele la 2,7 m înălțime, înclinate 15–25°, ≥ 2 m/s la animal, comandă după indicele temperatură-umiditate. Exemplu LfL/Sachsen: grajd cu 326 locuri, <b>12 ventilatoare, 284 000 m³/h</b> = 870 m³/h pe loc, 29,7 W pe loc, 31,2 kWh pe vacă și an. Recomandarea LfL este prudentă: comandă termostatică, într-o treaptă (până la 16 A) sau în mai multe trepte; reglarea turației „de preferat numai ca pornire stea-triunghi”. Debite DIN 18910 pentru vaca de 700 kg cu 30 kg lapte: 344 / 258 / 87 m³/h.</p>
+
+<h3>7.4 Industrie și clădiri</h3>
+<table class="tabel">
+<thead><tr><th>Aplicația</th><th>Ce s-a făcut</th><th>Rezultat (din sursă)</th></tr></thead>
+<tbody>
+<tr><td>Ventilator de evacuare la uscător prin pulverizare, industrie chimică (ABB, Völpker)</td><td>ventilator vechi 45 kW cu curele înlocuit cu radial Reitz cuplat direct + motor IE3 + ACS880, ≈ 6 000 h/an</td><td><b>−59,8 % energie</b> la turație cu 40 % mai mică, 75,5 MWh/an, 22 640 €/an, amortizare 1,9 ani</td></tr>
+<tr><td>Suflanta arzătorului la un cazan de abur de 10 t/h (Bosch)</td><td>suflantă de 22 kW cu convertizor cuplat la reglajul de ardere</td><td>≈ <b>48 000 kWh/an (−42 %)</b>, ≈ 6 720 €/an, amortizare „de obicei într-un an”</td></tr>
+<tr><td>Instalație de ventilație a unui supermarket (dena)</td><td>convertizoare setate pe nevoia reală de debit și program</td><td>192 000 kWh/an, 42 240 €/an, amortizare <b>0,8 ani</b>; regula dena: la −50 % debit puterea scade „sub 15 %”</td></tr>
+<tr><td>Cabine de vopsire și uscătoare (LfU Bayern / Fraunhofer IPA)</td><td>motoare de ventilator cu convertizor</td><td>„economii anuale de peste 30 %”</td></tr>
+<tr><td>Turn de răcire, ventilator 30 kW (Danfoss, ghid de aplicații)</td><td>motor cu 2 turații → convertizor, 4 500 h/an</td><td>111 375 → 49 176 kWh/an (<b>−44 %</b>); turație minimă 25–40 % (zgomot, ungerea reductorului); 4 benzi de rezonanță programate</td></tr>
+<tr><td>Ventilator radial TROX RA 11.1 BG 800, −25 % debit</td><td>clapetă / turație / palete de aspirație</td><td>clapetă 21,1 → 20,2 kW (−4 %); <b>turație 10,4 → 5,7 kW (−45 %)</b>; palete 21,1 → 12,5 kW</td></tr>
+<tr><td>Tuneluri rutiere (ABB, Gotthard: 24 ventilatoare, 15,6 MW)</td><td>ventilatoare axiale cu convertizoare, redundanță</td><td>„o reducere cu 10 % a turației aduce 27 % economie”</td></tr>
+<tr><td>Parcări cu ventilatoare cu jet (Systemair)</td><td>pornire pe praguri de CO: 100 ppm semnalizare, 120 ppm alarmă; contactoare sau convertizor</td><td>„până la 80 % economie”; ventilatoare F300/F400 după EN 12101-3, motoare cu PTC standard</td></tr>
+<tr><td>Suflantă de siloz 11 kW cu Danfoss FC 302 și traductor 4–20 mA (lucrare de licență HAW Hamburg)</td><td>reglare PID a presiunii 500 → 250 mbar</td><td>putere ≈ 3 kW, −63,6 %</td></tr>
+<tr><td>Instalație de aer 10 000 m³/h, 500 Pa, 3 000 h/an (Wuppertal Institut)</td><td>2 ventilatoare noi cu CF + 2 CF montate ulterior + senzori, 28 500 €</td><td>≈ 34 300 kWh/an, amortizare ≈ 1 an</td></tr>
+</tbody></table>
+<div class="galerie">
+<figure class="foto"><img src="img/ventilator_desfumare_3.jpg" alt="Ventilatoare axiale mari de tunel (Gotthard) — ventilație și desfumare" loading="lazy"><figcaption>Ventilatoare axiale mari de tunel (Gotthard) — ventilație și desfumare<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Gotthard_Road_Tunnel_-_Ventilation_Center_B%C3%A4zberg_%2814986518904%29.jpg">Wikimedia Commons</a> · Kecko · <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/ventilator_desfumare_1.jpg" alt="Ventilator de tunel cu montajul cablurilor de comandă" loading="lazy"><figcaption>Ventilator de tunel cu montajul cablurilor de comandă<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Cable_installation_in_a_tunnel_ventilation_fan_control_panel_that_will_monitor_for_shock_and_vibration._%28CS179%2C_07-15-2019%29_%2848323153311%29.jpg">Wikimedia Commons</a> · MTA Capital Construction Mega Projects · <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/centrala_tratare_aer_3.jpg" alt="Unități de acoperiș (rooftop) cu ventilatoare proprii" loading="lazy"><figcaption>Unități de acoperiș (rooftop) cu ventilatoare proprii<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Rooftop_Packaged_Units.JPG">Wikimedia Commons</a> · P199 · Public domain</span></figcaption></figure>
+<figure class="foto"><img src="img/convertizor_siemens_3.jpg" alt="Convertizor de frecvență de mică putere, montaj pe șină" loading="lazy"><figcaption>Convertizor de frecvență de mică putere, montaj pe șină<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Variable_Frequency_Drive_%28VFD%29_-_7.jpeg">Wikimedia Commons</a> · Suyash.dwivedi · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></span></figcaption></figure>
+</div>
+</section>
+
+<section id="c8">
+<h2>8. Instalarea: forță, comandă, cabluri, cazuri speciale</h2>
+<figure class="schema"><img src="svg/05_schema_monofilara_forta.svg" alt="Schema 12. Schema monofilară de forță a unui ventilator de CTA cu convertizor și regulile de amplasare."><figcaption>Schema 12. Schema monofilară de forță a unui ventilator de CTA cu convertizor și regulile de amplasare. <span class="src">SVG editabil în Inkscape (svg/05_schema_monofilara_forta.svg)</span></figcaption></figure>
+<ul>
+<li>Separator blocabil și siguranțe după manual <b>înaintea</b> convertizorului; contactorul de rețea e opțional și nu se folosește la start/stop.</li>
+<li>Între convertizor și motor nu se deschide nimic în mers. Sentera (producător de regulatoare): o comutare cu convertizorul în mers „poate deteriora sistemul”; se admite numai un contactor „blocat până când ieșirea convertizorului a fost dezactivată”. Ziehl-Abegg: separatorul de service „de preferință înaintea aparatului”; dacă e după, cu contact auxiliar care taie și eliberarea (Freigabe).</li>
+<li>Cablu de motor: <b>ecranat</b>, ecran la 360° la ambele capete, fără „codițe”. Lungimi din manuale: Danfoss FC 102 — 150 m ecranat / 300 m neecranat; Schneider ATV212 — peste 50 m filtru de ieșire; Ziehl-Abegg Icontrol (fără filtru) — <b>max. 10 m</b> și un singur motor; Fcontrol (cu filtru sinus) — neecranat, lungime nelimitată de aparat.</li>
+<li>Protecția motorului: I²t din convertizor + PTC/TB; releul termic obișnuit nu vede corect curentul la frecvențe mici (forum german de electricieni: „declanșează mereu sau nu reacționează deloc”).</li>
+<li>Curent de scurgere > 3,5 mA → PE de cel puțin 10 mm² sau dublu (SR EN 61800-5-1; Ziehl-Abegg FXDM); protecție diferențială, dacă e cerută, <b>tip B</b>, recomandat 300 mA.</li>
+<li>Semnale: Danfoss recomandă 4–20 mA în loc de 0–10 V pentru traductoare (mai puțin sensibil la perturbații); cabluri de semnal ecranate, la ≥ 20 cm de forță.</li>
+</ul>
+<figure class="schema"><img src="svg/06_schema_comanda_borne.svg" alt="Schema 13. Schema de comandă: start/stop din BMS, referință 0–10 V sau PID cu traductor 4–20 mA, mod incendiu pe contact NC, PTC, STO, relee de stare."><figcaption>Schema 13. Schema de comandă: start/stop din BMS, referință 0–10 V sau PID cu traductor 4–20 mA, mod incendiu pe contact NC, PTC, STO, relee de stare. <span class="src">SVG editabil în Inkscape (svg/06_schema_comanda_borne.svg)</span></figcaption></figure>
+<div class="galerie">
+<figure class="foto"><img src="img/presetupa_emc_2.jpg" alt="Cabluri cu presetupe metalice — la cablul de motor ecranul se prinde la 360° în presetupă CEM" loading="lazy"><figcaption>Cabluri cu presetupe metalice — la cablul de motor ecranul se prinde la 360° în presetupă CEM<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Cable_Connectors.jpg">Wikimedia Commons</a> · Prosthetic Head · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a></span></figcaption></figure>
+<figure class="foto"><img src="img/presetupa_emc_3.jpg" alt="Presetupă de cablu (presse-étoupe)" loading="lazy"><figcaption>Presetupă de cablu (presse-étoupe)<span class="src">Sursa: <a href="https://commons.wikimedia.org/wiki/File:Presse-etoupe.jpg">Wikimedia Commons</a> · 1-1111 · Public domain</span></figcaption></figure>
+</div>
+<h3>8.1 Mai multe ventilatoare pe un convertizor</h3>
+<figure class="schema"><img src="svg/09_mai_multe_ventilatoare_filtru_sinus.svg" alt="Schema 14. Trei ventilatoare identice pe un convertizor cu filtru sinus; fiecare motor cu protecția proprie, termocontactele în serie."><figcaption>Schema 14. Trei ventilatoare identice pe un convertizor cu filtru sinus; fiecare motor cu protecția proprie, termocontactele în serie. <span class="src">SVG editabil în Inkscape (svg/09_mai_multe_ventilatoare_filtru_sinus.svg)</span></figcaption></figure>
+<p>Condițiile Ziehl-Abegg: filtru sinus; suma curenților maximi ai motoarelor ≤ curentul nominal al aparatului; cel mult 6 PTC în serie; câte un aparat de protecție pe ventilator (exemplul din anexa manualului: 3 motoare cu STDT16); fără cuplarea unui motor în mers. Cursul BTS: motoare în paralel pe un variator — „fiecare plecare de motor protejată cu releu termic”.</p>
+<h3>8.2 Ocolirea (bypass) convertizorului</h3>
+<figure class="schema"><img src="svg/10_bypass_contactoare.svg" alt="Schema 15. Ocolire cu două contactoare interblocate și releu termic pe ramura directă."><figcaption>Schema 15. Ocolire cu două contactoare interblocate și releu termic pe ramura directă. <span class="src">SVG editabil în Inkscape (svg/10_bypass_contactoare.svg)</span></figcaption></figure>
+<p>Ziehl-Abegg: două contactoare interblocate, întârziere ≥ 1 s la comutare, ≥ 90 s așteptare la reanclanșarea rețelei, „niciodată tensiune de rețea pe ieșirea convertizorului”. Varianta manuală: comutatorul S-D-25 / S-D-50 cu pozițiile 0 (separare, blocabilă) – AUTO (reglare) – 100 % (direct din rețea).</p>
+<h3>8.3 Desfumare și mod incendiu</h3>
+<figure class="schema"><img src="svg/12_mod_incendiu_desfumare.svg" alt="Schema 16. Modul incendiu: contact NC de la centrala de detecție; deschis = turație maximă, fără protecții."><figcaption>Schema 16. Modul incendiu: contact NC de la centrala de detecție; deschis = turație maximă, fără protecții. <span class="src">SVG editabil în Inkscape (svg/12_mod_incendiu_desfumare.svg)</span></figcaption></figure>
+<p>Danfoss (Fire Emergency Mode): ventilatorul poate fi de suprapresiune pe casa scării, de ventilație normală sau de evacuare a fumului; convertizorul trebuie să funcționeze cel puțin 1 h la 70 °C; referință la EN 12101-3; „run to dead”. Siemens (G120P, macro 104/105): mod de urgență (ESM) activat pe intrarea DI5 cu referință fixă 1 350–1 500 min⁻¹ „ca să țină căile de evacuare fără fum cât mai mult”.</p>
+</section>
+
+<section id="c9">
+<h2>9. Verificări și măsurători — cum ne convingem că merge bine</h2>
+<table class="tabel">
+<thead><tr><th>Ce verific</th><th>Cu ce și cum</th><th>Cât trebuie să iasă (sursa)</th></tr></thead>
+<tbody>
+<tr><td><b>Curentul pe cele trei faze</b></td><td>clește de curent cu efect Hall și <b>filtru trece-jos</b> (Fluke 87V); un clește obișnuit citește și impulsurile PWM</td><td>≤ I n de pe plăcuță; fazele „în limita a 10 % una față de alta” (Fluke); Ziehl-Abegg: dacă e peste plăcuță, „ventilatorul se scoate imediat din funcțiune”; Nicotra Gebhardt: se măsoară imediat după pornire</td></tr>
+<tr><td><b>Tensiunea la motor</b></td><td>multimetru true-RMS cu filtru trece-jos; fără filtru citește „cu 20–30 % mai mult decât afișează convertizorul” (Fluke); vârfuri și du/dt numai cu osciloscop și sondă diferențială</td><td>între faze sub 1 % diferență; CAT III 600 V minimum</td></tr>
+<tr><td><b>Rezistența de izolație</b></td><td>megohmmetru <b>numai cu cablul de motor scos de pe bornele convertizorului</b>; 500 V c.c. (Fluke) sau 1 000 V c.c. (ABB ACS880); circuitul PTC nu se megherează (max. 2,5 V)</td><td>ABB: peste 100 MΩ la 25 °C la motor nou; regula IEEE 43: 1 MΩ + 1 MΩ pe kV; se urmărește evoluția în timp</td></tr>
+<tr><td><b>Vibrații</b></td><td>vibrometru după ISO 2954 pe lagăre, în trei direcții; ISO 14694 pentru ventilatoare ≤ 300 kW</td><td>categoria BV-3 rigid/elastic: la recepție <b>4,5 / 6,3 mm/s</b>, alarmă 7,1 / 11,8, oprire 9,0 / 12,5 mm/s; Ziehl-Abegg: control la 6 luni</td></tr>
+<tr><td><b>Debitul și presiunea</b></td><td>anemometru sau tub Pitot pe o <b>traversă</b> în canal (DIN EN 12599: secțiunea împărțită în arii egale, viteza măsurată în centrul fiecăreia); manometru diferențial pe prizele din canal</td><td>incertitudine ≤ 10 % (număr suficient de puncte); la guri ± 15 %; EN 12599 cere la recepție și „curentul și puterea absorbită a motoarelor”</td></tr>
+<tr><td><b>Sensul de rotație</b></td><td>pornire scurtă la 5–10 Hz; comparare cu săgeata de pe carcasă (Ziehl-Abegg, Nicotra Gebhardt)</td><td>invers → debit mic, curent mare, zgomot; se schimbă din parametru sau două faze la motor, nu la intrarea CF</td></tr>
+<tr><td><b>Protecția termică</b></td><td>se scoate firul PTC/TB → convertizorul trebuie să dea avarie („Motorstörung”, cod 15 la Fcontrol) și să nu repornească singur</td><td>Ziehl-Abegg: după răcire, reset din tastă, din intrarea de eliberare sau prin rețea</td></tr>
+<tr><td><b>Rezonanțe</b></td><td>baleiere lentă 15…50 Hz, în trepte de 1–2 Hz, cu mâna pe canal și urechea la ventilator</td><td>benzile cu vibrații se introduc ca frecvențe de evitare; ebm-papst și Ziehl-Abegg cer explicit acest pas la punerea în funcțiune</td></tr>
+<tr><td><b>Perturbații (CEM)</b></td><td>experimentul Berufskolleg Goldenberg: un fir de laborator de 0,5 m ca „antenă” la osciloscop, lângă cablul de motor</td><td>lângă un cablu neecranat elevii au măsurat vârfuri de 23 V la 16 kHz și un THD ≈ 25 %; concluzia lor: cabluri scurte, fără „codițe”, „ecranarea cablurilor de motor rămâne necesară”</td></tr>
+<tr><td><b>Alarma și rezerva (grajd)</b></td><td>se simulează pana: alarma trebuie să sune și să apeleze; clapetele de avarie să se deschidă; grupul să pornească</td><td>DLG 422: test alarmă săptămânal, test grup lunar, întreținere anuală; TierSchNutztV § 4: verificare zilnică a ventilației</td></tr>
+<tr><td><b>Temperatura</b></td><td>termometru cu infraroșu pe carcasa motorului și pe radiatorul convertizorului după o oră</td><td>convertizorul își arată temperatura IGBT în meniul de diagnoză (Fcontrol: „IGBT Temp.”)</td></tr>
+</tbody></table>
+<p><b>Fișa de laborator din școlile germane</b> (Hochschule Bielefeld, practicum „Frequenzumrichter”): la gol se măsoară f, U, I efectiv, n; în sarcină f, I, P intrare, P ieșire, n, M; formele de undă la 2–16 kHz cu sonde diferențiale; se calculează plaja de reglaj n min : n nominal și randamentul. Turația se măsoară cu tahometru optic (bandă reflectorizantă pe ax) sau cu stroboscop (imaginea „stă” când frecvența blițului egalează turația). În Franța, TP-ul „VMC double flux VM20” (BTS FED) măsoară viteza aerului, turația, Δp, U și I și calculează randamentul η = Q·Δp / (U·I·cos φ) pe trei trepte: 265 m³/h / 515 Pa / 74,5 W; 111 m³/h / 178 Pa / 19,5 W; 97 m³/h / 160 Pa / 18,5 W — „puterea scade puternic cu scăderea debitului”.</p>
+</section>
+
+<section id="c10">
+<h2>10. Punerea în funcțiune, pas cu pas</h2>
+<ol class="pasi">
+<li><b>Fără tensiune:</b> sens de rotație marcat; rotorul liber; ecranul prins la ambele capete; PTC/TB legat; puntea de pe STO scoasă dacă e releu de siguranță; clapetele deschise; în grajd: aparatul în anticameră, ventilatoarele pe circuite separate.</li>
+<li><b>Datele motorului</b> de pe plăcuță: U, I n, f, n, cos φ, P. Autotune numai la un singur motor.</li>
+<li><b>Aplicația:</b> U/f pătratic; f min 15–20 Hz (grajd: ventilație minimă 20 %); f max 50 Hz; rampe 30–60 s; prindere din mers; repornire automată; frecvențe de evitare după probe.</li>
+<li><b>Referință și reacție:</b> 0–10 V din BMS / computerul de climă sau PID intern cu 4–20 mA; reglaj PID după metoda Danfoss (P crește până oscilează, apoi −40…60 %; I de la 20 s în jos până oscilează, apoi +15…50 %).</li>
+<li><b>Intrări/ieșiri:</b> start, reset, mod incendiu (NC), releu funcționare, releu avarie, PTC activ, I²t = I n.</li>
+<li><b>Proba de sens</b> la 5–10 Hz.</li>
+<li><b>Măsurători la 50 Hz:</b> curent pe faze, presiune/debit, tensiune în circuitul intermediar (≈ 565 V), temperatură după o oră.</li>
+<li><b>Baleiere 15…50 Hz</b> → frecvențe de evitare.</li>
+<li><b>Probe de protecție:</b> mod incendiu, PTC, STO, alarmă/pană (grajd); apoi lista parametrilor se predă beneficiarului (copie în panou sau pe PC).</li>
+</ol>
+<table class="tabel">
+<thead><tr><th>Funcție</th><th>Danfoss FC 102</th><th>Siemens G120P (CU230P-2)</th><th>Schneider ATV212</th><th>Ziehl-Abegg Fcontrol</th></tr></thead>
+<tbody>
+<tr><td>curbă de cuplu variabil</td><td>1-03 „VT”</td><td>p1300 = 2</td><td>Pt = „P”</td><td>UF quadratisch = ON</td></tr>
+<tr><td>frecvență minimă / maximă</td><td>4-12 / 4-14</td><td>p1080 / p1082</td><td>LL / UL</td><td>Min./Max. Drehzahl (FTET: Minimal/Maximal Lüftung)</td></tr>
+<tr><td>rampe</td><td>3-41 / 3-42</td><td>p1120 / p1121</td><td>ACC / dEC</td><td>Hochlauf-/Rücklaufzeit</td></tr>
+<tr><td>prindere din mers</td><td>1-73</td><td>p1200 = 1</td><td>F301</td><td>Fangmodus</td></tr>
+<tr><td>frecvențe de evitare</td><td>4-61…4-63</td><td>p1091…p1094, p1101</td><td>F270…F275</td><td>Ausblendung 1…3</td></tr>
+<tr><td>PID</td><td>1-00 = [3], grupa 20-**</td><td>p2200…, macro 105 (KP 1,1; TI 35 s)</td><td>F360…</td><td>regulator de climă (FTET) / extern</td></tr>
+<tr><td>mod incendiu / urgență</td><td>24-0*</td><td>ESM p3880…, macro 104/105 pe DI5</td><td>F650…</td><td>15D (temperatura ignorată, n max.)</td></tr>
+<tr><td>protecție termică motor</td><td>1-90 ETR / PTC</td><td>p0610 / p0601</td><td>tHr / PTC (F645, VIB)</td><td>TB/TP + Strombegrenzung 120 %</td></tr>
+<tr><td>repornire automată</td><td>14-20</td><td>p1210 = 26</td><td>F303</td><td>implicit după pană</td></tr>
+<tr><td>curea ruptă (subsarcină)</td><td>22-60…22-62</td><td>—</td><td>F610…F612</td><td>—</td></tr>
+</tbody></table>
+<p class="nota">Numerele parametrilor sunt din manualele citate în bibliografie; se verifică în manualul versiunii de firmware montate.</p>
+</section>
+
+
+<section id="c10b">
+<h2>10b. Fișe de parametrizare pe modele — ce setez concret la un ventilator</h2>
+<p>Toate numerele de mai jos sunt luate din manualele de programare ale producătorilor (linkurile în bibliografie). Motor: asincron 3~ 400 V, sarcină cu cuplu pătratic. Valorile „pentru ventilator” sunt cele recomandate la punerea în funcțiune; unde manualul nu are funcția, scrie <b>nu există</b>. Semnul ⚠ marchează ce nu am putut verifica în manualul consultat.</p>
+
+<h3>A. Danfoss VLT Micro Drive FC 51 (convertizor mic, universal)</h3>
+<table class="tabel"><thead><tr><th>Parametru</th><th>Denumire (manual)</th><th>Pentru ventilator</th><th>Observație</th></tr></thead><tbody>
+<tr><td>1-20 … 1-25</td><td>Motor Power / Voltage / Frequency / Current / Nominal Speed</td><td>de pe plăcuță (400 V, 50 Hz, I n, n)</td><td>FC 51 <b>nu are</b> parametru cos φ</td></tr>
+<tr><td>1-29</td><td>Automatic Motor Tuning (AMT)</td><td>[2] Enable AMT → apoi tasta [Hand On]</td><td>„pe motor rece”</td></tr>
+<tr><td>1-03</td><td>Torque Characteristics</td><td><b>[2] Automatic Energy Optimisation</b></td><td>FC 51 <b>nu are</b> „Variable torque”; [2] este pentru pompe și ventilatoare</td></tr>
+<tr><td>3-02 / 3-03</td><td>Minimum / Maximum Reference</td><td>0 / 50</td><td></td></tr>
+<tr><td>3-15</td><td>Reference Resource 1</td><td>[1] Analog in 53 (0–10 V) sau [2] Analog in 60 (4–20 mA)</td><td></td></tr>
+<tr><td>3-41 / 3-42</td><td>Ramp 1 Up / Down Time</td><td>20–60 s</td><td>implicit 3 s — prea scurt</td></tr>
+<tr><td>4-12 / 4-14</td><td>Motor Speed Low / High Limit [Hz]</td><td>15 / 50 Hz</td><td>implicit 4-14 = <b>65 Hz</b> — se reduce la 50 Hz!</td></tr>
+<tr><td>1-73</td><td>Flying Start</td><td>[1] Enabled</td><td>prindere din mers</td></tr>
+<tr><td>4-61 / 4-63</td><td>Speed Bypass From / To [Hz]</td><td>banda de rezonanță</td><td>2 benzi</td></tr>
+<tr><td>14-20 / 14-21</td><td>Reset Mode / Automatic Restart Time</td><td>[3] AutoReset ×3 / 10 s</td><td>repornire automată</td></tr>
+<tr><td>1-90 / 1-93</td><td>Motor Thermal Protection / Thermistor Resource</td><td>[4] ETR Trip sau [2] Thermistor Trip; PTC pe DI 29 sau AI 53</td><td></td></tr>
+<tr><td>5-40</td><td>Function Relay</td><td>[9] Alarm sau [5] Running</td><td></td></tr>
+<tr><td>6-10…6-15 / 6-22…6-25</td><td>Terminal 53 (0–10 V) / Terminal 60 (4–20 mA) scalare</td><td>0,07…10 V → 0…50 Hz; 4…20 mA → 0…50 Hz</td><td></td></tr>
+<tr><td>1-00, 7-20, 7-30, 7-33, 7-34, 3-10</td><td>PID: Configuration Mode [3] Process Closed Loop; Feedback Resource [2] AI 60; Normal; P; I; Preset Reference</td><td>P 0,5–1; I 5–20 s; 3-10 = referința</td><td>3-15 = [0] ca AI 60 să fie reacție</td></tr>
+<tr><td>—</td><td>oprire la debit mic, curea ruptă, mod incendiu</td><td><b>nu există</b></td><td></td></tr>
+<tr><td>14-22</td><td>Operation Mode</td><td>[2] Initialization = reset la fabrică</td><td>apoi oprire/repornire rețea</td></tr>
+</tbody></table>
+<p><b>Tastatura LCP 11/12:</b> [Menu] comută Status → Quick Menu → Main Menu. În Quick Menu: <b>QM1</b> (date motor, 3-02/3-03, rampe) și <b>QM2</b> (PID). [OK] intră, ▲▼ modifică, [OK] salvează, [Back] anulează. AMT: 1-29 = [2] → [Hand On]. Reset fabrică: 14-22 = [2] → se scoate tensiunea → la repornire apare Alarm 80.</p>
+
+<h3>B. Danfoss VLT HVAC Drive FC 102 (clădiri)</h3>
+<table class="tabel"><thead><tr><th>Parametru</th><th>Denumire (manual)</th><th>Pentru ventilator</th><th>Observație</th></tr></thead><tbody>
+<tr><td>1-20 … 1-25, 1-28</td><td>date motor; Motor Rotation Check</td><td>plăcuță; [1] Enabled la PIF</td><td>Quick Setup Q2</td></tr>
+<tr><td>1-29</td><td>Automatic Motor Adaptation (AMA)</td><td>[1] Enable Complete AMA → [Hand On] → [OK] la final</td><td></td></tr>
+<tr><td>1-03</td><td>Torque Characteristics</td><td><b>[3] Auto Energy Optim. VT</b> (implicit) sau [1] Variable torque</td><td>„pompe centrifuge și ventilatoare, cuplu pătratic”</td></tr>
+<tr><td>3-41 / 3-42</td><td>Ramp 1 Up / Down</td><td>30–90 s</td><td></td></tr>
+<tr><td>4-12 / 4-14</td><td>Motor Speed Low / High Limit [Hz]</td><td>15 / 50 Hz</td><td></td></tr>
+<tr><td>4-61 / 4-63; 4-64</td><td>Bypass Speed From / To; Semi-Auto Bypass Set-up</td><td>benzi de rezonanță; [1] Enabled = le găsește singur</td><td>meniul Q3-40 „Fan Functions”</td></tr>
+<tr><td>1-73</td><td>Flying Start</td><td>[1] Enabled</td><td></td></tr>
+<tr><td>14-20 / 14-21</td><td>Reset Mode / Automatic Restart Time</td><td>[3] Automatic reset ×3 / 10 s</td><td>ignorat în mod incendiu</td></tr>
+<tr><td>1-90 / 1-93</td><td>Motor Thermal Protection / Thermistor Source</td><td>[4] ETR trip 1 sau [2] Thermistor trip; PTC pe AI 53/54 sau DI</td><td></td></tr>
+<tr><td>5-10, 5-12, 5-40</td><td>Terminal 18 Start; Terminal 27; Relay 1 / Relay 2</td><td>[8] Start; [37] Fire mode pe un DI; releu [9] Alarm / [5] Running</td><td></td></tr>
+<tr><td>6-1* / 6-2*</td><td>AI 53 (0–10 V) / AI 54 (4–20 mA)</td><td>scalare 0…max; 6-17 Live Zero [1]</td><td></td></tr>
+<tr><td>1-00, 20-00, 20-12, 20-13/14, 20-21, 20-81, 20-93/94, 20-79</td><td>PID: Closed loop [3]; Feedback 1 Source [2] AI 54; unitate Pa; min/max; Setpoint 1; Normal; P 0,5 / I 20 s; PID Autotuning</td><td>meniul Q3-30</td><td></td></tr>
+<tr><td>22-40 … 22-44</td><td>Minimum Run Time / Minimum Sleep Time / Wake-up Speed / Wake-up Ref-FB Difference</td><td>10 s / 10 s / … / 10 %</td><td>oprire la debit mic</td></tr>
+<tr><td>22-60 / 22-61 / 22-62</td><td>Broken Belt Function / Torque / Delay</td><td>[2] Trip; 10 %; 10 s</td><td>nu cu 14-20 = [13] Infinite</td></tr>
+<tr><td>24-00, 24-01, 24-05, 24-06, 24-09</td><td>Fire Mode Function; Configuration; Preset Reference; Reference Source; Alarm Handling</td><td>[1] Enabled-Run Forward; [0] Open loop; 100 %; …</td><td>„numai în buclă deschisă”</td></tr>
+<tr><td>14-22</td><td>Operation Mode</td><td>[2] Initialisation</td><td>sau la pornire [Status]+[Main Menu]+[OK] 5 s</td></tr>
+</tbody></table>
+<p><b>Tastatura GLCP:</b> [Quick Menu] → <b>Q2 Quick Setup</b> (18 parametri: date motor, rampe, limite, releu) → <b>Q3 Function Set-ups</b>: Q3-10 motor avansat (1-90, 1-93, AMA), Q3-21 referință analogică, Q3-30 PID cu referință internă, <b>Q3-40 Fan Functions</b> (curea, rezonanțe semi-automate, 1-03, oprire la debit mic, 1-73). Editare: [OK] → ◀▶ cifra, ▲▼ valoarea → [OK].</p>
+
+<h3>C. Siemens SINAMICS V20 (convertizor mic)</h3>
+<table class="tabel"><thead><tr><th>Parametru</th><th>Denumire (manual)</th><th>Pentru ventilator</th><th>Observație</th></tr></thead><tbody>
+<tr><td>P0100</td><td>50/60 Hz selection</td><td>0 = Europa, kW, 50 Hz</td><td></td></tr>
+<tr><td>P0304, P0305, P0307, P0308, P0310, P0311</td><td>Rated motor voltage / current / power / cos φ / frequency / speed</td><td>plăcuță; tensiunea după conexiunea Y/Δ</td><td></td></tr>
+<tr><td>P1900</td><td>Motor data identification</td><td>2 = identificare în repaus</td><td></td></tr>
+<tr><td><b>Cn002</b> / <b>Cn008</b></td><td>Connection macro „comandă de la borne” / „PID cu referință analogică”</td><td>Cn002: P0700 = 2, P1000 = 2, DI1 ON/OFF, DI3 reset, DO1 Running, DO2 Fault; Cn008: P2200 = 1, P2253 = 755.0, P2264 = 755.1</td><td>înainte de a schimba un Cn: reset fabrică</td></tr>
+<tr><td><b>AP020</b></td><td>Application macro „Simple fan applications”</td><td>setează: P1110 = 1 (fără sens invers), <b>P1300 = 7 (U/f pătratic, economic)</b>, P1200 = 2 (prindere din mers), P1210 = 2 (repornire după pană), P1080 = 20 Hz, P1120 = 10 s, P1121 = 20 s</td><td>meniul Setup, submeniul 3</td></tr>
+<tr><td>P1300</td><td>Control mode</td><td>2 = U/f pătratic sau 7 = pătratic economic</td><td></td></tr>
+<tr><td>P1080 / P1082; P1120 / P1121</td><td>Min / Max frequency; Ramp-up / down</td><td>15–20 / 50 Hz; 20–30 / 30–40 s</td><td></td></tr>
+<tr><td>P1091…P1094, P1101</td><td>Skip frequency 1–4, bandwidth</td><td>rezonanțe; 2 Hz</td><td></td></tr>
+<tr><td>P0756</td><td>Type of analog input</td><td>0 = 0–10 V; 2 = 0–20 mA</td><td></td></tr>
+<tr><td>P0731 / P0732</td><td>Digital output 1 / 2</td><td>52.2 Running / 52.3 Fault</td><td></td></tr>
+<tr><td>P0610</td><td>Motor I²t temperature reaction</td><td>6 = avertizare + declanșare (implicit)</td><td>V20 <b>nu are</b> intrare PTC</td></tr>
+<tr><td>P2280 / P2285; P2350</td><td>PID gain / integral time; PID autotune</td><td>ex. 1 / 5 s; 1 pentru autoacordare</td><td></td></tr>
+<tr><td>P2365 / P2366 / P2367</td><td>Hibernation (oprire la debit mic): activare / întârziere oprire / repornire</td><td>1 / 5 s / …</td><td></td></tr>
+<tr><td>P0503</td><td>Keep-running operation</td><td>1 = ignoră avariile (asemănător cu modul incendiu)</td><td>mod incendiu propriu-zis: <b>nu există</b></td></tr>
+<tr><td>P0970</td><td>Factory reset</td><td>P0003 = 1, P0010 = 30, <b>P0970 = 21</b></td><td></td></tr>
+</tbody></table>
+<p><b>Tastatura BOP integrată:</b> tasta <b>M</b> apăsată &gt; 2 s → meniul Setup: 1 date motor (P0304…P1900) → 2 macro de conectare (Cn002 / Cn008) → 3 macro de aplicație (<b>AP020</b>) → 4 parametri comuni (MIN F, MAX F, RMP UP, RMP DN) → M &gt; 2 s pentru ieșire. Motorul pornește numai din meniul de afișare.</p>
+
+<h3>D. Siemens SINAMICS G120C / G120 (CU240E-2) / G120P (CU230P-2)</h3>
+<table class="tabel"><thead><tr><th>Parametru</th><th>Denumire (manual)</th><th>Pentru ventilator</th><th>Observație</th></tr></thead><tbody>
+<tr><td>P0010</td><td>Commissioning parameter</td><td>1 la început, 0 la sfârșit</td><td>BOP-2: meniul SETUP … FINISH</td></tr>
+<tr><td>P0100; P0304…P0311</td><td>Motor standard IEC; date motor</td><td>0; plăcuță</td><td></td></tr>
+<tr><td>P1900</td><td>Motor data identification</td><td>„STIL ROT” (repaus + rotire)</td><td>după setare pornește motorul pentru identificare (A07991)</td></tr>
+<tr><td><b>P1300</b></td><td>Control mode</td><td><b>2 = „VF QUAD”</b> (U/f pătratic)</td><td></td></tr>
+<tr><td><b>P0015</b></td><td>Macro drive unit</td><td>12 (DI0 pornire, DI1 sens, AI0 referință) sau 17/18 (2 fire); G120P: <b>105</b> „ventilator cu reglare de presiune + ESM”</td><td></td></tr>
+<tr><td>P1080 / P1082; P1120 / P1121</td><td>Min / Max speed [rpm]; rampe</td><td>450 / 1 500; 30 / 40 s</td><td></td></tr>
+<tr><td>P1200</td><td>Flying restart</td><td>1 (sau 4 = doar în sensul referinței)</td><td></td></tr>
+<tr><td>P1210 / P1211</td><td>Automatic restart / trials</td><td>26 (G120P macro 105) ⚠</td><td></td></tr>
+<tr><td>P1091…P1094, P1101</td><td>Skip frequencies, bandwidth</td><td>rezonanțe ⚠</td><td></td></tr>
+<tr><td>P0601 / P0604 / P0605 / P0610</td><td>Motor temperature sensor type / alarm / fault / reaction</td><td>1 = PTC (borne 14/15); 130 °C; 145 °C; 2 = defect</td><td></td></tr>
+<tr><td>P2200, P2253, P2264, P2280, P2285</td><td>PID: enable, setpoint, feedback, KP, TI</td><td>1; AI; AI; macro 105: KP 1,1, TI 35 s, referință 40 %</td><td>valorile macro 105 din manualul CU230P-2</td></tr>
+<tr><td>p3880 / p3881 / p3882 / p1015</td><td>ESM activation (DI) / setpoint source / alternative / fixed speed 15</td><td>DI1; 1 = turație fixă p1015 = 1 350–1 500 min⁻¹; 2 = turație maximă</td><td>G120P, „Fire operation”</td></tr>
+<tr><td>P0970</td><td>Factory reset</td><td>BOP-2: Options → DRVRESET</td><td></td></tr>
+</tbody></table>
+<p><b>Tastatura BOP-2:</b> SETUP → (RESET) → <b>CTRL MOD = VF QUAD</b> → EUR/USA = IEC → MOT VOLT, MOT CURR, MOT POW, MOT RPM → MOT ID = STIL ROT → <b>MAC PAR</b> (macro) → MIN RPM, RAMP UP, RAMP DWN → FINISH = YES. Apoi start pentru identificarea motorului.</p>
+
+<h3>E. Schneider Altivar 12 (mic) și Altivar 320 (universal)</h3>
+<table class="tabel"><thead><tr><th>Parametru</th><th>Denumire (manual)</th><th>ATV12</th><th>ATV320</th></tr></thead><tbody>
+<tr><td>bFr</td><td>Standard motor frequency</td><td>50 Hz (cerut la prima pornire)</td><td>50 Hz</td></tr>
+<tr><td>nPr, UnS, nCr, FrS, nSP, COS</td><td>putere, tensiune, curent, frecvență, turație, cos φ motor</td><td>plăcuță (UnS implicit 230 V → 400 V!)</td><td>plăcuță; tFr max. frequency 50 Hz (implicit 60)</td></tr>
+<tr><td>tUn</td><td>Auto-tuning</td><td>YES → dOnE (motor rece, 1–2 s)</td><td>YES → tUS = dOnE</td></tr>
+<tr><td><b>Ctt</b></td><td>Motor control type</td><td><b>PUMP</b> = „U²/F, pentru pompe și ventilatoare” (UFt nu există la ATV12)</td><td><b>UFq [V/F Quad.]</b> „cuplu variabil, pompe și ventilatoare” sau nLd (economic)</td></tr>
+<tr><td>ACC / dEC</td><td>rampe</td><td>20–30 s (implicit 3 s)</td><td>20–30 s</td></tr>
+<tr><td>LSP / HSP</td><td>Low / High speed</td><td>15 / 50 Hz</td><td>15 / 50 Hz</td></tr>
+<tr><td>ItH</td><td>Motor thermal current</td><td>= nCr</td><td>= nCr; tHt = FCL la motor ventilat forțat</td></tr>
+<tr><td>tCC / Fr1 / AI1t</td><td>2 sau 3 fire / canal referință / tip intrare</td><td>2C; AI1; 10U (0–10 V) sau 0A (4–20 mA) — implicit 5U!</td><td>2C; AI1; AI1 numai 0–10 V, AI3 pentru 4–20 mA</td></tr>
+<tr><td>CFG</td><td>Macro-configuration</td><td>PId (AI1 reacție, referință internă, Ctt = PUMP)</td><td>StS sau PId</td></tr>
+<tr><td>PIF, rPG, rIG, rPI, PII</td><td>PID: reacție, câștig P, câștig I, referință internă, activare</td><td>AI1; 1; 1; consemn; YES</td><td>AI3; 1; 1; consemn; YES</td></tr>
+<tr><td>FLr</td><td>Catch on the fly (prindere din mers)</td><td>YES</td><td>YES (comandă 2 fire pe nivel)</td></tr>
+<tr><td>JPF / JF2 / JF3</td><td>Skip frequency</td><td>JPF (una singură)</td><td>JPF, JF2, JF3</td></tr>
+<tr><td>Atr / tAr</td><td>Automatic restart / timp maxim</td><td>YES / 5 min (cere tCC = 2C, tCt = LEL)</td><td>YES</td></tr>
+<tr><td>PTC</td><td>sondă motor</td><td><b>nu există</b> intrare PTC</td><td>PtCL pe LI6 + comutatorul SW2 pe PTC</td></tr>
+<tr><td>r1</td><td>releu R1</td><td>FLt (avarie) sau rUn</td><td>FLt / rUn</td></tr>
+<tr><td>tLS; LUn/LUL; InH</td><td>oprire la turație mică (timp); subsarcină (curea); inhibare defecte (≈ mod incendiu)</td><td>nu există (doar ULA alarmă)</td><td>tLS 30 s; LUn/LUL → defect ULF; InH pe LI</td></tr>
+<tr><td>FCS / GFS</td><td>reset la fabrică</td><td>COnF → FCS = InI (ENT 2 s)</td><td>CONF → FCS- → FCSI = InI → FrY- = ALL → GFS = YES</td></tr>
+</tbody></table>
+<p><b>Tastatura:</b> ATV12 — tasta MODE comută rEF → MOn → COnF; jog dial rotit = navigare, apăsat = ENT; COnF → MyMenu (bFr, Fr1, ACC, dEC, LSP, HSP, nPr, nCr, AI1t) → FULL → drC- (UnS, nCr, FrS, nSP, Ctt = PUMP, tUn). ATV320 — CONF → FULL → <b>SIM- [SIMPLY START]</b> (tCC, CFG, bFr, nPr, UnS, nCr, FrS, nSP, tFr, tUn, ItH, ACC, dEC, LSP, HSP) → DRC- (Ctt = UFq) → I-O-, CTL-, FUN-, FLT-. Parametrii marcați „2s” se confirmă ținând ENT 2 s.</p>
+
+<h3>F. Schneider Altivar 212 (clădiri)</h3>
+<table class="tabel"><thead><tr><th>Parametru</th><th>Denumire (manual)</th><th>Pentru ventilator</th><th>Observație</th></tr></thead><tbody>
+<tr><td>AU4</td><td>Auto set function (macro)</td><td>0 [Factory set] = borne, VIA 0–10 V/0–20 mA; 4 [4-20 mA speed ref]</td><td>1 Run permissive, 2 3 fire, 3 +/− viteză</td></tr>
+<tr><td>uLu / uL / F415 / F417</td><td>tensiune / frecvență / curent / turație motor</td><td>400 V / 50 Hz / plăcuță</td><td>se introduc înainte de autotune</td></tr>
+<tr><td>F400</td><td>Auto-tuning drive</td><td>4 [Tun Static 1]</td><td></td></tr>
+<tr><td><b>Pt</b></td><td>Mot cont. mode sel.</td><td><b>1 [Variable Torque]</b> (implicit) — „ventilatoare și pompe centrifuge”</td><td></td></tr>
+<tr><td>ACC / dEC; LL / UL; FH</td><td>rampe; limite; frecvență maximă</td><td>20–30 s; 15 / 50 Hz; 50 Hz</td><td></td></tr>
+<tr><td>tHr</td><td>Motor thermal prot.</td><td>100 % (= F415)</td><td></td></tr>
+<tr><td>CMOd / FMOd / F109 / F201, F203</td><td>sursă comandă / sursă referință / VIA ca AI / scalare VIA</td><td>0 borne; 1 VIA; 0; 20 % / 100 % pentru 4–20 mA</td><td></td></tr>
+<tr><td>F301</td><td>Catch on fly</td><td>3 [Power loss, run] (implicit)</td><td></td></tr>
+<tr><td>F303</td><td>Number auto reset</td><td>3</td><td></td></tr>
+<tr><td>F270…F275</td><td>Jump frequency 1/2/3 + bandwidth</td><td>rezonanțe</td><td></td></tr>
+<tr><td>F360, F362, F363</td><td>PID control enable; Prop Gain; Integral Gain</td><td>1 [PID by VIA] sau 2 [by VIB]; 0,30; 0,20 (implicite)</td><td></td></tr>
+<tr><td><b>F650</b>, F294</td><td>Forced fire control; Forced speed freq.</td><td>1 [Enable forward] + LI funcția 52/53; 50 Hz</td><td>ENT 2 s</td></tr>
+<tr><td>F610 / F611 / F612</td><td>Underload det. / level / time (curea ruptă)</td><td>1 Fault / 30 % / 10 s</td><td>(nu „F615”)</td></tr>
+<tr><td>F256</td><td>Time limit low spd</td><td>60 s → oprire la debit mic</td><td></td></tr>
+<tr><td>F645 / F646</td><td>Mot PTC selection / PTC resistor value</td><td>1 [Enabled fault] / 3 000 Ω — VIB devine intrare PTC</td><td></td></tr>
+<tr><td>F130 / F132</td><td>releu RY / releu FL</td><td>funcționare / defect (11, implicit)</td><td></td></tr>
+<tr><td>tYP</td><td>Parameter reset</td><td>3 [Factory set]</td><td></td></tr>
+</tbody></table>
+<p><b>Tastatura:</b> MODE comută Run → MON → PRG; ▲▼ parcurg AUH/AUF, ACC, dEC, LL, UL, tHr, Pt, tYP, FMOd, CMOd, AU4, apoi grupele F1-- … F9--; ENT deschide și salvează.</p>
+
+<h3>G. ABB ACH580 (clădiri) / ACS580</h3>
+<table class="tabel"><thead><tr><th>Parametru</th><th>Denumire (manual)</th><th>Pentru ventilator</th><th>Observație</th></tr></thead><tbody>
+<tr><td>99.03 / 99.04</td><td>Motor type / Motor control mode</td><td>Asynchronous / Scalar (implicit)</td><td>Vector numai dacă se vrea ID run</td></tr>
+<tr><td>99.06 … 99.11</td><td>Motor nominal current / voltage / frequency / speed / power / cos φ</td><td>plăcuță</td><td>asistentul de prima pornire le cere</td></tr>
+<tr><td><b>97.20</b></td><td>U/F ratio</td><td><b>Squared</b> (implicit) — „pompe centrifuge și ventilatoare”</td><td>ignorat dacă 45.11 Energy optimizer = Enable</td></tr>
+<tr><td>21.19</td><td>Scalar start mode</td><td>Automatic (implicit) = prindere din mers</td><td></td></tr>
+<tr><td>30.13 / 30.14; 23.12 / 23.13</td><td>Min / Max frequency; rampe</td><td>15 / 50 Hz; 30 / 40 s</td><td></td></tr>
+<tr><td>28.51 … 28.54</td><td>Critical frequency function / 1 low / 1 high / 2 low …</td><td>rezonanțe</td><td></td></tr>
+<tr><td>12.15 … 12.20</td><td>AI1: unitate, min, max, scalare</td><td>4–20 mA sau 0–10 V → 0…50 Hz</td><td></td></tr>
+<tr><td>20.01 / 20.03; 10.24 / 10.27 / 10.30</td><td>Ext1 commands / in1; relee RO1 / RO2 / RO3</td><td>In1 Start / DI1; Damper / Running / Fault (implicitul HVAC)</td><td></td></tr>
+<tr><td>40.07, 40.08, 40.16, 40.32, 40.33</td><td>PID: mode On; feedback AI2; setpoint AI1; gain 1,0; integration 10 s</td><td></td><td></td></tr>
+<tr><td>40.43 / 40.44; 40.47 / 40.48</td><td>Sleep level / delay; wake-up deviation / delay</td><td>&gt; 0 / 60 s</td><td>0,0 = dezactivat</td></tr>
+<tr><td>31.12 / 31.14</td><td>Autoreset selection / trials</td><td>… / 3</td><td></td></tr>
+<tr><td>35.11 / 35.12; 35.51…35.56</td><td>Temperature 1 source (PTC pe DI6) / fault limit; curba de sarcină a motorului</td><td>PTC; 130 °C</td><td></td></tr>
+<tr><td>37.02 / 37.04</td><td>User load curve: signal / underload actions</td><td>Motor torque / Fault — „curea ruptă, lipsă debit”</td><td></td></tr>
+<tr><td><b>70.02 … 70.06, 70.10, 70.20</b></td><td>Override enable / activation source / reference source / direction / frequency / interlocks / fault handling</td><td>On / DIx / Override frequency / Forward / 50 Hz / … / Autoreset</td><td>= mod incendiu</td></tr>
+<tr><td>96.06</td><td>Parameter restore</td><td>Restore defaults (păstrează motorul) / Clear all</td><td></td></tr>
+</tbody></table>
+<p><b>Panoul HOA:</b> la prima pornire rulează <b>First start assistant</b> (limbă → dată/oră → date motor → „Spin the motor” pentru sens). Menu → <b>Primary settings</b> → Motor; Start, stop, reference („Direct control via I/O” = implicitul HVAC: AI1 referință, DI1 start, RO2 Running, RO3 Fault; sau „PID control, single motor”); Ramps; Limits; PID; <b>Override</b>. Reset: Primary settings → Reset to defaults.</p>
+
+<h3>H. Ziehl-Abegg Fcontrol Basic FSDM (ventilatoare, cu filtru sinus) și FTET (grajd)</h3>
+<table class="tabel"><thead><tr><th>Meniu</th><th>Parametru (manual)</th><th>Pentru ventilator</th><th>Observație</th></tr></thead><tbody>
+<tr><td>Motor Setup</td><td>MotorBemessStrom / MotorBemessSpng.</td><td>I n de pe plăcuță (sau suma la mai multe motoare) / 400 V</td><td>implicit = curentul aparatului / 400 V</td></tr>
+<tr><td>Motor Setup</td><td>Eckfrequenz / Max. Frequenz</td><td><b>48,5 Hz / 50 Hz</b> (motor 400 V 50 Hz); 48,5 / 60 la 50/60 Hz; 57 / 60 la 60 Hz</td><td>tensiunea de ieșire max. 95 % din rețea, de aceea 48,5 Hz</td></tr>
+<tr><td>Motor Setup</td><td>UF quadratisch</td><td><b>ON</b> (din fabrică)</td><td>OFF = liniar, numai la sarcini dinamice</td></tr>
+<tr><td>Motor Setup</td><td>Hochlaufzeit / Rücklaufzeit</td><td>20 s (2,5–16 A) / 40 s (22–50 A) din fabrică</td><td>0…250 s</td></tr>
+<tr><td>Motor Setup</td><td>Strombegrenzung</td><td>120 % (implicit)</td><td>100…130 %</td></tr>
+<tr><td>Motor Setup</td><td>Startspannung / Boost Funktion</td><td>0 % / OFF</td><td>supracreștere de tensiune numai dacă motorul nu pornește</td></tr>
+<tr><td>Motor Setup</td><td>Drehrichtung</td><td>CW; se verifică cu săgeata de pe ventilator</td><td></td></tr>
+<tr><td>Motor Setup</td><td>Ausblendung 1…3 (Bereich Min./Max.)</td><td>benzile de rezonanță</td><td></td></tr>
+<tr><td>Motor Setup</td><td>Motorheizung; DC Bremse Modus</td><td>ON la exterior/grajd iarna; 0</td><td></td></tr>
+<tr><td>Einstellung</td><td>Min. Drehzahl / Max. Drehzahl</td><td>ex. 10 Hz / 50 Hz</td><td></td></tr>
+<tr><td>Controller Setup</td><td>Steuermodus</td><td><b>0</b> = semnal extern 0–10 V / PWM pe E1 (implicit); 4/5/6 = referință internă fixă</td><td>0–20 mA prin punte internă E1.1/E1.2</td></tr>
+<tr><td>IO Setup</td><td>D1 Funktion / K1 Funktion / E1 min. / E1 max.</td><td>1D Freigabe (eliberare) / 2K Störmeldung (avarie) / 5 % / 100 %</td><td>15D = mod incendiu (ignoră temperatura, n max.)</td></tr>
+<tr><td>Start</td><td>PIN Eingabe</td><td>0010 = meniurile de service; 1234 = Einstellung; <b>9095 = reset la fabrică</b></td><td>FTET: PIN 1070 pentru meniul Installation</td></tr>
+<tr><td>FTET Lüftung</td><td>Sollwert / Regelbereich / Min. Lüftung / Max. Lüftung</td><td>20 °C / 4 K / 20 % / 100 %</td><td>taste directe 0 / 2 / 4 / 8</td></tr>
+<tr><td>FTET Alarm</td><td>Alarm Minimum / Maximum; Alarm Differenz</td><td>−5 K / +5 K; întârziere 60 s</td><td>releu K1</td></tr>
+<tr><td>FTET Kurvenprogramm</td><td>Start / Knickpunkt 1 / 2 / Endpunkt (zi 1 / 10 / 60 / 120)</td><td>prescris 26 → 24 → 23 → 20 °C; minim 10 → 12 % …</td><td>tasta 9 = ziua curentă</td></tr>
+<tr><td>FTET IO</td><td>E1/T1 senzor KTY/PT1000; A1 Lüftung; A2 Klappe; K3 Spitzenlast</td><td></td><td></td></tr>
+</tbody></table>
+<p><b>Tastatura FSDM:</b> P = deschide meniul / confirmă; ▲▼ = navigare / valoare; ▲+▼ împreună = ieșire fără salvare. Ordinea meniurilor: Start → Info → Ereignisse → Einstellung → Controller Setup → IO Setup → Motor Setup → Diagnose. Punere în funcțiune (cap. 7 din manual): puntea TB/TP dacă nu e termocontact → puntea D1/24 V dacă nu e comandă la distanță → capacul închis → tensiune → limba → date motor (Eckfrequenz/Max. Frequenz după tabel) → referința pe E1.</p>
+
+<div class="exemplu">
+<h4>Aceiași 12 pași, pe toate modelele (fișa de buzunar)</h4>
+<table class="tabel"><thead><tr><th>Pas</th><th>FC 51 / FC 102</th><th>V20 / G120</th><th>ATV12 / ATV320 / ATV212</th><th>ACH580</th><th>Fcontrol</th></tr></thead><tbody>
+<tr><td>1. reset fabrică</td><td>14-22 = [2]</td><td>P0970 = 21 / DRVRESET</td><td>FCS = InI / GFS = YES / tYP = 3</td><td>96.06</td><td>PIN 9095</td></tr>
+<tr><td>2. date motor</td><td>1-20…1-25</td><td>P0304…P0311</td><td>UnS, nCr, FrS, nSP / uLu, uL, F415, F417</td><td>99.06…99.11</td><td>MotorBemessStrom / Spng.</td></tr>
+<tr><td>3. autotune</td><td>1-29 → Hand On</td><td>P1900 = 2 / STIL ROT</td><td>tUn = YES / F400 = 4</td><td>99.13 (opțional)</td><td>—</td></tr>
+<tr><td>4. cuplu pătratic</td><td>1-03 = [2] AEO / [3] AEO VT</td><td>P1300 = 2 sau 7 (AP020)</td><td>Ctt = PUMP / UFq; Pt = 1</td><td>97.20 = Squared</td><td>UF quadratisch = ON</td></tr>
+<tr><td>5. f min / f max</td><td>4-12 / 4-14 (65 → 50!)</td><td>P1080 / P1082</td><td>LSP / HSP; LL / UL</td><td>30.13 / 30.14</td><td>Min./Max. Drehzahl</td></tr>
+<tr><td>6. rampe</td><td>3-41 / 3-42</td><td>P1120 / P1121</td><td>ACC / dEC</td><td>23.12 / 23.13</td><td>Hochlauf-/Rücklaufzeit</td></tr>
+<tr><td>7. referință</td><td>3-15; 6-1*/6-2*</td><td>P1000 = 2; P0756</td><td>Fr1 = AI1; AI1t / FMOd = 1</td><td>28.11; 12.xx</td><td>Steuermodus 0, E1</td></tr>
+<tr><td>8. PID</td><td>7-2*/7-3* / 20-**</td><td>Cn008; P2200…</td><td>CFG = PId; PIF… / F360</td><td>40.xx</td><td>FTET: Sollwert/Regelbereich</td></tr>
+<tr><td>9. prindere din mers</td><td>1-73 = [1]</td><td>P1200 = 2</td><td>FLr = YES / F301</td><td>21.19 Automatic</td><td>Fangmodus</td></tr>
+<tr><td>10. rezonanțe</td><td>4-61/4-63 (4-64 semi-auto)</td><td>P1091…P1094</td><td>JPF, JF2, JF3 / F270…</td><td>28.51…</td><td>Ausblendung 1…3</td></tr>
+<tr><td>11. protecție termică</td><td>1-90 / 1-93</td><td>P0610 / P0601 (G120)</td><td>ItH; PtCL (320) / F645 (212)</td><td>35.11</td><td>TB/TP + Strombegrenzung</td></tr>
+<tr><td>12. relee, repornire, incendiu</td><td>5-40; 14-20; 24-0* (FC 102)</td><td>P0731; P1210; p3880 (G120P)</td><td>r1; Atr; InH / F650</td><td>10.24…; 31.12; 70.xx</td><td>K1 2K; automat; 15D</td></tr>
+</tbody></table>
+</div>
+</section>
+
+<section id="c11">
+<h2>11. Două cazuri rezolvate</h2>
+<div class="exemplu">
+<h4>Cazul A — ventilatorul de refulare al CTA unei școli (clădire)</h4>
+<p><b>Date:</b> refulare 12 000 m³/h la 800 Pa; ventilator cu rotor liber, η ≈ 0,72, cuplat direct; motor 7,5 kW / 400 V / 14,8 A / cos φ 0,81 / 1 460 min⁻¹ / IE3 cu PTC; sistem VAV cu 12 cutii, presiune statică cerută 300 Pa; rețea 3×400 V TN-S; 25 m până la motor; convertizor în tabloul CTA.</p>
+<p><b>Puterea la ax:</b> Q = 12 000 / 3 600 = 3,33 m³/s; P ax = 3,33 · 800 / 0,72 = <b>3,7 kW</b>. Motorul de 7,5 kW e ales de proiectant cu rezervă la 50 Hz (filtre înfundate); cu convertizor rămâne, pentru că absoarbe doar cât cere ventilatorul.</p>
+<p><b>Convertizorul:</b> după 14,8 A, regim normal: Danfoss FC-102 P7K5T4 (7,5 kW, 16 A), Siemens SINAMICS G120P 7,5 kW, Schneider ATV212HU75N4 — toate cu filtru C2 integrat. Regula: I CF ≥ I n motor.</p>
+<p><b>Protecții și cabluri:</b> Q1 separator 3×32 A blocabil; F1 după manual (gG 25 A); fără contactor; alimentare 4×4 mm²; cablu de motor ecranat 4G2,5 mm², 25 m, fără filtru de ieșire (sub 50 m); PE 10 mm²; separator de service cu contact anticipat la ventilator.</p>
+<p><b>Comanda:</b> start/stop din BMS; referință 300 Pa; traductor 0–1 000 Pa / 4–20 mA la 2/3 din canal; mod incendiu pe DI3 (NC); relee spre BMS; Modbus.</p>
+<p><b>Parametri:</b> VT; f min 18 Hz; f max 50 Hz; rampe 60/60 s; prindere din mers; repornire automată; PID P = 0,5, I = 8 s (după reglaj); frecvențe de evitare 23–26 Hz (găsite la baleiere); I²t = 14,8 A; PTC activ; oprire sub 20 Hz timp de 60 s, repornire la −50 Pa.</p>
+<p><b>Economia:</b> profil 2 000 h la 100 %, 1 500 h la 70 %, 500 h la 50 %; P absorbită la 50 Hz = 3,7 / 0,904 = 4,1 kW. Cu clapete (putere 100 / 90 / 85 %): 2 000 × 4,1 + 1 500 × 3,7 + 500 × 3,5 ≈ 15 500 kWh/an. Cu convertizor: 2 000 × 4,1 + 1 500 × 4,1 × 0,343 + 500 × 4,1 × 0,125 = 8 200 + 2 110 + 256 ≈ <b>10 570 kWh/an</b>. Economie ≈ 4 900 kWh/an ≈ 4 400 lei/an la 0,9 lei/kWh, plus presiune constantă la toate clasele.</p>
+</div>
+<div class="exemplu">
+<h4>Cazul B — compartiment de 500 porci la îngrășat (după exemplul DLG)</h4>
+<p><b>Debitul:</b> vara 84 m³/h × 500 = 42 000 m³/h; iarna (14 m³/h × 500) ≈ 7 000 m³/h → plaja 1 : 6.</p>
+<p><b>Ventilatoarele:</b> 4 × Ø 630 mm, 1~ 230 V, 10 500 m³/h la 30 Pa, motor cu rotor exterior „comandabil în tensiune”, curent maxim ≈ 3,2 A fiecare (după catalogul producătorului), cu termocontact TB.</p>
+<p><b>Metoda:</b> convertizor cu filtru sinus pentru agricultură, 1~ 230 V — pe fiecare compartiment un Ziehl-Abegg Fcontrol FTET (4, 6 sau 10 A): 2 ventilatoare reglate împreună pe un FTET 10 A (2 × 3,2 = 6,4 A ≤ 10 A) și 2 ventilatoare de vârf cuplate pe releu (funcția „Spitzenlast”, pornesc la 50 % și merg direct din rețea), sau 4 ventilatoare reglate pe două aparate FTET 10 A în rețea Modbus. Fiecare ventilator cu propriul aparat de protecție (S-ET10), intrarea TB comună nefolosită.</p>
+<p><b>Amplasare și instalare:</b> aparatele în anticameră (IP54); cablu de motor neecranat (filtru sinus); cabluri de senzori ≤ 30 m, ecranate peste 20 m; DDR 300 mA; senzor de temperatură în compartiment la înălțimea animalelor + senzor exterior; clapete de admisie cu servomotor 0–10 V și revenire cu arc; comutator 0 – AUTO – 100 % (S-E-20) pe fiecare aparat.</p>
+<p><b>Reglaje:</b> valoare prescrisă 20 °C (curbă de creștere 26 → 20 °C pe 120 zile); bandă de reglare 4 K (iarna 3–4 K, vara 5–7 K); ventilație minimă 20 %; alarme ±5 K, întârziere 60 s; releu de alarmă spre apelatorul telefonic.</p>
+<p><b>Siguranță (obligatorie):</b> alarmă la pană cu autonomie ≥ 2 h; clapete de avarie cu arc; grup electrogen dimensionat la suma consumatorilor + 20–25 %, cu comutator rețea/grup cu poziție zero; test săptămânal / lunar.</p>
+<p><b>Economia (Ziehl-Abegg):</b> ≈ 207 €/an pe ventilator față de regulatorul cu triac; la 4 ventilatoare ≈ 830 €/an; aparatele (2 × ≈ 1 000 €) se amortizează în ≈ 2,5 ani.</p>
+</div>
+</section>
+
+<section id="c12">
+<h2>12. Test de verificare</h2>
+<ol class="test">
+<li>Explicați cu cuvintele voastre ce face un convertizor de frecvență și de ce nu se poate regla turația unui motor obișnuit doar din tensiune.</li>
+<li>Un motor de ventilator are la 400 V și 50 Hz turația 1 440 min⁻¹. Ce turație are la 25 Hz și ce tensiune trebuie să primească? (după exercițiul din Berufsschule, Steinkamp)</li>
+<li>Un ventilator absoarbe 11 kW la 1 450 min⁻¹. Cât absoarbe la 1 160 min⁻¹? Dar debitul și presiunea?</li>
+<li>De ce reglarea cu clapetă economisește puțin, deși debitul scade la jumătate? Folosiți cifrele din cursul francez (95 % / 50 %).</li>
+<li>Ce se întâmplă cu un motor asincron obișnuit de 4 kW alimentat printr-un transformator în trepte la 130 V? De ce ventilatoarele de grajd pot fi reglate așa?</li>
+<li>De ce la ventilatoare se alege curba U/f pătratică? Ce înseamnă „supracreștere de tensiune la pornire”?</li>
+<li>La ce folosește „prinderea din mers” și la ce ventilatoare este obligatorie?</li>
+<li>Cum determinați frecvențele de evitare la punerea în funcțiune?</li>
+<li>De ce nu se folosește releu termic la un ventilator cu convertizor? Cu ce se protejează motorul?</li>
+<li>Un convertizor cu filtru sinus alimentează trei ventilatoare de 2,2 kW / 5,1 A. Ce curent nominal minim trebuie să aibă și cum protejați fiecare motor?</li>
+<li>Descrieți secvența corectă de trecere din regim convertizor în regim de ocolire. De ce trebuie temporizare?</li>
+<li>Cum se leagă contactul de „mod incendiu” — NO sau NC — și de ce?</li>
+<li>Un ventilator centrifugal învârtește în sens greșit. Ce observați la debit, curent și zgomot?</li>
+<li>Ce tip de dispozitiv diferențial se pune în amonte de un convertizor trifazat și de ce? Ce facem cu conductorul PE când curentul de scurgere depășește 3,5 mA?</li>
+<li>Cât aer trebuie unui porc de 100 kg vara și iarna, după DIN 18910? De ce e mai importantă reglarea turației în grajd decât într-un birou?</li>
+<li>Ce înseamnă „bandă de reglare 4 K” și „ventilație minimă 20 %” la un regulator de grajd? Desenați curba.</li>
+<li>Ce cere legea germană (TierSchNutztV § 3) unde ventilația este electrică? Ce testează DLG săptămânal și lunar?</li>
+<li>De ce se montează convertizorul în anticameră și nu în grajd? Ce grad de protecție are?</li>
+<li>De ce un multimetru obișnuit arată o tensiune „cu 20–30 % mai mare” la bornele motorului alimentat din convertizor? Cum măsurăm corect?</li>
+<li>Când și cum se măsoară rezistența de izolație a motorului alimentat din convertizor? Ce nu se megherează niciodată?</li>
+<li>Ce valori de vibrații sunt admise la recepția unui ventilator BV-3 montat rigid? Dar la alarmă?</li>
+<li>Comparați ventilatorul EC cu ventilatorul asincron + convertizor: randament, cablare, comandă, protecție, reparare.</li>
+</ol>
+<h3>Temă (lucrare practică)</h3>
+<p><b>Hală de 1 000 porci la îngrășat</b>, în două compartimente de 500, zona I. Se cer: debitul de vară și de iarnă (DIN 18910), numărul de ventilatoare Ø 630 (10 500 m³/h la 30 Pa, 3,2 A), alegerea aparatelor de reglare (FTET 4/6/10 A, câte, cum grupate), schema unui compartiment (senzori, aparat, ventilatoare, clapete, alarmă, ocolire), lista parametrilor cu valori, dispozitivele de siguranță cerute de lege, puterea grupului electrogen (toți consumatorii: ventilatoare, hrănire 3 kW, iluminat 1,5 kW, pompe 2 kW), economia anuală față de regulatoare cu triac (după cifrele Ziehl-Abegg) și lista verificărilor la recepție.</p>
+</section>
+
+<section id="biblio">
+<h2>Bibliografie și surse</h2>
+<h3>Zootehnie</h3>
+<ul class="biblio">
+<li>DLG, <a href="https://www.dlg.org/fileadmin/downloads/Merkblaetter/DLG-Merkblatt_AU_lueftung.pdf">Arbeitsunterlage „Lüftung von Schweineställen”</a> (DE) — metodele de reglare (cap. 4.4–4.6), exemplul de 500 porci (anexa 1).</li>
+<li>DLG, <a href="https://www.dlg.org/fileadmin/downloads/Merkblaetter/dlg-merkblatt_422.pdf">Merkblatt 422 „Alarmierungs- und Sicherungseinrichtungen in Stallanlagen”</a> (DE).</li>
+<li>LAVES Niedersachsen, <a href="https://www.laves.niedersachsen.de/download/96058/Stallklimaueberpruefung_in_landwirtschaftlichen_Tierhaltungen.pdf">Stallklimaprüfung — tabelele DIN 18910-1</a> (DE).</li>
+<li><a href="https://www.gesetze-im-internet.de/tierschnutztv/TierSchNutztV.pdf">Tierschutz-Nutztierhaltungsverordnung</a> (DE), § 3, § 4, § 19, § 26.</li>
+<li>Ziehl-Abegg, <a href="https://www.ziehl-abegg.com/fileadmin/Downloadcenter_NEW/02_deutsch/X01_Brochures_Flyers/Flyer-Fcontrol-Frequenzumrichter-fuer-die-Landwirtschaft.pdf">Fcontrol — Frequenzumrichter für die Landwirtschaft</a> (DE); <a href="https://www.ziehl-abegg.com/fileadmin/Downloadcenter_NEW/02_deutsch/X04_Operating_instructions/L-BAL-E139-D.pdf">Betriebsanleitung Fcontrol FTET4/6/10AHMQ-L</a> (DE); <a href="https://www.ziehl-abegg.com/fileadmin/Downloadcenter_NEW/02_deutsch/X04_Operating_instructions/L-BAL-E174-D.pdf">Fcontrol Basic FSDM2.5…50AM</a> (DE); <a href="https://www.ziehl-abegg.com/fileadmin/Downloadcenter_NEW/02_deutsch/X04_Operating_instructions/L-BAL-E036-D.pdf">Icontrol FXDM</a>; <a href="https://www.ziehl-abegg.com/fileadmin/Downloadcenter_NEW/02_deutsch/X04_Operating_instructions/L-BAL-E141-D.pdf">Acontrol PSET</a>; <a href="https://www.ziehl-abegg.com/fileadmin/Downloadcenter_NEW/02_deutsch/X04_Operating_instructions/L-BAL-E283-D.pdf">RAE (transformator în trepte)</a>.</li>
+<li>DLG, <a href="https://pruefberichte.dlg.org/filestorage/pbdocs/5015.pdf">Prüfbericht 5015 — ventilator Multifan 6E71</a> (DE); Vostermans, <a href="https://www.vostermans.com/hubfs/Brochures/Fans/ECplus/Energy%20efficient%20fan%20technologies%20EN.pdf">ECplus / Vplus</a>, <a href="https://www.vostermans.com/fr/ventilation/blog/les-lois-des-ventilateurs">Les lois des ventilateurs</a> (FR).</li>
+<li>SKOV, <a href="https://www.skov.com/en/about/knowledge/reduce-energy-consumption-pigs/">Dynamic MultiStep</a>; <a href="http://cdn.skov.com/www/RMS/Change%20log%20-%20dimensioning%20guide%2020200915.pdf">Dimensioning guide</a>.</li>
+<li>ebm-papst, <a href="https://www.ebmpapst.com/content/dam/ebm-papst/news/2020/economical-ec-fans-for-barn-ventilation/2020_PM_ebm-papst_Stalllueftung_DE.pdf">Sparsame EC-Ventilatoren für Stalllüftung</a> (DE).</li>
+<li>LfL Bayern, <a href="https://lfl.bayern.de/mam/cms07/publikationen/daten/informationen/ventilatoren-milchviehstall_lfl-information.pdf">Ventilatoren für den Einsatz im Milchviehstall</a> (DE); <a href="https://www.lfl.bayern.de/mam/cms07/publikationen/daten/informationen/p_31433.pdf">Hitzestress im Milchviehstall</a>; DLG, <a href="https://www.dlg.org/en/mediacenter/dlg-expert-knowledge/dlg-expert-knowledge-450-avoidance-of-heat-stress-in-dairy-cows">Merkblatt 450</a>.</li>
+<li>Chambres d'agriculture Bretagne, <a href="https://opera-connaissances.chambres-agriculture.fr/doc_num.php?explnum_id=203872">Sept équipements de ventilation économes en énergie</a> (FR); <a href="https://climatbat.chambres-agriculture.fr/porcs/anticiper-la-saison-chaude/investir-dans-des-equipements/">ClimatBat porcs</a>, <a href="https://climatbat.chambres-agriculture.fr/volailles/anticiper-la-saison-chaude/">ClimatBat volailles</a>; Idele / GIE Élevages de Bretagne, <a href="https://www.gie-elevages-bretagne.fr/admin/upload/Bat_ventilation_mecanique.pdf">La ventilation mécanique</a> (FR); <a href="https://www.topagrar.com/schwein/news/so-stellen-sie-die-stalllueftung-auf-winterbetrieb-um-a-13505076.html">top agrar / LWK Niedersachsen — Winterbetrieb</a>; <a href="https://www.topagrar.com/schwein/news/notluftsysteme-sorgen-fuer-sicherheit-im-schweinestall-12374077.html">top agrar — Notluftsysteme</a>.</li>
+</ul>
+<h3>Producători de convertizoare și aplicații industriale</h3>
+<ul class="biblio">
+<li>Manuale de programare folosite la cap. 10b: Danfoss <a href="https://docs.galco.com/techdoc/dnfs/driv_ac_fc51_pman.pdf">FC 51 Programming Guide MG02C602</a>, <a href="https://files.danfoss.com/download/Drives/MG11CE02.pdf">FC 102 Programming Guide MG11CE02</a>; Siemens <a href="https://cache.industry.siemens.com/dl/files/056/104426056/att_70877/v1/v20_operating_instructions_complete_en-US_en-US.pdf">SINAMICS V20 Operating Instructions</a>, <a href="https://docs.rs-online.com/9a2a/0900766b8108897c.pdf">G120C Operating Instructions</a>, <a href="https://cache.industry.siemens.com/dl/files/509/63969509/att_9599/v1/63969509_esm_en.pdf">G120P Fire Operation (ESM)</a>; Schneider <a href="https://docs.rs-online.com/da08/0900766b80d7ffe1.pdf">ATV12 User manual</a>, <a href="https://mpe.au.dk/fileadmin/www.ase.au.dk/Billeder/Laboratorier_og_vaerksteder/Prototypevaerksted/Lagerfotos/Frekvensomformer/ATV320_Programming_Manual_EN_NVE41295_02.pdf">ATV320 Programming Manual</a>, <a href="https://iportal.se.com/Contents/docs/SQD-ATV212WUXXN4C_User%20guide.pdf">ATV212 Programming Manual</a>; ABB <a href="https://pim.galco.com/Manufacturer/ABB%20Industrial%20Systems/TechDocument/Firmware%20Manual/aug2019_ach580-bcr-bdr_fwm.pdf">ACH580 HVAC Firmware Manual</a>; Ziehl-Abegg Fcontrol FSDM / FTET (mai sus).</li>
+<li>Danfoss, <a href="https://files.danfoss.com/download/Drives/DKDDPM403A303_Facts.pdf">Wissenswertes über Frequenzumrichter</a> (DE); <a href="https://files.danfoss.com/download/Drives/MG11BC03.pdf">Projektierungshandbuch VLT HVAC Drive FC 102</a> (DE); <a href="https://assets.danfoss.com/documents/275758/AB361177374144en-000101.pdf">VLT HVAC Drive Application Guide</a> (VAV, CAV, turn de răcire); <a href="https://files.danfoss.com/download/Drives/M0010001.pdf">FC 102 Programming Guide</a> (fire mode, curea); <a href="https://assets.danfoss.com/documents/latest/259918/BE454650873655en-000101.pdf">Fire Emergency Mode</a>.</li>
+<li>Siemens, <a href="https://assets.new.siemens.com/siemens/assets/api/uuid:49acc7a1fdba297e43ad5b56267fc761417a2bd3/sinamics-g120p-trainingsbroschuere-de.pdf">Trainingsbroschüre SINAMICS G120P</a> (DE) — macro-urile HVAC 101–110; <a href="https://cache.industry.siemens.com/dl/files/767/109744767/att_909340/v1/G120_CU230P2_cmpct_op_instr_0117_de-DE.pdf">CU230P-2 Kompaktbetriebsanleitung</a>; <a href="https://cdn-reichelt.de/documents/datenblatt/C160/SIE_G120X_DB_DE.pdf">SINAMICS G120X</a>.</li>
+<li>ABB, <a href="https://library.e.abb.com/public/5212850908d44d979d34b61b703feeaa/ABB_Technical_guide_No_4_REVC.pdf">Technical guide No. 4 — Guide to variable speed drives</a>; <a href="https://library.e.abb.com/public/8c253c2417ed0238c125788f003cca8e/ABB_Technical_guide_No5_RevC.pdf">Technical guide No. 5 — Bearing currents</a>; <a href="https://library.e.abb.com/public/40037784543d4196bed5b3098f7160f7/ACH580_for_HVAC_catalog_3AUA0000192576_RevF_DE_web.pdf">ACH580 HLK Katalog</a> (DE); <a href="https://destination-zukunft.abb.com/antriebstechnik/optimierte-luefterapplikation-bei-voelpker-senkt-energiekosten-abb/">Völpker — ventilator de uscător</a> (DE); <a href="https://new.abb.com/news/de/detail/107078/tunnelsicherheit-und-energieeffizienz-erhohen">Tuneluri</a> (DE).</li>
+<li>Schneider Electric, <a href="https://sti.eduscol.education.fr/sites/eduscol.education.fr.sti/files/ressources/techniques/689/689-ct208-vv.pdf">Cahier technique 208 — Démarreurs et variateurs de vitesse électroniques</a> (FR); <a href="https://www.materielelectrique.com/content/fichiers_produits/Schneider2/S1A53833.pdf">Altivar 212 — Guide d'installation</a> (FR).</li>
+<li>Helios, <a href="https://selectv1.heliosventilatoren.de/cms/front_content.php?idcat=44&lang=8">Drehzahlsteuerung — limitele pentru convertizoare</a> (DE); Nidec Leroy-Somer, <a href="https://www.leroy-somer.com/documentation_pdf/4981_fr.pdf">LSMV — moteurs pour variation de vitesse</a> (FR); ebm-papst, <a href="https://img.ebmpapst.com/products/manuals/P2E076AC0601-BA-GER.pdf">Betriebsanleitung P2E076</a> (DE); Ziehl-Abegg, <a href="https://www.ziehl-abegg.com/fileadmin/Downloadcenter_NEW/02_deutsch/X03_Assembly_instructions/L-BAL-007-D.pdf">Montageanleitung Radial-/Axialventilatoren L-BAL-007</a> (DE); Sentera, <a href="https://www.sentera.eu/de/faq/a/kann-ich-einen-schalter-oder-ein-sch%C3%BCtz-zwischen-dem-ausgang-des-frequenzumrichters-und-dem-motor-installieren/928">contactor între convertizor și motor?</a> (DE).</li>
+<li>TROX, <a href="https://cdn.trox.de/9e22d16d3953f93c/2bcc6475dce4/07fachartikel_grundlagen_der_ventilatorentechnik.pdf">Grundlagen der Ventilatorentechnik</a> (DE); dena, <a href="https://www.klima-plattform.de/fileadmin/unk/KlimaGuide/Ma%C3%9Fnahmen/IEEKN_dena_Factsheets/Netzwerkinitiative_Factsheet_Frequenzumrichter_auf_tatsaechlichen_Bedarf_einrichten.pdf">Factsheet Frequenzumrichter</a> (DE); Bosch, <a href="https://www.kesselplanung.com/effizienz/feuerungsseitige-effizienzsteigerung/effizienzsteigerung-am-brennersystem.html">Effizienzsteigerung am Brennersystem</a> (DE); LfU Bayern, <a href="https://www.bestellen.bayern.de/med/64eecae1-b4a5-11f0-81ee-c3fc7d0a3316/4b0e6a70-1059-11d9-4c85-9d915831e9eb/0/lfu_klima_00044.pdf">Energieeinsparung in Lackierbetrieben</a> (DE); Systemair, <a href="https://a.storyblok.com/f/108972/x/7f9dea2d9a/systemy-ventilatoru-jet_en_02_2017-02.pdf">Jet fan systems</a>, <a href="https://a.storyblok.com/f/108972/x/5b23c3b075/tunnellueftung_2021-01_de.pdf">Tunnellüftung</a> (DE); Wuppertal Institut, <a href="https://wupperinst.org/uploads/tx_wupperinst/EnEff-Fonds_Anhang2_Programm3.pdf">Programm RLT-Anlagen</a>; HAW Hamburg, <a href="https://reposit.haw-hamburg.de/bitstream/20.500.12738/7866/1/Bachelorthesis_Jan_Max_Kraack_2025795.pdf">lucrare de licență — suflantă de siloz cu FC 302</a>.</li>
+<li>Systemair, <a href="https://stepimassets.blob.core.windows.net/dsassetsprod/INSTALLATION__OPERATION_AND_MAINTENANCE_INSTRUCTION_K__KV__PRIO_RO_002.PDF">Instrucțiune de instalare (RO)</a>; Olga Bancea, <a href="https://www.ct.upt.ro/studenti/cursuri/bancea/VENTILARE.pdf">Sisteme de ventilare industrială</a> (RO); Energie+, <a href="https://energieplus-lesite.be/techniques/ventilation8/ventilation-hygienique/systemes-de-regulation/reglage-du-debit-des-ventilateurs/">Réglage du débit des ventilateurs</a> (FR).</li>
+</ul>
+<h3>Verificări și măsurători</h3>
+<ul class="biblio">
+<li>Fluke, <a href="https://www.fluke.com/en-us/learn/blog/motors-drives-pumps-compressors/multimeter-measurements-on-adjustable-speed-drives-utilizing-the-new-fluke-87v-dmm">Multimeter measurements on adjustable speed drives</a>; ABB, <a href="https://www.manualslib.de/manual/838132/Abb-Acs880-01.html?page=98">ACS880 — măsurarea rezistenței de izolație</a> (DE); ventec, <a href="https://ventecag.de/storage/downloads/schwingungen.pdf">Schwingungen — limite ISO 14694</a> (DE); IKZ, <a href="https://www.ikz.de/sanitaertechnik/news/detail/pruef-und-messverfahren-fuer-raumlufttechnische-anlagen-din-en-125992013-inhalte-und-wesentlich/">DIN EN 12599 — Prüf- und Messverfahren</a> (DE); Nicotra Gebhardt, <a href="https://eu.nicotra-gebhardt.com/de/infocenter/downloadcenter/betriebsanleitungen/betriebsanleitungen-fuer-ventilatoren/58-prozessluftventilatoren/file.html">Betriebsanleitung Prozessluftventilatoren</a> (DE).</li>
+</ul>
+<h3>Ce se predă în școlile de maiștri și tehnicieni</h3>
+<ul class="biblio">
+<li>Rahmenlehrplan Elektroniker für Betriebstechnik, Lernfeld 8 „Antriebssysteme auswählen und integrieren” — <a href="https://kultus.hessen.de/sites/kultus.hessen.de/files/2024-05/web_hr_rlp_bs_elektroniker_betriebstechnik.pdf">Hessen</a>, <a href="https://www.isb.bayern.de/fileadmin/user_upload/Berufliche_Schulen/Berufsschule/Lehrplan/bs_lpr_dbfh_elektroniker_fuer_betriebstechnik.pdf">Bayern</a> (DE).</li>
+<li>Europa-Lehrmittel, <a href="https://www.europa-lehrmittel.de/leseprobe/46444-7.pdf">Elektrische Maschinen und Antriebe — cap. 5 „Drehstromantriebe am Frequenzumrichter”</a> (DE); Vogel, <a href="https://vogel-professional-education.de/media/pdf/bc/05/83/sample-9783802317484.pdf">Brosch — Praxis der Drehstromantriebe</a> (DE).</li>
+<li>V. Steinkamp (Berufsschule), <a href="http://home.teleos-web.de/vsteinkamp/antriebe/frequenzumrichter/fu.htm">Frequenzumrichter — Lernsituation und Aufgaben</a> (DE); ZUM-Unterrichten, <a href="https://unterrichten.zum.de/wiki/Elektrotechnische_Grundlagen/Frequenzumrichter_mit_UF_Diagramm">Frequenzumrichter mit U/f-Diagramm</a> (DE); Berufskolleg Goldenberg, <a href="https://www.goldenberg-europakolleg.eu/parametrisierung-und-emv-messungen-an-einem-frequenzumrichterantrieb/">Parametrisierung und EMV-Messungen</a> (DE); HS Bielefeld, <a href="https://www.hsbi.de/media/fachbereiche/ingenieurwissenschaften-und-mathematik/dokumente/studium/labore/le-labor/praktika/as2.pdf">Praktikum Frequenzumrichter</a> (DE); HS Koblenz, <a href="https://www.hs-koblenz.de/fileadmin/media/fb_ingenieurwesen/MT/Laboratorien/Messtechnik_Labor/Versuch_6.pdf">Măsurarea turației</a> (DE); Lucas-Nülle, <a href="https://www.lucas-nuelle.de/217/apg/11257/EPE-41-3-Frequenzumrichterantriebe-300W.htm">EPE 41-3 Frequenzumrichterantriebe</a>.</li>
+<li>Bac Pro MELEC, <a href="http://www.melec.rateauweb.eu/MELEC_V2/Templates/Cours_Variateur.php">Cours — Les variateurs de vitesse</a> (FR); <a href="http://melec64.free.fr/?p=837">Raccorder un variateur pour moteur asynchrone</a> (FR); BTS, <a href="http://bts.crsa.rascol.free.fr/Techno/cours/variation%20de%20vitesse.pdf">Variation de vitesse</a> (FR); subiecte BTS Électrotechnique E4.1 <a href="https://sti.eduscol.education.fr/sites/eduscol.education.fr.sti/files/concours-examens/8798/8798-epreuve-e41-bts-elec-2017-corrige.pdf">2017 (corectat)</a> și <a href="https://sti.eduscol.education.fr/sites/eduscol.education.fr.sti/files/concours-examens/8254/8254-bts-electrotechnique-sujet-epreuve-e41.pdf">2016</a> (FR); TP <a href="https://sti.passtek.net/systemes/VMC/DPVM20/TP7/TP07_DF_VM20_corrig%C3%A9.pdf">VMC double flux VM20</a> (FR); <a href="https://www.exercicesphysiquechimie.com/choix-du-variateur-de-vitesse/">Choix du variateur de vitesse — exercițiu corectat</a> (FR); esco, <a href="https://esco-antriebstechnik.de/energieeinsparung-durch-frequenzumrichter/">Energieeinsparung durch Frequenzumrichter</a> (DE); Topmotors (CH), <a href="https://www.topmotors.ch/sites/default/files/2021-09/D_MB_25_Frequenzumrichter.pdf">Merkblatt 25 Frequenzumrichter</a> (DE).</li>
+<li>Norme: I7-2011; SR EN 61800-3, -5-1, -5-2; SR EN 60034-17; SR EN 60204-1; SR HD 60364-5-52/-5-54; SR EN 12101-3; DIN 18910; DIN EN 12599; ISO 14694 / ISO 20816.</li>
+</ul>
+<p class="nota">Pozele: Wikimedia Commons, cu autorul și licența sub fiecare imagine. Schemele: desenate în Python (scheme_svg.py), livrate ca SVG editabil în Inkscape, cu straturile „Aparate” / „Conductoare” / „Text”. Răspunsurile testului sunt într-un document separat, numai pentru profesor.</p>
+</section>
+</div>
+</body>
+</html>
